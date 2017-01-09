@@ -1,0 +1,13 @@
+---
+title: "safetyexploreR"
+author: "Becca Krouse"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+A little bit about the `safetyexploreR` package.   
+
