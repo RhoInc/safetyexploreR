@@ -1,7 +1,7 @@
 # safetyexploreR
 
 ## Create [Rho's](https://github.com/RhoInc) interactive safety explorer suite from R.  
-### SafetyexploreR provides an R interface for Rho's 6 safety explorer D3 Javascript widgets.  This set of tools can be used individually or together, allowing a user to explorer adverse events and labs data in real time.
+### SafetyexploreR provides an R interface for Rho's safety explorer tools (built using D3 Javascript).  This set of tools can be used individually or together, allowing a user to explorer adverse events and labs data in real time.
 
 ### Safety explorer widgets include:
 - AE Explorer
