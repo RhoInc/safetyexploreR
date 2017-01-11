@@ -11,4 +11,10 @@
 - Safety Results Over Time
 - Safety Shift Plot
 
-### safetyexploreR is an R package built using the [HTML Widgets](http://www.htmlwidgets.org/) framework.
+### safetyexploreR is an R package built using the [HTML Widgets](http://www.htmlwidgets.org/) framework.  To install the development version of safetyexploreR:
+
+```r
+devtools::install_github('RhoInc/safetyexploreR')
+```
+
+### Please see the [wiki](https://github.com/RhoInc/safetyexploreR/wiki) for more information about the safetyexploreR package.
