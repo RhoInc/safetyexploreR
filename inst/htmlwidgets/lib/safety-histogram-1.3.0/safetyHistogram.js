@@ -1,9 +1,7 @@
-'use strict';
-
-var safetyHistogram = (function (webcharts, d3$1) {
+var safetyHistogram = function (webcharts, d3$1) {
     'use strict';
 
-    var config = {
+    const config = {
         //Default template settings
         value_col: 'STRESN',
         measure_col: 'TEST',
@@ -11,7 +9,7 @@ var safetyHistogram = (function (webcharts, d3$1) {
         normal_col_low: 'STNRLO',
         normal_col_high: 'STNRHI',
         id_col: 'USUBJID',
-        filters: [{ value_col: 'SITE', label: 'Site' }, { value_col: 'VISITN', label: 'Visit' }, { value_col: 'SEX', label: 'Sex' }, { value_col: 'RACE', label: 'Race' }],
+        filters: [],
         detail_cols: null,
         start_value: null,
         rotateX: true,
@@ -53,9 +51,7 @@ var safetyHistogram = (function (webcharts, d3$1) {
         //Set [ settings.detail_cols ] to columns specified in default template settings.
         if (settings.detail_cols === null) {
             settings.detail_cols = [settings.id_col];
-            settings.filters.forEach(function (d) {
-                return settings.detail_cols.push(d.value_col);
-            });
+            settings.filters.forEach(d => settings.detail_cols.push(d.value_col));
             settings.detail_cols.push(settings.measure_col, settings.value_col, settings.unit_col, settings.normal_col_low, settings.normal_col_high);
         }
 
@@ -70,7 +66,7 @@ var safetyHistogram = (function (webcharts, d3$1) {
             start: null };
 
         if (settings.filters && settings.filters.length > 0) {
-            var otherFilters = settings.filters.map(function (d) {
+            var otherFilters = settings.filters.map(d => {
                 return {
                     type: 'subsetter',
                     value_col: d.value_col,
@@ -81,12 +77,8 @@ var safetyHistogram = (function (webcharts, d3$1) {
     }
 
     function onInit() {
-        var _this = this;
-
-        var config = this.config;
-        var allMeasures = d3$1.set(this.raw_data.map(function (m) {
-            return m[config.measure_col];
-        })).values();
+        const config = this.config;
+        const allMeasures = d3$1.set(this.raw_data.map(m => m[config.measure_col])).values();
 
         //Remove filters whose [ value_col ] does not appear in the data.
         var columns = d3.keys(this.raw_data[0]);
@@ -98,20 +90,16 @@ var safetyHistogram = (function (webcharts, d3$1) {
         });
 
         //"All" variable for non-grouped comparisons
-        this.raw_data.forEach(function (e) {
-            return e[config.measure_col] = e[config.measure_col].trim();
-        });
+        this.raw_data.forEach(e => e[config.measure_col] = e[config.measure_col].trim());
 
         //Drop missing values
-        this.raw_data = this.raw_data.filter(function (f) {
+        this.raw_data = this.raw_data.filter(f => {
             return config.missingValues.indexOf(f[config.value_col]) === -1;
         });
 
         //Warning for non-numeric endpoints
-        var catMeasures = allMeasures.filter(function (f) {
-            var measureVals = _this.raw_data.filter(function (d) {
-                return d[config.measure_col] === f;
-            });
+        var catMeasures = allMeasures.filter(f => {
+            var measureVals = this.raw_data.filter(d => d[config.measure_col] === f);
 
             return webcharts.dataOps.getValType(measureVals, config.value_col) !== "continuous";
         });
@@ -120,17 +108,13 @@ var safetyHistogram = (function (webcharts, d3$1) {
         }
 
         //Delete non-numeric endpoints
-        var numMeasures = allMeasures.filter(function (f) {
-            var measureVals = _this.raw_data.filter(function (d) {
-                return d[config.measure_col] === f;
-            });
+        var numMeasures = allMeasures.filter(f => {
+            var measureVals = this.raw_data.filter(d => d[config.measure_col] === f);
 
             return webcharts.dataOps.getValType(measureVals, config.value_col) === "continuous";
         });
 
-        this.raw_data = this.raw_data.filter(function (f) {
-            return numMeasures.indexOf(f[config.measure_col]) > -1;
-        });
+        this.raw_data = this.raw_data.filter(f => numMeasures.indexOf(f[config.measure_col]) > -1);
 
         //Choose the start value for the Test filter
         this.controls.config.inputs[0].start = this.config.start_value || numMeasures[0];
@@ -153,6 +137,7 @@ var safetyHistogram = (function (webcharts, d3$1) {
     }
 
     function onPreprocess() {
+        var chart = this;
         //Capture currently selected filters.
         var filterSettings = [];
         var filters = d3.selectAll('.wc-controls .changer').each(function (d) {
@@ -162,33 +147,32 @@ var safetyHistogram = (function (webcharts, d3$1) {
                 }).property('value') });
         });
         //Filter data based on currently selected filters.
-        var filtered_data = this.raw_data.filter(function (d) {
+        var filtered_data = this.raw_data.filter(d => {
             var match = true;
-            filterSettings.forEach(function (d1) {
+            filterSettings.forEach(d1 => {
                 if (match === true) match = d[d1.value_col] === d1.value || d1.value === 'All';
             });
             return match;
         });
         //Set x domain based on currently filtered data.
-        this.config.x.domain = d3.extent(filtered_data, function (d) {
-            return +d[settings.value_col];
-        });
+        this.config.x.domain = d3.extent(filtered_data, d => +d[chart.config.value_col]);
     }
 
     function onDataTransform() {
-        var measure = this.filtered_data[0] ? this.filtered_data[0][this.config.measure_col] : this.raw_data[0][this.config.measure_col];
-        var units = this.filtered_data[0] ? this.filtered_data[0][this.config.unit_col] : this.raw_data[0][this.config.unit_col];
+        const measure = this.filtered_data[0] ? this.filtered_data[0][this.config.measure_col] : this.raw_data[0][this.config.measure_col];
+        const units = this.filtered_data[0] ? this.filtered_data[0][this.config.unit_col] : this.raw_data[0][this.config.unit_col];
 
         //Customize the x-axis label
         this.config.x.label = measure + " level (" + units + ")";
 
         //Reset linked table
         this.table.draw([]);
+        this.wrap.select('.annote').classed('tableTitle', false).text('Click a bar for details.');
         this.svg.selectAll('.bar').attr('opacity', 1);
     }
 
-    // Takes a webcharts object creates a text annotation giving the
-    // number and percentage of observations shown in the current view
+    // Takes a webcharts object creates a text annotation giving the 
+    // number and percentage of observations shown in the current view 
     // inputs:
     // chart - a webcharts chart object
     // id_col - a column name in the raw data set (chart.raw_data) representing the observation of interest
@@ -220,10 +204,10 @@ var safetyHistogram = (function (webcharts, d3$1) {
     }
 
     function onResize() {
-        var chart = this;
-        var config = this.config;
-        var measure = this.filtered_data[0] ? this.filtered_data[0][this.config.measure_col] : this.raw_data[0][this.config.measure_col];
-        var units = this.filtered_data[0] ? this.filtered_data[0][this.config.unit_col] : this.raw_data[0][this.config.unit_col];
+        const chart = this;
+        const config = this.config;
+        const measure = this.filtered_data[0] ? this.filtered_data[0][this.config.measure_col] : this.raw_data[0][this.config.measure_col];
+        const units = this.filtered_data[0] ? this.filtered_data[0][this.config.unit_col] : this.raw_data[0][this.config.unit_col];
 
         var listing = this.table;
 
@@ -233,7 +217,7 @@ var safetyHistogram = (function (webcharts, d3$1) {
         var footnote = this.wrap.select('.annote');
 
         bins.style('cursor', 'pointer').on('click', function (d) {
-            footnote.classed('tableTitle', true).text('Table displays ' + d.values.raw.length + ' records with ' + measure + ' values from ' + cleanF(d.rangeLow) + ' to ' + cleanF(d.rangeHigh) + ' ' + units + '. Click outside a bar to remove details.');
+            footnote.classed('tableTitle', true).text(`Table displays ${ d.values.raw.length } records with ${ measure } values from ${ cleanF(d.rangeLow) } to ${ cleanF(d.rangeHigh) } ${ units }. Click outside a bar to remove details.`);
             listing.draw(d.values.raw);
             d3.select('.listing table').style({ 'border-collapse': 'separate',
                 'background': '#fff',
@@ -258,7 +242,7 @@ var safetyHistogram = (function (webcharts, d3$1) {
             d3$1.select(this).attr('fill-opacity', 1);
         }).on('mouseover', function (d) {
             if (footnote.classed('tableTitle') === false) {
-                footnote.text(d.values.raw.length + ' records with ' + measure + ' values from ' + cleanF(d.rangeLow) + ' to ' + cleanF(d.rangeHigh) + ' ' + units + '.');
+                footnote.text(`${ d.values.raw.length } records with ${ measure } values from ${ cleanF(d.rangeLow) } to ${ cleanF(d.rangeHigh) } ${ units }.`);
             }
         }).on('mouseout', function (d) {
             if (footnote.classed('tableTitle') === false) {
@@ -267,17 +251,11 @@ var safetyHistogram = (function (webcharts, d3$1) {
         });
 
         //Visualize normal ranges.
-        if (this.raw_data[0][settings.normal_col_low] && this.raw_data[0][settings.normal_col_high]) {
+        if (this.raw_data[0][chart.config.normal_col_low] && this.raw_data[0][chart.config.normal_col_high]) {
             //Capture distinct normal ranges in filtered data.
-            var normalRanges = d3.nest().key(function (d) {
-                return d[settings.normal_col_low] + ',' + d[settings.normal_col_high];
-            }) // set key to comma-delimited normal range
-            .rollup(function (d) {
-                return d.length;
-            }).entries(this.filtered_data);
-            var currentRange = d3.extent(this.filtered_data, function (d) {
-                return +d[settings.value_col];
-            });
+            var normalRanges = d3.nest().key(d => `${ d[chart.config.normal_col_low] },${ d[chart.config.normal_col_high] }`) // set key to comma-delimited normal range
+            .rollup(d => d.length).entries(this.filtered_data);
+            var currentRange = d3.extent(this.filtered_data, d => +d[chart.config.value_col]);
             //Sort normal ranges so larger normal ranges plot beneath smaller normal ranges.
             normalRanges.sort(function (a, b) {
                 var a_lo = a.key.split(',')[0];
@@ -285,9 +263,9 @@ var safetyHistogram = (function (webcharts, d3$1) {
                 var b_lo = b.key.split(',')[0];
                 var b_hi = b.key.split(',')[1];
                 return a_lo <= b_lo && a_hi >= b_hi ? 2 : // lesser minimum and greater maximum
-                a_lo >= b_lo && a_hi <= b_hi ? -2 : // greater minimum and lesser maximum
+                a_lo >= b_lo && a_hi <= b_hi ? -2 : // greater minimum and lesser maximum 
                 a_lo <= b_lo && a_hi <= b_hi ? 1 : // lesser minimum and lesser maximum
-                a_lo >= b_lo && a_hi >= b_hi ? -1 : // greater minimum and greater maximum
+                a_lo >= b_lo && a_hi >= b_hi ? -1 : // greater minimum and greater maximum 
                 1;
             });
             //Determine whether normal range checkbox is checked.
@@ -296,28 +274,18 @@ var safetyHistogram = (function (webcharts, d3$1) {
             var canvas = d3.select('.bar-supergroup');
             canvas.selectAll('.normalRange').remove();
             canvas.selectAll('.normalRange rect').data(normalRanges).enter().insert('rect', ':first-child').attr({ 'class': 'normalRange',
-                'x': function x(d) {
-                    return chart.x(Math.max(+d.key.split(',')[0], currentRange[0]));
-                }, // set x to range low
-                'y': 0,
-                'width': function width(d) {
-                    return Math.min(chart.plot_width - chart.x(Math.max(+d.key.split(',')[0], currentRange[0])), // chart width - range low
+                'x': d => chart.x(Math.max(+d.key.split(',')[0], currentRange[0])) // set x to range low
+                , 'y': 0,
+                'width': d => Math.min(chart.plot_width - chart.x(Math.max(+d.key.split(',')[0], currentRange[0])), // chart width - range low
 
-                    chart.x(+d.key.split(',')[1]) - chart.x(Math.max(+d.key.split(',')[0], currentRange[0])));
-                }, // range high - range low
+                chart.x(+d.key.split(',')[1]) - chart.x(Math.max(+d.key.split(',')[0], currentRange[0]))) // range high - range low
 
-                'height': this.plot_height,
+                , 'height': this.plot_height,
                 'visibility': displayNormalRange ? 'visible' : 'hidden' }).style({ 'stroke': 'black',
                 'fill': 'black',
-                'stroke-opacity': function strokeOpacity(d) {
-                    return d.values / chart.filtered_data.length * .75;
-                }, // opacity as a function of fraction of records with the given normal range
-                'fill-opacity': function fillOpacity(d) {
-                    return d.values / chart.filtered_data.length * .5;
-                } }) // opacity as a function of fraction of records with the given normal range
-            .append('title').text(function (d) {
-                return 'Normal range: ' + d.key.split(',')[0] + "-" + d.key.split(',')[1] + " " + units + ' (' + d3.format('%')(d.values / chart.filtered_data.length) + ' of records)';
-            });
+                'stroke-opacity': d => d.values / chart.filtered_data.length * .75 // opacity as a function of fraction of records with the given normal range
+                , 'fill-opacity': d => d.values / chart.filtered_data.length * .5 }) // opacity as a function of fraction of records with the given normal range
+            .append('title').text(d => 'Normal range: ' + d.key.split(',')[0] + "-" + d.key.split(',')[1] + " " + units + ' (' + d3.format('%')(d.values / chart.filtered_data.length) + ' of records)');
         }
 
         d3.selectAll('.overlay, .normalRange').on('click', function () {
@@ -334,6 +302,7 @@ var safetyHistogram = (function (webcharts, d3$1) {
         (function () {
             Object.assign = function (target) {
                 'use strict';
+
                 if (target === undefined || target === null) {
                     throw new TypeError('Cannot convert undefined or null to object');
                 }
@@ -356,17 +325,17 @@ var safetyHistogram = (function (webcharts, d3$1) {
 
     function safetyHistogram(element, settings) {
         //Merge user's settings with default settings.
-        var mergedSettings = Object.assign({}, config, settings);
+        let mergedSettings = Object.assign({}, config, settings);
 
         //Keep settings in sync with the data mappings.
         mergedSettings = syncSettings(mergedSettings);
 
         //Keep control inputs in sync and create controls object.
-        var syncedControlInputs = syncControlInputs(mergedSettings);
-        var controls = webcharts.createControls(element, { location: 'top', inputs: syncedControlInputs });
+        let syncedControlInputs = syncControlInputs(mergedSettings);
+        let controls = webcharts.createControls(element, { location: 'top', inputs: syncedControlInputs });
 
         //Define chart
-        var chart = webcharts.createChart(element, mergedSettings, controls);
+        let chart = webcharts.createChart(element, mergedSettings, controls);
         chart.on('init', onInit);
         chart.on('layout', onLayout);
         chart.on('preprocess', onPreprocess);
@@ -374,12 +343,11 @@ var safetyHistogram = (function (webcharts, d3$1) {
         chart.on('draw', onDraw);
         chart.on('resize', onResize);
 
-        var table = webcharts.createTable(element, mergedSettings.detail_cols && mergedSettings.detail_cols.length > 0 ? { cols: mergedSettings.detail_cols } : null).init([]);
+        let table = webcharts.createTable(element, mergedSettings.detail_cols && mergedSettings.detail_cols.length > 0 ? { cols: mergedSettings.detail_cols } : null).init([]);
         chart.table = table;
 
         return chart;
     }
 
     return safetyHistogram;
-})(webCharts, d3);
-
+}(webCharts, d3);
