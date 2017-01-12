@@ -8,7 +8,7 @@ dependencies:
    src: htmlwidgets/lib/webcharts-1.6.1
    script: webcharts.js
    stylesheet: webcharts.css
-- name: safety-shift-plot
+ - name: safety-shift-plot
    version: 1.1.0
    src: htmlwidgets/lib/safety-shift-plot-1.1.0
    script: safetyShiftPlot.js 

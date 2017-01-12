@@ -11,16 +11,9 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-       var settings = {
-        time_col: "VISITN",
-        measure_col: "TEST",
-        value_col: "STRESN",
-        unit_col: "STRESU"
-       };
-       
        x.data = HTMLWidgets.dataframeToD3(x.data);
        
-       safetyHistogram(el, settings).init(x.data);
+       safetyHistogram(el).init(x.data);
 
       },
 

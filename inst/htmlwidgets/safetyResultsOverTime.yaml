@@ -8,7 +8,7 @@ dependencies:
    src: htmlwidgets/lib/webcharts-1.6.1
    script: webcharts.js
    stylesheet: webcharts.css
-- name: safety-results-over-time
+ - name: safety-results-over-time
    version: 1.2.1
    src: htmlwidgets/lib/safety-results-over-time-1.2.1
    script: safetyResultsOverTime.js

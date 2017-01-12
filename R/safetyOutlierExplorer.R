@@ -5,7 +5,7 @@
 #' @param data A data.frame containing the labs data. 
 #' 
 #' Required columns include `USUBJID` (unique subject ID), 
-#' `VISITN`/`VISIT`/`DY` (timing of collection), `TEST` (name of measure), `STRESN` (value of measure), 
+#' `VISITN`/`VISIT`/`DY` (timing of collection, all 3 required), `TEST` (name of measure), `STRESN` (value of measure), 
 #' and `STRESU` (unit of measure). 
 #' 
 #' Optional columns include `STRNLO` (lower limit of normal values) and `STRNHI` (upper limit of normal values).
