@@ -9,22 +9,19 @@ HTMLWidgets.widget({
    return {
 
       renderValue: function(x) {
-
+        
         var settings = {
                 legend: {
                    location:"top",
                     order: ['MILD', 'MODERATE', 'SEVERE', 'NA']
                 },
-                colors: ['green', 'orange', 'red', '#444'],
-                stdy_col: 'AESTDY', //Overwrites default value
-                endy_col: 'AEENDY', //Overwrites default value
-                date_format:"%Y-%m-%d" //Overwrites default value
-            };
+                colors: ['green', 'orange', 'red', '#444']
+               };
        
+
        x.data = HTMLWidgets.dataframeToD3(x.data);
        
        aeTimelines(el, settings).init(x.data);
-
 
       },
 
