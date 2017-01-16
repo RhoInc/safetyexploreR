@@ -1,4 +1,4 @@
-options(shiny.reactlog=TRUE)
+library(safetyexploreR)
 
 server = function(input, output, session){
   

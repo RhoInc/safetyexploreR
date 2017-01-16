@@ -1,3 +1,5 @@
+library(safetyexploreR)
+
 ui = fluidPage(
   theme = shinythemes::shinytheme("readable"),
   
