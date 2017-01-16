@@ -15,9 +15,13 @@ loadData <- function(input, output, session, na.strings=NULL) {
   
   df <- reactive({
     if(length(grep(".csv", userFile(), ignore.case = TRUE)) > 0){
-      read.csv(userFile()$datapath, na.strings=na.strings) %>% data.frame
+      data.frame(
+        read.csv(userFile()$datapath, na.strings=na.strings)
+      )
     }else if(length(grep(".sas7bdat", userFile(), ignore.case = TRUE)) > 0){
-      haven::read_sas(userFile()$datapath) %>% data.frame
+      data.frame(
+        haven::read_sas(userFile()$datapath) 
+      )
     }
   })
   return(df)
