@@ -57,4 +57,13 @@ server = function(input, output, session){
                        )
 }
  )
+ 
+ # Need to exclude the buttons from themselves being bookmarked
+ setBookmarkExclude(c("bookmark1", "bookmark2"))
+ 
+ # Trigger bookmarking with either button
+ observeEvent(input$bookmark, {
+   session$doBookmark()
+ })
+ 
 }
