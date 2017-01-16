@@ -9,5 +9,65 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-A little bit about the `safetyexploreR` package.   
+# Overview
+
+safetyexploreR is an R package built using the HTML Widgets framework.  SafetyexploreR serves as an interface for Rho's safety explorer suite, a set of tools facilitating the exploration of adverse events, lab and vital sign data.  The underlying tools are built using Webcharts, a JavaScript library based on D3.
+
+# Installation 
+
+safetyexploreR is still in development.  The development version of this package can be installed using the following R code:
+
+```r
+devtools::install_github('RhoInc/safetyexploreR')
+```
+
+# Data frame requirements
+
+In order for the widgets to render properly, you must recode R's default for missing values `NA` to an empty string.  If you are importing a CSV this can be achieved with the following code:
+
+```r
+data <- read.csv('filepath/filename.csv', na.strings='')
+```
+
+If you are importing a SAS dataset into R, you may find the following code useful:
+
+```r
+library(tidyverse)
+
+data <- read_sas('filepath/filename.sas7bdat') %>% 
+        mutate_each(funs(as.character)) %>% 
+        mutate_each(funs(replace(., is.na(.),'')))
+```
+
+## Requirements for Adverse Events Explorer and Timeline
+
+The adverse events widgets require a data.frame that contains the following variables:
+
+- `USUBJID` (unique subject ID)
+- `AESEQ` (unique sequence ID for each AE)
+- `AEBODSYS` (higher-level term)
+- `AEDECOD` (lower-level term) 
+- `AETERM` (lower-level term)
+- `ARM` (treatment group)
+- `ASTDY` (Study day of adverse event start (integer)
+- `AENDY` (Study day of adverse event end (integer)
+- `AESEV` (adverse event severity)
+- `AEREL` (adverse event relatedness to treatment)
+
+## Requirements for Safety Histogram, Outlier Explorer, Results Over Time, and Shift Plot
+
+The other 4 safety widgets require a data.frame that contains the following variables:
+- `USUBJID` (unique subject ID)
+- `VISITN` (timing of collection)
+- `VISIT` (timing of collection)
+- `DY` (timing of collection)
+- `TEST` (name of measure)
+- `STRESN` (value of measure),
+- `STRESU` (unit of measure)
+- `SEX` (participant sex)
+- `RACE` (participant race)
+
+# Use
+
+SafetyexploreR widgets can be rendered directly within your [RStudio](https://www.rstudio.com) desktop application.  You can embed widgets within an [R Markdown](http://rmarkdown.rstudio.com/) report or a [Shiny](https://shiny.rstudio.com) web application.
 
