@@ -14,7 +14,7 @@ safetyHistogram(data, width = NULL, height = NULL, elementId = NULL)
 
 Required columns include `USUBJID` (unique subject ID), 
 `VISITN` (timing of collection), `TEST` (name of measure), `STRESN` (value of measure), 
-`STRESU` (unit of measure), `SEX` (participant sex), and `RACE` (participant race). 
+and `STRESU` (unit of measure). 
 
 Optional columns include `STRNLO` (lower limit of normal values) and `STRNHI` (upper limit of normal values).}
 
