@@ -10,11 +10,10 @@ ui = fluidPage(
       div(style="display:inline-block",actionButton("goButton", "Enter")),
       loadDataUI('datafile1','Upload AE data', accept=c('.csv', '.sas7bdat')),
       loadDataUI('datafile2','Upload LABs/VITALS data', accept=c('.csv', '.sas7bdat')),
-      downloadButton("report", "Generate report"),
+      downloadReportUI("reportDL"),
       br(),
       br(),
       bookmarkButton(id = 'bookmark',label = 'Save the state of this page')
-      #reportUI('reportDL')
     ),
     mainPanel(
       h1(textOutput("study", container = span)),
