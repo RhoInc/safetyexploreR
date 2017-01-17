@@ -2,6 +2,7 @@ library(safetyexploreR)
 
 server = function(input, output, session){
   
+  # gather study name
   text <- eventReactive(input$goButton, {
     validate(
       need(input$study != "", "Please enter your study's name")
@@ -11,31 +12,15 @@ server = function(input, output, session){
   output$study <- renderText({
     text()
   })
-  
+
+  # gather data files 
   data1 <- callModule(loadData, "datafile1", na.strings='')
   data2 <- callModule(loadData, "datafile2", na.strings='')
   
- # callModule(AEwidget, 'widgets', data=data(), height='50px', width='100px')
+  # produce AE widgets from data files
+  callModule(safetyWidgets, 'widgets', data1=data1, data2=data2, height='50px', width='100px')
   
-  output$ae1 <- renderAeExplorer({
-    aeExplorer(data = data1(), height='50px', width='100px')
-  })
- output$ae2 <- renderAeTimelines({
-    aeTimelines(data = data1(), height='50px', width='100px')
-  })
- output$ae3 <- renderSafetyHistogram({ 
-   safetyHistogram(data=data2())
- })
- output$ae4 <- renderSafetyOutlierExplorer({ 
-   safetyOutlierExplorer(data=data2())
- })
- output$ae5 <- renderSafetyResultsOverTime({ 
-   safetyResultsOverTime(data=data2())
- })
- output$ae6 <- renderSafetyShiftPlot({ 
-   safetyShiftPlot(data=data2())
- })
- 
+
   # callModule(report, "reportDL")
  
  output$report <- downloadHandler(
