@@ -7,21 +7,57 @@
 AE Explorer: \url{https://github.com/RhoInc/aeexplorer}.
 }
 \usage{
-aeExplorer(data, width = NULL, height = NULL, elementId = NULL)
+aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
+  group = "ARM", details = NULL, groups = NULL, filters = NULL,
+  totalCol = "Show", diffCol = "Show", prefTerms = "Hide",
+  maxPrevalence = 0, width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
-\item{data}{A data.frame containing the Adverse Events data.  Required columns include 
-`USUBJID` (unique subject ID), `AEBODSYS` (higher-level term), `AEDECOD` (lower-level term), 
-and `ARM` (treatment group),}
+\item{data}{A data frame containing the Adverse Events data.}
 
-\item{width}{Width in pixels}
+\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{height}{Height in pixels}
+\item{major}{Higher-level term variable name.  Default is \code{"AEBODSYS"}.}
+
+\item{minor}{Lower-level term variable name.  Default is \code{"AEDECOD"}.}
+
+\item{group}{Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.}
+
+\item{details}{An optional vector of variables to display in the detail listing.  If left as \code{NULL} or unspecified, all variables in input data will appear in detail listing.}
+
+\item{groups}{An optional character vector specifying which groups to display. If left as \code{NULL} or unspecified, all classes from \code{group} variable will be shown}
+
+\item{filters}{An optional list containing individual lists for each desired filter.
+To specify a  filter, two arguments (\code{value_col} and \code{label}) are required.   
+
+(e.g. \code{filters = list(list(value_col = "AESER", label = "Serious?"), list(value_col = "SEX", label = "Participant Sex"))})}
+
+\item{totalCol}{Specify whether or not to render a total column. Accepts \code{"Show"} (default) or \code{"Hide"}.}
+
+\item{diffCol}{Specify whether or not to render a column of graphical differences. Accepts \code{"Show"} (default) or \code{"Hide"}.}
+
+\item{prefTerms}{Specify whether or not to initially display all lower-level rows. Accepts \code{"Show"} or \code{"Hide"} (default).}
+
+\item{maxPrevalence}{Filters out any higher- and lower-level rows without at least one group rate above specified value. Default is \code{0}.}
+
+\item{width}{Width in pixels.}
+
+\item{height}{Height in pixels.}
 
 \item{elementId}{The element ID for the widget.}
 }
 \description{
 This function creates an AE Explorer using R htmlwidgets.
+}
+\examples{
+\dontrun{
+# Run AE Explorer with defaults
+aeExplorer(data=AE)
+
+# Run AE Explorer specifying some parameters
+aeExplorer(data=AE, group="SEX", filters=list(list(value_col = "ARM", label = "Treatment Arm")), diffCol="Hide")
+}
+   
 }
 \seealso{
 aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot
