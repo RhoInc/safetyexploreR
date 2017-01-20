@@ -7,13 +7,22 @@
 Safety Shift Plot: \url{https://github.com/RhoInc/safety-shift-plot}.
 }
 \usage{
-safetyShiftPlot(data, width = NULL, height = NULL, elementId = NULL)
+safetyShiftPlot(data, id = "USUBJID", timing = "VISITN", measure = "TEST",
+  value = "STRESN", start_value = NULL, width = NULL, height = NULL,
+  elementId = NULL)
 }
 \arguments{
-\item{data}{A data.frame containing the labs data. 
+\item{data}{A data.frame containing the labs data.}
 
-Required columns include `USUBJID` (unique subject ID), 
-`VISITN` (timing of collection), `TEST` (name of measure), and `STRESN` (value of measure).}
+\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
+
+\item{timing}{Timing of collection variable names. Default is \code{"VISITN"}.}
+
+\item{measure}{Name of measure variable name. Default is \code{"TEST"}.}
+
+\item{value}{Value of measure variable name. Default is \code{"STRESN"}.}
+
+\item{start_value}{Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.}
 
 \item{width}{Width in pixels}
 
@@ -23,6 +32,13 @@ Required columns include `USUBJID` (unique subject ID),
 }
 \description{
 This function creates a Safety Shift Plot using R htmlwidgets.
+}
+\examples{
+\dontrun{
+# Run Safety Histogram with defaults
+safetyShiftPlot(data=LAB)
+}
+
 }
 \seealso{
 aeExplorer, aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime

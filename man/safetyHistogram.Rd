@@ -7,16 +7,28 @@
 Safety Histogram: \url{https://github.com/RhoInc/safety-histogram}.
 }
 \usage{
-safetyHistogram(data, width = NULL, height = NULL, elementId = NULL)
+safetyHistogram(data, id = "USUBJID", measure = "TEST", value = "STRESN",
+  unit = "STRESU", normal_low = "STRNLO", normal_high = "STRNHI",
+  filters = NULL, width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
-\item{data}{A data.frame containing the labs data. 
+\item{data}{A data frame containing the labs data.}
 
-Required columns include `USUBJID` (unique subject ID), 
-`VISITN` (timing of collection), `TEST` (name of measure), `STRESN` (value of measure), 
-and `STRESU` (unit of measure). 
+\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-Optional columns include `STRNLO` (lower limit of normal values) and `STRNHI` (upper limit of normal values).}
+\item{measure}{Name of measure variable name. Default is \code{"TEST"}.}
+
+\item{value}{Value of measure variable name. Default is \code{"STRESN"}.}
+
+\item{unit}{Unit of measure variable name. Default is \code{"STRESU"}.}
+
+\item{normal_low}{Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.}
+
+\item{normal_high}{Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.}
+
+\item{filters}{An optional list containing individual lists for each desired filter.
+To specify a  filter, two arguments (\code{value_col} and \code{label}) are required.   
+(e.g. \code{filters = list(list(value_col = "AESER", label = "Serious?"), list(value_col = "SEX", label = "Participant Sex"))})}
 
 \item{width}{Width in pixels}
 
@@ -26,6 +38,17 @@ Optional columns include `STRNLO` (lower limit of normal values) and `STRNHI` (u
 }
 \description{
 This function creates a Safety Histogram using R htmlwidgets.
+}
+\examples{
+\dontrun{
+# Run Safety Histogram with defaults
+safetyHistogram(data=LAB)
+
+# Run Safety Histogram with some customizations 
+safetyHistogram(data=LAB, filters = list(list(value_col = "RACE", label = "Participant Race"), 
+                                         list(value_col = "SEX", label = "Participant Sex")))
+}
+
 }
 \seealso{
 aeExplorer, aeTimelines, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot

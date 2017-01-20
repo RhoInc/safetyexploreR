@@ -2,29 +2,65 @@
 #'
 #' This function creates an AE Timeline using R htmlwidgets.  
 #'
-#' @param data A data.frame containing the Adverse Events data.  
-#' 
-#' Required columns include 
-#' `USUBJID` (unique subject ID), `AESEQ` (unique sequence ID for each AE), `AEBODSYS` (higher-level term), 
-#' `AETERM` (lower-level term), `ASTDY` (Study day of adverse event start (integer)),
-#' `AENDY` (Study day of adverse event end (integer)), `AESEV` (adeverse event severity), 
-#' and `AEREL` (adverse event relatedness to treatment).
-#' 
+#' @param data A data frame containing the Adverse Events data.  
+#' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
+#' @param seq  Adverse event sequence number variable name.  Default is \code{"SESEQ"}
+#' @param major Higher-level term variable name.  Default is \code{"AEBODSYS"}.
+#' @param minor Lower-level term variable name.  Default is \code{"AEDECOD"}. 
+#' @param start Study day of AE start. Default is \code{"ASTDY"}.
+#' @param end Study day of AE end. Default is \code{"AENDY"}.
+#' @param severity Adverse event severity variable name. Default is \code{"AESEV"}.
+#' @param related Adverse event relatedness to treatment variable name. Default is \code{"AEREL"}
+#' @param details Optional vector of variable names to include in details listing.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
 #'
+#' @examples
+#' \dontrun{
+#' # Run AE Timeline with defaults
+#' aeTimeline(data=AE)
+#' 
+#' # Run AE Timeline with some customizations 
+#' aeTimeline(data=AE, details = c('ARM','SEX','RACE')
+#' }
+#' 
 #' @seealso aeExplorer, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot
 #' @source AE Timelines: \url{https://github.com/RhoInc/ae-timelines}.
 #' 
 #' @import htmlwidgets
 #'
 #' @export
-aeTimelines <- function(data, width = NULL, height = NULL, elementId = NULL) {
+aeTimelines <- function(data, 
+                        id = "USUBJID",
+                        seq = "AESEQ",
+                        major = "AEBODSYS",
+                        minor = "AEDECOD",
+                        start = "ASTDY",
+                        end = "AENDY",
+                        severity = "AESEV",
+                        related = "AEREL",
+                        details = NULL, 
+                        width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    data=data
+    data=data,
+    settings=jsonlite::toJSON(
+      list(
+        id_col=id,
+        seq_col=seq,
+        soc_col=major,
+        term_col=minor,
+        stdy_col=start,
+        endy_col=end,
+        sev_col=severity,
+        rel_col=related,
+     #   filter_cols = I(filters),
+        detail_cols = I(details)
+        ),
+    null="null", auto_unbox=T
+  )
   )
 
   # create widget

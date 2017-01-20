@@ -10,10 +10,10 @@ HTMLWidgets.widget({
     return {
 
       renderValue: function(x) {
-
+       
        x.data = HTMLWidgets.dataframeToD3(x.data);
        
-       safetyHistogram(el).init(x.data);
+       safetyHistogram(el, x.settings).init(x.data);
 
       },
 

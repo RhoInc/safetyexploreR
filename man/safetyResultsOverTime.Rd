@@ -7,16 +7,41 @@
 Safety Results Over Time: \url{https://github.com/RhoInc/safety-results-over-time}.
 }
 \usage{
-safetyResultsOverTime(data, width = NULL, height = NULL, elementId = NULL)
+safetyResultsOverTime(data, id = "USUBJID", timing = "VISITN",
+  measure = "TEST", value = "STRESN", unit = "STRESU",
+  normal_low = "STRNLO", normal_high = "STRNHI", groups = c("SEX",
+  "RACE"), start_value = NULL, rotateX = NULL, missingValues = c("NA",
+  ""), boxplots = TRUE, violins = FALSE, width = NULL, height = NULL,
+  elementId = NULL)
 }
 \arguments{
-\item{data}{A data.frame containing the labs data. 
+\item{data}{A data frame containing the labs data.}
 
-Required columns include `USUBJID` (unique subject ID), 
-`VISITN` (timing of collection), `TEST` (name of measure), `STRESN` (value of measure), 
-`STRESU` (unit of measure), and `SEX`/`RACE` (subpopulation(s) of interest).
+\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-Optional columns include `STRNLO` (lower limit of normal values) and `STRNHI` (upper limit of normal values).}
+\item{timing}{Timing of collection variable names. Default is \code{"VISITN"}.}
+
+\item{measure}{Name of measure variable name. Default is \code{"TEST"}.}
+
+\item{value}{Value of measure variable name. Default is \code{"STRESN"}.}
+
+\item{unit}{Unit of measure variable name. Default is \code{"STRESU"}.}
+
+\item{normal_low}{Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.}
+
+\item{normal_high}{Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.}
+
+\item{groups}{Vector of two or more variable names for columns defining subpopulations of interest.  Default is \code{c("SEX", "RACE")}.}
+
+\item{start_value}{Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.}
+
+\item{rotateX}{Logical indicating whether to rotate the x-axis labels.  Default is \code{TRUE}.}
+
+\item{missingValues}{A vector of values found in \code{value} to be ignored when rendering the chat. Default is \code{c("NA","")}.}
+
+\item{boxplots}{Logical indicating whether to render boxplots.  Default is \code{TRUE}.}
+
+\item{violins}{Logical indicating whether to render violin plots.  Default is \code{FALSE}.}
 
 \item{width}{Width in pixels}
 
@@ -26,6 +51,16 @@ Optional columns include `STRNLO` (lower limit of normal values) and `STRNHI` (u
 }
 \description{
 This function creates a Safety Results Over Time widget using R htmlwidgets.
+}
+\examples{
+\dontrun{
+# Run Safety Histogram with defaults
+safetyResultsOverTime(data=LAB)
+
+# Run Safety Histogram with some customizations 
+safetyResultsOverTime(data=LAB, groups=c("SEX","RACE","ARM"), boxplots=T, violins=T)
+}
+
 }
 \seealso{
 aeExplorer, aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyShiftPlot

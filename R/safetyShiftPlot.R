@@ -3,25 +3,49 @@
 #' This function creates a Safety Shift Plot using R htmlwidgets.  
 #'
 #' @param data A data.frame containing the labs data. 
-#' 
-#' Required columns include `USUBJID` (unique subject ID), 
-#' `VISITN` (timing of collection), `TEST` (name of measure), and `STRESN` (value of measure).
-#' 
+#' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
+#' @param timing Timing of collection variable names. Default is \code{"VISITN"}.
+#' @param measure  Name of measure variable name. Default is \code{"TEST"}.
+#' @param value   Value of measure variable name. Default is \code{"STRESN"}.
+#' @param start_value Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.  
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
 #'
+#' @examples
+#' \dontrun{
+#' # Run Safety Histogram with defaults
+#' safetyShiftPlot(data=LAB)
+#' }
+#' 
 #' @seealso aeExplorer, aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime
 #' @source Safety Shift Plot: \url{https://github.com/RhoInc/safety-shift-plot}. 
 #'
 #' @import htmlwidgets
 #'
 #' @export
-safetyShiftPlot <- function(data, width = NULL, height = NULL, elementId = NULL) {
+safetyShiftPlot <- function(data, 
+                            id = "USUBJID",
+                            timing = "VISITN",
+                            measure = "TEST",
+                            value = "STRESN",
+                            start_value = NULL,
+                            width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    data = data
+    data = data,
+    settings = jsonlite::toJSON(
+      list(
+        id_col = id, 
+        time_col = timing, 
+        measure_col = measure,
+        value_col = value
+        #,
+        #start_value = I(start_value)
+      ),
+      null="null", auto_unbox=T
+    )
   )
 
   # create widget

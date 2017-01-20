@@ -9,19 +9,10 @@ HTMLWidgets.widget({
    return {
 
       renderValue: function(x) {
-        
-        var settings = {
-                legend: {
-                   location:"top",
-                    order: ['MILD', 'MODERATE', 'SEVERE', 'NA']
-                },
-                colors: ['green', 'orange', 'red', '#444']
-               };
-       
 
-       x.data = HTMLWidgets.dataframeToD3(x.data);
+      x.data = HTMLWidgets.dataframeToD3(x.data);
        
-       aeTimelines(el, settings).init(x.data);
+       aeTimelines(el, x.settings).init(x.data);
 
       },
 

@@ -14,7 +14,7 @@ HTMLWidgets.widget({
 
         x.data = HTMLWidgets.dataframeToD3(x.data);
 
-        safetyShiftPlot(el).init(x.data);
+        safetyShiftPlot(el, x.settings).init(x.data);
 
       },
 

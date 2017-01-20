@@ -14,7 +14,7 @@ HTMLWidgets.widget({
 
         x.data = HTMLWidgets.dataframeToD3(x.data);
 
-        safetyResultsOverTime(el).init(x.data);
+        safetyResultsOverTime(el, x.settings).init(x.data);
 
       },
 

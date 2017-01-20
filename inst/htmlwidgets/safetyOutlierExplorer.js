@@ -14,7 +14,7 @@ HTMLWidgets.widget({
 
         x.data = HTMLWidgets.dataframeToD3(x.data);
 
-        safetyOutlierExplorer(el).init(x.data);
+        safetyOutlierExplorer(el, x.settings).init(x.data);
 
       },
 

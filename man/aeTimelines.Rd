@@ -7,16 +7,31 @@
 AE Timelines: \url{https://github.com/RhoInc/ae-timelines}.
 }
 \usage{
-aeTimelines(data, width = NULL, height = NULL, elementId = NULL)
+aeTimelines(data, id = "USUBJID", seq = "AESEQ", major = "AEBODSYS",
+  minor = "AEDECOD", start = "ASTDY", end = "AENDY", severity = "AESEV",
+  related = "AEREL", details = NULL, width = NULL, height = NULL,
+  elementId = NULL)
 }
 \arguments{
-\item{data}{A data.frame containing the Adverse Events data.
+\item{data}{A data frame containing the Adverse Events data.}
 
-Required columns include 
-`USUBJID` (unique subject ID), `AESEQ` (unique sequence ID for each AE), `AEBODSYS` (higher-level term), 
-`AETERM` (lower-level term), `ASTDY` (Study day of adverse event start (integer)),
-`AENDY` (Study day of adverse event end (integer)), `AESEV` (adeverse event severity), 
-and `AEREL` (adverse event relatedness to treatment).}
+\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
+
+\item{seq}{Adverse event sequence number variable name.  Default is \code{"SESEQ"}}
+
+\item{major}{Higher-level term variable name.  Default is \code{"AEBODSYS"}.}
+
+\item{minor}{Lower-level term variable name.  Default is \code{"AEDECOD"}.}
+
+\item{start}{Study day of AE start. Default is \code{"ASTDY"}.}
+
+\item{end}{Study day of AE end. Default is \code{"AENDY"}.}
+
+\item{severity}{Adverse event severity variable name. Default is \code{"AESEV"}.}
+
+\item{related}{Adverse event relatedness to treatment variable name. Default is \code{"AEREL"}}
+
+\item{details}{Optional vector of variable names to include in details listing.}
 
 \item{width}{Width in pixels}
 
@@ -26,6 +41,16 @@ and `AEREL` (adverse event relatedness to treatment).}
 }
 \description{
 This function creates an AE Timeline using R htmlwidgets.
+}
+\examples{
+\dontrun{
+# Run AE Timeline with defaults
+aeTimeline(data=AE)
+
+# Run AE Timeline with some customizations 
+aeTimeline(data=AE, details = c('ARM','SEX','RACE')
+}
+
 }
 \seealso{
 aeExplorer, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot

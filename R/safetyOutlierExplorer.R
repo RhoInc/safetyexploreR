@@ -2,29 +2,55 @@
 #'
 #' This function creates a Safety Outlier Explorer using R htmlwidgets.  
 #'
-#' @param data A data.frame containing the labs data. 
-#' 
-#' Required columns include `USUBJID` (unique subject ID), 
-#' `VISITN`/`VISIT`/`DY` (timing of collection, all 3 required), `TEST` (name of measure), `STRESN` (value of measure), 
-#' and `STRESU` (unit of measure). 
-#' 
-#' Optional columns include `STRNLO` (lower limit of normal values) and `STRNHI` (upper limit of normal values).
-#' 
+#' @param data A data frame containing the labs data. 
+#' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
+#' @param timing Timing of collection variable name(s).  Up to 3 may be specified. Default is \code{c("VISITN","VISIT","DY")}
+#' @param measure  Name of measure variable name. Default is \code{"TEST"}.
+#' @param value   Value of measure variable name. Default is \code{"STRESN"}.
+#' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
+#' @param normal_low   Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.
+#' @param normal_high  Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
 #'
+#' @examples
+#' \dontrun{
+#' # Run Safety Outlier Explorer with defaults
+#' safetyOutlierExplorer(data=LAB) 
+#' }
+#' 
 #' @seealso aeExplorer, aeTimelines, safetyHistogram, safetyResultsOverTime, safetyShiftPlot
 #' @source Safety Outlier Explorer: \url{https://github.com/RhoInc/safety-outlier-explorer}.
 #'
 #' @import htmlwidgets
 #'
 #' @export
-safetyOutlierExplorer <- function(data, width = NULL, height = NULL, elementId = NULL) {
+safetyOutlierExplorer <- function(data, 
+                                  id = "USUBJID",
+                                  timing = c("VISITN","VISIT","DY"),
+                                  measure = "TEST",
+                                  value = "STRESN",
+                                  unit = "STRESU",
+                                  normal_low ="STRNLO", 
+                                  normal_high = "STRNHI", 
+                                  width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    data = data
+    data = data,
+    settings = jsonlite::toJSON(
+      list(
+        id_col = id, 
+        time_cols = timing, 
+        measure_col = measure,
+        value_col = value,
+        unit_col = unit,
+        normal_col_low = normal_low,
+        normal_col_high = normal_high
+      ),
+      null="null", auto_unbox=T
+    )
   )
 
   # create widget

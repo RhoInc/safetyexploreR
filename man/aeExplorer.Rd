@@ -29,7 +29,6 @@ aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
 
 \item{filters}{An optional list containing individual lists for each desired filter.
 To specify a  filter, two arguments (\code{value_col} and \code{label}) are required.   
-
 (e.g. \code{filters = list(list(value_col = "AESER", label = "Serious?"), list(value_col = "SEX", label = "Participant Sex"))})}
 
 \item{totalCol}{Specify whether or not to render a total column. Accepts \code{"Show"} (default) or \code{"Hide"}.}
@@ -54,7 +53,7 @@ This function creates an AE Explorer using R htmlwidgets.
 # Run AE Explorer with defaults
 aeExplorer(data=AE)
 
-# Run AE Explorer specifying some parameters
+# Run AE Explore with some customizations 
 aeExplorer(data=AE, group="SEX", filters=list(list(value_col = "ARM", label = "Treatment Arm")), diffCol="Hide")
 }
    

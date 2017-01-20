@@ -11,7 +11,6 @@
 #' @param groups An optional character vector specifying which groups to display. If left as \code{NULL} or unspecified, all classes from \code{group} variable will be shown
 #' @param filters  An optional list containing individual lists for each desired filter.  
 #' To specify a  filter, two arguments (\code{value_col} and \code{label}) are required.   
-#' 
 #' (e.g. \code{filters = list(list(value_col = "AESER", label = "Serious?"), list(value_col = "SEX", label = "Participant Sex"))})
 #' @param totalCol Specify whether or not to render a total column. Accepts \code{"Show"} (default) or \code{"Hide"}. 
 #' @param diffCol Specify whether or not to render a column of graphical differences. Accepts \code{"Show"} (default) or \code{"Hide"}. 
@@ -26,7 +25,7 @@
 #' # Run AE Explorer with defaults
 #' aeExplorer(data=AE)
 #' 
-#' # Run AE Explorer specifying some parameters
+#' # Run AE Explore with some customizations 
 #' aeExplorer(data=AE, group="SEX", filters=list(list(value_col = "ARM", label = "Treatment Arm")), diffCol="Hide")
 #' }
 #'    
@@ -37,16 +36,16 @@
 #'
 #' @export
 aeExplorer <- function(data, 
-                       id = 'USUBJID',
-                       major = 'AEBODSYS',
-                       minor = 'AEDECOD',
-                       group = 'ARM',
+                       id = "USUBJID",
+                       major ="AEBODSYS",
+                       minor = "AEDECOD",
+                       group = "ARM",
                        details = NULL, 
                        groups = NULL, 
                        filters = NULL, 
-                       totalCol = 'Show',
-                       diffCol = 'Show',
-                       prefTerms = 'Hide',
+                       totalCol = "Show",
+                       diffCol = "Show",
+                       prefTerms = "Hide",
                        maxPrevalence = 0,
                        width = NULL, height = NULL, elementId = NULL) {
   

@@ -7,16 +7,27 @@
 Safety Outlier Explorer: \url{https://github.com/RhoInc/safety-outlier-explorer}.
 }
 \usage{
-safetyOutlierExplorer(data, width = NULL, height = NULL, elementId = NULL)
+safetyOutlierExplorer(data, id = "USUBJID", timing = c("VISITN", "VISIT",
+  "DY"), measure = "TEST", value = "STRESN", unit = "STRESU",
+  normal_low = "STRNLO", normal_high = "STRNHI", width = NULL,
+  height = NULL, elementId = NULL)
 }
 \arguments{
-\item{data}{A data.frame containing the labs data. 
+\item{data}{A data frame containing the labs data.}
 
-Required columns include `USUBJID` (unique subject ID), 
-`VISITN`/`VISIT`/`DY` (timing of collection, all 3 required), `TEST` (name of measure), `STRESN` (value of measure), 
-and `STRESU` (unit of measure). 
+\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-Optional columns include `STRNLO` (lower limit of normal values) and `STRNHI` (upper limit of normal values).}
+\item{timing}{Timing of collection variable name(s).  Up to 3 may be specified. Default is \code{c("VISITN","VISIT","DY")}}
+
+\item{measure}{Name of measure variable name. Default is \code{"TEST"}.}
+
+\item{value}{Value of measure variable name. Default is \code{"STRESN"}.}
+
+\item{unit}{Unit of measure variable name. Default is \code{"STRESU"}.}
+
+\item{normal_low}{Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.}
+
+\item{normal_high}{Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.}
 
 \item{width}{Width in pixels}
 
@@ -26,6 +37,13 @@ Optional columns include `STRNLO` (lower limit of normal values) and `STRNHI` (u
 }
 \description{
 This function creates a Safety Outlier Explorer using R htmlwidgets.
+}
+\examples{
+\dontrun{
+# Run Safety Outlier Explorer with defaults
+safetyOutlierExplorer(data=LAB) 
+}
+
 }
 \seealso{
 aeExplorer, aeTimelines, safetyHistogram, safetyResultsOverTime, safetyShiftPlot

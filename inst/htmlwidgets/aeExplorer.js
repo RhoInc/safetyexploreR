@@ -13,11 +13,9 @@ HTMLWidgets.widget({
       // x = data & settings
       renderValue: function(x) {
         
-        var settings = x.settings;
-
         x.data = HTMLWidgets.dataframeToD3(x.data);
 
-        aeTable(el, settings).init(x.data);
+        aeTable(el, x.settings).init(x.data);
       },
 
       resize: function(width, height) {
