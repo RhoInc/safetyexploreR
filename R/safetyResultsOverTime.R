@@ -8,8 +8,8 @@
 #' @param measure  Name of measure variable name. Default is \code{"TEST"}.
 #' @param value   Value of measure variable name. Default is \code{"STRESN"}.
 #' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
-#' @param normal_low   Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.
-#' @param normal_high  Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.
+#' @param normal_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.
+#' @param normal_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.
 #' @param groups Vector of two or more variable names for columns defining subpopulations of interest.  Default is \code{c("SEX", "RACE")}.
 #' @param start_value Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.  
 #' @param rotateX  Logical indicating whether to rotate the x-axis labels.  Default is \code{TRUE}. 

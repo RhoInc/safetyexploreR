@@ -7,8 +7,8 @@
 #' @param measure  Name of measure variable name. Default is \code{"TEST"}.
 #' @param value   Value of measure variable name. Default is \code{"STRESN"}.
 #' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
-#' @param normal_low   Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.
-#' @param normal_high  Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.
+#' @param normal_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.
+#' @param normal_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.
 #' @param filters  An optional list containing individual lists for each desired filter.  
 #' To specify a  filter, two arguments (\code{value_col} and \code{label}) are required.   
 #' (e.g. \code{filters = list(list(value_col = "AESER", label = "Serious?"), list(value_col = "SEX", label = "Participant Sex"))})

@@ -8,8 +8,8 @@
 #' @param measure  Name of measure variable name. Default is \code{"TEST"}.
 #' @param value   Value of measure variable name. Default is \code{"STRESN"}.
 #' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
-#' @param normal_low   Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.
-#' @param normal_high  Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.
+#' @param normal_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.
+#' @param normal_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
