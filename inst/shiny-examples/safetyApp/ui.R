@@ -8,8 +8,8 @@ ui = fluidPage(
     sidebarPanel(
       div(style="display:inline-block",textInput('study', 'Enter your Study Name'),width=6),
       div(style="display:inline-block",actionButton("goButton", "Enter")),
-      loadDataUI('datafile1','Upload AE data', accept=c('.csv', '.sas7bdat')),
-      loadDataUI('datafile2','Upload LABs/VITALS data', accept=c('.csv', '.sas7bdat')),
+      loadDataUI('datafile1','Upload custom AE data', accept=c('.csv', '.sas7bdat')),
+      loadDataUI('datafile2','Upload custom LABs/VITALS data', accept=c('.csv', '.sas7bdat')),
       downloadReportUI("reportDL"),
       br(),
       br(),

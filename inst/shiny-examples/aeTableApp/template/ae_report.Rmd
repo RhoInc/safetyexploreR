@@ -1,0 +1,36 @@
+---
+output: 
+  flexdashboard::flex_dashboard:
+    theme: lumen
+params:
+  data: NA
+  study: NA
+---
+---
+title: "`r paste("AE Explorer for", params$study)`"
+---
+
+```{r}
+library(safetyexploreR)
+```
+
+AE Explorer {data-orientation=rows}
+=========================================
+
+Column {.sidebar data-width=250}
+-------------------------------------
+
+The AE Table is an interactive tool that allows users to dynamically query adverse event (AE) data in real time. Examples and additional documentation are available at the [Rho Graphics Site](http://graphics.rhoworld.com/tools/aeexplorer/).
+
+The AE Table is an open source project built using standard web technology and will run in any modern web browser. The displays created are all dynamically linked to raw adverse event data which allows the tool to work with data from any adverse event coding system. The tool was originally created using Javascript/D3, but has been extended to an R tool as well using HTML Widgets.
+ 
+Row 
+-------------------------------------
+    
+### An example of the AE Explorer using R:
+
+```{r, fig.width=5, fig.height=6}
+aeExplorer(data=params$data)
+```
+
+ 

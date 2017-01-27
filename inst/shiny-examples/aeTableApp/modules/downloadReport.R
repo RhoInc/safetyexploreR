@@ -6,18 +6,17 @@ downloadReportUI <- function(id){
   downloadButton(ns("report"), "Generate report")
 }
 
-downloadReport <- function(input, output, session, text, data1, data2){
+downloadReport <- function(input, output, session, data, study){
   output$report <- downloadHandler(
-    filename = "safety_report.html",
+    filename = "ae_report.html",
     content = function(file) {
       # Copy the report file to a temporary directory before processing it, in case we don't
       # have write permissions to the current working dir (which can happen when deployed).
       tempReport <- file.path(tempdir(), "report.Rmd")
-      file.copy("template/safety_report.Rmd", tempReport, overwrite = TRUE)
+      file.copy("template/ae_report.Rmd", tempReport, overwrite = TRUE)
       
-      params <- list(study = text(),
-                     data1 = data1(),
-                     data2 = data2())
+      params <- list(data = data(),
+                     study = study())
       
       rmarkdown::render(tempReport,
                         output_file = file,
