@@ -23,10 +23,10 @@
 #' @examples
 #' \dontrun{
 #' # Run AE Explorer with defaults
-#' aeExplorer(data=AE)
+#' aeExplorer(data=ADAE)
 #' 
 #' # Run AE Explore with some customizations 
-#' aeExplorer(data=AE, group="SEX", filters=list(list(value_col = "ARM", label = "Treatment Arm")), diffCol="Hide")
+#' aeExplorer(data=ADAE, group="SEX", filters=list(list(value_col = "ARM", label = "Treatment Arm")), diffCol="Hide")
 #' }
 #'    
 #' @seealso aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot

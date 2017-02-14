@@ -8,8 +8,8 @@
 #' @param measure  Name of measure variable name. Default is \code{"TEST"}.
 #' @param value   Value of measure variable name. Default is \code{"STRESN"}.
 #' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
-#' @param normal_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.
-#' @param normal_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.
+#' @param normal_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.
+#' @param normal_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
@@ -17,7 +17,7 @@
 #' @examples
 #' \dontrun{
 #' # Run Safety Outlier Explorer with defaults
-#' safetyOutlierExplorer(data=LAB) 
+#' safetyOutlierExplorer(data=ADBS) 
 #' }
 #' 
 #' @seealso aeExplorer, aeTimelines, safetyHistogram, safetyResultsOverTime, safetyShiftPlot
@@ -32,8 +32,8 @@ safetyOutlierExplorer <- function(data,
                                   measure = "TEST",
                                   value = "STRESN",
                                   unit = "STRESU",
-                                  normal_low ="STRNLO", 
-                                  normal_high = "STRNHI", 
+                                  normal_low ="STNRLO", 
+                                  normal_high = "STNRHI", 
                                   width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x

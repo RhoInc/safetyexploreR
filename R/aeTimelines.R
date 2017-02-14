@@ -19,10 +19,10 @@
 #' @examples
 #' \dontrun{
 #' # Run AE Timeline with defaults
-#' aeTimeline(data=AE)
+#' aeTimelines(data=ADAE)
 #' 
 #' # Run AE Timeline with some customizations 
-#' aeTimeline(data=AE, details = c('ARM','SEX','RACE')
+#' aeTimelines(data=ADAE, details = c('ARM','SEX','RACE'))
 #' }
 #' 
 #' @seealso aeExplorer, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot

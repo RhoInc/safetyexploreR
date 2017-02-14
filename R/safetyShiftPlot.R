@@ -15,7 +15,7 @@
 #' @examples
 #' \dontrun{
 #' # Run Safety Histogram with defaults
-#' safetyShiftPlot(data=LAB)
+#' safetyShiftPlot(data=ADBDS)
 #' }
 #' 
 #' @seealso aeExplorer, aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime
