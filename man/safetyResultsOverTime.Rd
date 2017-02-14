@@ -9,7 +9,7 @@ Safety Results Over Time: \url{https://github.com/RhoInc/safety-results-over-tim
 \usage{
 safetyResultsOverTime(data, id = "USUBJID", timing = "VISITN",
   measure = "TEST", value = "STRESN", unit = "STRESU",
-  normal_low = "STRNLO", normal_high = "STRNHI", groups = c("SEX",
+  normal_low = "STNRLO", normal_high = "STNRHI", groups = c("SEX",
   "RACE"), start_value = NULL, rotateX = NULL, missingValues = c("NA",
   ""), boxplots = TRUE, violins = FALSE, width = NULL, height = NULL,
   elementId = NULL)
@@ -27,9 +27,9 @@ safetyResultsOverTime(data, id = "USUBJID", timing = "VISITN",
 
 \item{unit}{Unit of measure variable name. Default is \code{"STRESU"}.}
 
-\item{normal_low}{Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.}
+\item{normal_low}{Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.}
 
-\item{normal_high}{Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.}
+\item{normal_high}{Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.}
 
 \item{groups}{Vector of two or more variable names for columns defining subpopulations of interest.  Default is \code{c("SEX", "RACE")}.}
 
@@ -55,14 +55,13 @@ This function creates a Safety Results Over Time widget using R htmlwidgets.
 \examples{
 \dontrun{
 # Run Safety Histogram with defaults
-safetyResultsOverTime(data=LAB)
+safetyResultsOverTime(data=ADBDS)
 
 # Run Safety Histogram with some customizations 
-safetyResultsOverTime(data=LAB, groups=c("SEX","RACE","ARM"), boxplots=T, violins=T)
+safetyResultsOverTime(data=ADBDS, groups=c("SEX","RACE","ARM"), boxplots=T, violins=T)
 }
 
 }
 \seealso{
 aeExplorer, aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyShiftPlot
 }
-

@@ -9,7 +9,7 @@ Safety Outlier Explorer: \url{https://github.com/RhoInc/safety-outlier-explorer}
 \usage{
 safetyOutlierExplorer(data, id = "USUBJID", timing = c("VISITN", "VISIT",
   "DY"), measure = "TEST", value = "STRESN", unit = "STRESU",
-  normal_low = "STRNLO", normal_high = "STRNHI", width = NULL,
+  normal_low = "STNRLO", normal_high = "STNRHI", width = NULL,
   height = NULL, elementId = NULL)
 }
 \arguments{
@@ -25,9 +25,9 @@ safetyOutlierExplorer(data, id = "USUBJID", timing = c("VISITN", "VISIT",
 
 \item{unit}{Unit of measure variable name. Default is \code{"STRESU"}.}
 
-\item{normal_low}{Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.}
+\item{normal_low}{Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.}
 
-\item{normal_high}{Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.}
+\item{normal_high}{Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.}
 
 \item{width}{Width in pixels}
 
@@ -41,11 +41,10 @@ This function creates a Safety Outlier Explorer using R htmlwidgets.
 \examples{
 \dontrun{
 # Run Safety Outlier Explorer with defaults
-safetyOutlierExplorer(data=LAB) 
+safetyOutlierExplorer(data=ADBS) 
 }
 
 }
 \seealso{
 aeExplorer, aeTimelines, safetyHistogram, safetyResultsOverTime, safetyShiftPlot
 }
-

@@ -9,4 +9,3 @@ runSafetyApp()
 \description{
 Safety Explorer Shiny App
 }
-

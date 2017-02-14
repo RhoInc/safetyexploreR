@@ -8,7 +8,7 @@ Safety Histogram: \url{https://github.com/RhoInc/safety-histogram}.
 }
 \usage{
 safetyHistogram(data, id = "USUBJID", measure = "TEST", value = "STRESN",
-  unit = "STRESU", normal_low = "STRNLO", normal_high = "STRNHI",
+  unit = "STRESU", normal_low = "STNRLO", normal_high = "STNRHI",
   filters = NULL, width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
@@ -22,9 +22,9 @@ safetyHistogram(data, id = "USUBJID", measure = "TEST", value = "STRESN",
 
 \item{unit}{Unit of measure variable name. Default is \code{"STRESU"}.}
 
-\item{normal_low}{Variable name for column containing lower limit of normal values. Default is \code{"STRNLO"}.}
+\item{normal_low}{Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.}
 
-\item{normal_high}{Variable name for column containing upper limit of normal values. Default is \code{"STRNHI"}.}
+\item{normal_high}{Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.}
 
 \item{filters}{An optional list containing individual lists for each desired filter.
 To specify a  filter, two arguments (\code{value_col} and \code{label}) are required.   
@@ -42,15 +42,14 @@ This function creates a Safety Histogram using R htmlwidgets.
 \examples{
 \dontrun{
 # Run Safety Histogram with defaults
-safetyHistogram(data=LAB)
+safetyHistogram(data=ADBDS)
 
 # Run Safety Histogram with some customizations 
-safetyHistogram(data=LAB, filters = list(list(value_col = "RACE", label = "Participant Race"), 
-                                         list(value_col = "SEX", label = "Participant Sex")))
+safetyHistogram(data=ADBDS, filters = list(list(value_col = "RACE", label = "Participant Race"), 
+                                           list(value_col = "SEX", label = "Participant Sex")))
 }
 
 }
 \seealso{
 aeExplorer, aeTimelines, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot
 }
-
