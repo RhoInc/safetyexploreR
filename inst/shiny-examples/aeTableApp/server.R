@@ -19,7 +19,7 @@ server = function(input, output, session){
     
 
     if(input$example){
-        return(AE)
+        return(ADAE)
       }
     else {
       if (length(grep(".csv", datafile(), ignore.case = TRUE)) > 0){

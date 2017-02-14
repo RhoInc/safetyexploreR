@@ -4,6 +4,12 @@ output:
     theme: readable
 params:
   study: NA
+  text1: NA
+  text2: NA
+  text3: NA
+  text4: NA
+  text5: NA
+  text6: NA
   data1: NA
   data2: NA
 ---
@@ -21,9 +27,7 @@ AE Explorer {data-orientation=rows}
 Column {.sidebar data-width=250}
 -------------------------------------
 
-The AE Table is an interactive tool that allows users to dynamically query adverse event (AE) data in real time. Examples and additional documentation are available at the [Rho Graphics Site](http://graphics.rhoworld.com/tools/aeexplorer/).
-
-The AE Table is an open source project built using standard web technology and will run in any modern web browser. The displays created are all dynamically linked to raw adverse event data which allows the tool to work with data from any adverse event coding system. The tool was originally created using Javascript/D3, but has been extended to an R tool as well using HTML Widgets.
+`r paste(params$text1)`
  
 Row 
 -------------------------------------
@@ -40,7 +44,7 @@ AE Timelines {data-orientation=rows}
 Column {.sidebar data-width=250}
 -------------------------------------
 
-AE-timelines is a JavaScript library, built using Webcharts ([1](https://github.com/RhoInc/Webcharts), [2](https://github.com/RhoInc/webcharts-wrapper-boilerplate)), that creates an interactive timeline showing when participants experienced Adverse Events in a clinical trial. The chart uses the AdAM Adverse Event data standard by default, but can be customized to use any data set that is one record per adverse event. The widget has been extended to use in R with [HTML widgets](http://www.htmlwidgets.org/).
+`r paste(params$text2)`
  
 Row 
 -------------------------------------
@@ -57,6 +61,8 @@ Safety Histogram {data-orientation=rows}
 Column {.sidebar data-width=250}
 -------------------------------------
  
+`r paste(params$text3)` 
+ 
 Row 
 -------------------------------------
 
@@ -70,7 +76,9 @@ Safety Outlier Explorer {data-orientation=rows}
 
 Column {.sidebar data-width=250}
 -------------------------------------
- 
+
+`r paste(params$text4)`
+
 Row 
 -------------------------------------
 
@@ -85,7 +93,9 @@ Safety Results Over Time {data-orientation=rows}
 
 Column {.sidebar data-width=250}
 -------------------------------------
- 
+
+`r paste(params$text5)`
+
 Row 
 -------------------------------------
 
@@ -101,6 +111,8 @@ Safety Shift Plot {data-orientation=rows}
 Column {.sidebar data-width=250}
 -------------------------------------
  
+`r paste(params$text6)`
+
 Row 
 -------------------------------------
 

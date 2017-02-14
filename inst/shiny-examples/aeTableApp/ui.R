@@ -17,6 +17,7 @@ ui = fluidPage(
             $(idBar).css("width", "0%");
         });
       '),
+
       uiOutput("id"),
       uiOutput("major"),
       uiOutput("minor"),
