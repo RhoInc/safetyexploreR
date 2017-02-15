@@ -1,7 +1,7 @@
 library(safetyexploreR)
 
 ui = fluidPage(
-  theme = shinythemes::shinytheme("readable"),
+  theme = shinythemes::shinytheme("lumen"),
   
   titlePanel("Safety Explorer Shiny App"),
   sidebarLayout(

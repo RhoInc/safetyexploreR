@@ -25,7 +25,7 @@ ui = fluidPage(
        uiOutput("groups") ,
       conditionalPanel(
         condition="output.fileUploaded",
-        selectInput("totalCol","Show total",c("Show","Hide"), selected='Show'),
+        selectInput("totalCol","Show total",c("Show","Hide"), selected='Show', width=200),
         selectInput("diffCol","Show differences",c("Show","Hide"), selected='Show', width=200),
         selectInput("prefTerms","Show preferred terms",c("Show","Hide"), selected='Hide', width=200),
         sliderInput("maxPrevalence","Prevalence threshold", min=0, max=100, step=5, value=0)
@@ -42,7 +42,7 @@ ui = fluidPage(
       tabsetPanel( 
         tabPanel("AE Explorer",  
               #   aeExplorerOutput(outputId = 'ae1')),
-               fluidRow(column(3, selectInput("totalCol","Show total",c("Show","Hide"), selected='Show'))),
+             #  fluidRow(column(3, selectInput("totalCol","Show total",c("Show","Hide"), selected='Show'))),
               #          column(3, selectInput("diffCol","Show differences",c("Show","Hide"), selected='Show'))),
               #          column(3, offset=0, selectInput("prefTerms","Show preferred terms",c("Show","Hide"), selected='Hide'))),
                #         column(3, offset=0, uiOutput("filters"))),
