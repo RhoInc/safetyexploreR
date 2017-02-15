@@ -23,11 +23,14 @@ ui = fluidPage(
       uiOutput("minor"),
       uiOutput("group"),
        uiOutput("groups") ,
-     # selectInput("totalCol","Show total",c("Show","Hide"), selected='Show'),
-       selectInput("diffCol","Show differences",c("Show","Hide"), selected='Show', width=200),
-      selectInput("prefTerms","Show preferred terms",c("Show","Hide"), selected='Hide', width=200),
+      conditionalPanel(
+        condition="output.fileUploaded",
+        selectInput("totalCol","Show total",c("Show","Hide"), selected='Show'),
+        selectInput("diffCol","Show differences",c("Show","Hide"), selected='Show', width=200),
+        selectInput("prefTerms","Show preferred terms",c("Show","Hide"), selected='Hide', width=200),
+        sliderInput("maxPrevalence","Prevalence threshold", min=0, max=100, step=5, value=0)
+      ),
       uiOutput("filters"),
-      sliderInput("maxPrevalence","Prevalence threshold", min=0, max=100, step=5, value=0),
      textInput("study","Enter study name"),
      downloadReportUI("reportDL"),
      br(),
@@ -46,7 +49,7 @@ ui = fluidPage(
              # fluidRow(column(12, div(aeExplorerOutput(outputId = 'ae1'), style="width:70%")))),
              fluidRow(column(12, aeExplorerOutput(outputId = 'ae1')))),
         tabPanel("Data view", div(DT::dataTableOutput("dt1"), style = "font-size: 70%; width: 50%")),
-        tabPanel("Visualize Differences", plotlyOutput('bubbleplot', height='700px'))
+        tabPanel("Visualize Differences", plotlyOutput('bubbleplot', height='450px', width='1100px'))
         
       )
     )

@@ -11,6 +11,7 @@ server = function(input, output, session){
     }
   })
   
+  
   myData <- reactive({		
       
     validate(
@@ -24,9 +25,8 @@ server = function(input, output, session){
     else {
       if (length(grep(".csv", datafile(), ignore.case = TRUE)) > 0){
             return(
-              data.frame(
-                read.csv(datafile()$datapath, na.strings="")
-              ))
+                data.frame(read.csv(datafile()$datapath, na.strings=NA))
+                )
           }else if(length(grep(".sas7bdat", datafile(), ignore.case = TRUE)) > 0){
             return(
               data.frame(
@@ -37,6 +37,11 @@ server = function(input, output, session){
     })
 
 
+  output$fileUploaded <- reactive({
+    return(!is.null(myData()))
+  })
+  outputOptions(output, 'fileUploaded', suspendWhenHidden=FALSE)
+  
   observe({
     input$example
     session$sendCustomMessage(type = "resetFileInputHandler", "datafile")  
@@ -214,10 +219,11 @@ server = function(input, output, session){
        stack <- rbind(major_only, major_minor) %>% 
          arrange(desc(group)) %>% 
          group_by(major, minor) %>% 
-         mutate(n_groups = n())
+         mutate(n_groups = n()) %>% 
+         filter(! major == '')
        
        testf <- function(x){
-         x <- x %>% arrange(group)
+         x <- x %>% arrange(desc(group))
          out <- data.frame(comparison=NULL, group1 =NULL, group2 = NULL, diff=NULL, test=NULL)
          n <- 1
          
@@ -228,8 +234,8 @@ server = function(input, output, session){
                group2 <- x$group[i+1] 
              }
              if(i==length(x$group)){
-               group1 <- x$group[i]
-               group2 <- x$group[1] 
+               group1 <- x$group[1]
+               group2 <- x$group[i] 
              }
              
              sub <- x[x$group==group1 | x$group==group2,]
@@ -263,21 +269,45 @@ server = function(input, output, session){
          mutate(test_transf = -log10(test)) %>%
          mutate(label = ifelse(major_only==1, paste0(major), paste0(major, ': ', minor))) 
        
-       
-       g <- res %>% filter(major_only==0 & !is.na(test_transf)) %>%
-         ggplot(data=., aes(x=diff, y=test_transf, label=label, size = diff, color=diff)) +
-          facet_wrap(~comparison, scales='free_y') +
-         geom_point() +
-         scale_size(range=range(res$diff)) +
-         scale_fill_distiller()+
-         labs(y='-log10(p-value)',
-              x='Risk difference (%)') 
-       #+
-        # scale_x_continuous(expand=list(c(0,0.1), c(0,0)))
-        
-       
-       ggplotly(g, tooltip = c('label'))
+       req(nrow(res) > 0)
+      #  
+      #  g <- res %>% filter(major_only==0 & !is.na(test_transf)) %>%
+      #    ggplot(data=., aes(x=diff, y=test_transf, label=label, size = diff, color=diff)) +
+      #     facet_wrap(~comparison, scales='free_y') +
+      #    geom_point() +
+      #    scale_size(range=range(res$diff)) +
+      #    scale_fill_distiller()+
+      #    labs(y='-log10(p-value)',
+      #         x='Risk difference (%)') +
+      #    theme_bw() +
+      #    theme(legend.position='bottom')
+      # 
+      # ggplotly(g, tooltip = c('label'))
+         numplots <- length(unique(res$comparison))
+         plot_list <- vector("list", numplots)
+         title_list = vector("list", numplots)
+         for (i in unique(res$comparison)){
+           plot_list[i] <-  plot_ly(data=subset(res, comparison==i),
+                               x=~diff, y=~test_transf, type='scatter', mode='markers',
+                               text=~label, hoverinfo='text',
+                                color=~diff, colors='Spectral',
+                               marker = list(size=~diff, opacity=0.7)) %>%
+             layout(showlegend = FALSE) %>% 
+             hide_colorbar() %>%  
+             layout(xaxis=list(title=paste0(i,': Risk Diff')),
+                    yaxis=list(title='-log10(P-value)'))
+            
+          # title_list[i] <- list(text=paste(i)
+   
+         }
+         plot_list <- plot_list[!sapply(plot_list, is.null)] 
+         sp <- subplot(plot_list, nrows=1, shareX=F, shareY=T, titleX=T) 
+  
+        sp
 
+      
+     
+     
      })
      
     study <- reactive({
