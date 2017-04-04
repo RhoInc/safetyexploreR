@@ -15,7 +15,9 @@ HTMLWidgets.widget({
         
         x.data = HTMLWidgets.dataframeToD3(x.data);
 
-        aeTable(el, x.settings).init(x.data);
+        console.log(x.settings);
+        
+        aeTable.createChart(el, x.settings).init(x.data);
       },
 
       resize: function(width, height) {

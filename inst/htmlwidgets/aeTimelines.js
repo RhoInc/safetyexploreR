@@ -11,6 +11,9 @@ HTMLWidgets.widget({
       renderValue: function(x) {
 
       x.data = HTMLWidgets.dataframeToD3(x.data);
+      
+      console.log(x.settings);
+      
        
        aeTimelines(el, x.settings).init(x.data);
 

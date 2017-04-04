@@ -27,14 +27,34 @@
             color: #BBB;
         }
 
+        div.aeTable .alert{
+            padding: 20px;
+            background-color: #f44336; /* Red */
+            color: white;
+            margin-bottom: 15px;
+        }
     /***--------------------------------------------------------------------------------------\
       Controls layout
     \--------------------------------------------------------------------------------------***/
+        div.aeTable .controls .filterDiv{
+            display:inline-block;
+            vertical-align:top;
+            padding-right:10px;
 
+        }
+
+        div.aeTable .controls .filterDiv.custom-filters{
+            display:block;
+        }
+
+        div.aeTable .controls .filterDiv.custom-filters select{
+            min-width: 3em;
+        }
+
+
+        /*Rate filter*/
         div.aeTable .controls .rate-filter {
-            float: left;
             margin-bottom: 10px;
-            display: inline-block;
         }
 
         div.aeTable .controls .rate-filter > * {
@@ -44,16 +64,15 @@
             float: left;
         }
 
+        /*Summary Radio Buttons*/
         div.aeTable .controls .summary-control {
             float: left;
             margin-bottom: 10px;
-            display: inline-block;
         }
 
         div.aeTable .controls .summary-control > * {
             height: 100%;
             display: table-cell;
-            vertical-align: middle;
             float: left;
         }
 
@@ -72,7 +91,7 @@
             float: left;
         }
 
-
+        /*Rate Filter*/        
         div.aeTable span.sectionHead {
             font-weight: bold;
             padding-right: 10px;
@@ -113,6 +132,7 @@
             border: 1px solid #ccc;
         }
 
+        /* Custom Filters */
         div.aeTable  .controls .custom-filters {
             clear: both;
         }
@@ -126,6 +146,10 @@
             color: white;
         }
 
+        div.aeTable  .controls .custom-filters ul li .filterType{
+            font-size: 0.8em
+        }
+
         div.aeTable .controls .custom-filters ul li.filterCustom {
             display:inline-block ;
             padding-right:5px;
@@ -135,8 +159,18 @@
             display:block ;
         }
 
+        div.aeTable .controls .custom-filters ul li.filterCustom span.filterLabel * {
+            display:inline-block ;
+        }
+
+        div.aeTable .controls .custom-filters ul li.filterCustom span.filterLabel .filterType {
+            font-style:italic;
+            padding-left:3px;
+            cursor: pointer;
+        }
+
+        /*Search*/
         div.aeTable span.search-label {
-            float:right;
             padding-left:5px; 
             margin-right:5px;
         }
@@ -148,7 +182,6 @@
         }
 
         div.aeTable .navbar-search .search-query {
-            float:right;
             line-height: 1.3em;
         }
 
@@ -240,10 +273,12 @@
             display:none; 
         }
 
-        div.aeTable .hidden {
+        div.aeTable .hidden,
+        div.aeTable .controls .hidden,
+        div.aeTable .controls .filterDiv.custom-filters.hidden {
             display: none;
         }
-
+        
         /*using set widths to avoid funky behavior on mouseover - could maybe make the width interactive based on the data? */
         div.aeTable .SummaryTable tr td.values {
             min-width:100px;
