@@ -9,9 +9,12 @@
 #' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
 #' @param normal_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.
 #' @param normal_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
-#' @param filters  An optional list containing individual lists for each desired filter.  
-#' To specify a  filter, two arguments (\code{value_col} and \code{label}) are required.   
-#' (e.g. \code{filters = list(list(value_col = "AESER", label = "Serious?"), list(value_col = "SEX", label = "Participant Sex"))})
+#' @param filters_var Optional vector of variable names to use for filters.  
+#' @param filters_label Associated labels to use for filters.   
+#' @param details_var Optional vector of variable names to include in details listing.
+#' @param details_label Associated labels/headers to use for details listing.
+#' @param start_value Value of variable defined in \code{measure} to be rendered in the histogram when the widget loads. 
+#' @param missingValues Vector of values defining a missing \code{value}. Default is \code{c('','NA','N/A)}.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
@@ -20,10 +23,6 @@
 #' \dontrun{
 #' # Run Safety Histogram with defaults
 #' safetyHistogram(data=ADBDS)
-#' 
-#' # Run Safety Histogram with some customizations 
-#' safetyHistogram(data=ADBDS, filters = list(list(value_col = "RACE", label = "Participant Race"), 
-#'                                            list(value_col = "SEX", label = "Participant Sex")))
 #' }
 #' 
 #' @seealso aeExplorer, aeTimelines, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot
@@ -40,8 +39,19 @@ safetyHistogram <- function(data,
                             normal_low = 'STNRLO',
                             normal_high = 'STNRHI',
                             filters = NULL, 
+                            details = NULL,
+                            start_value = NULL,
+                            missingValues = c('','NA','N/A'),
                             width = NULL, height = NULL, elementId = NULL) {
 
+  
+  # create list format for json - filters
+  filters <- data.frame(value_col = filters_var, label = filters_label)
+  
+  # create list format for json - details
+  details <- data.frame(value_col = details_var, label = details_label)  
+  
+  
   # forward options using x
   x = list(
     data = data,
@@ -53,7 +63,10 @@ safetyHistogram <- function(data,
         unit_col = unit,
         normal_col_low = normal_low,
         normal_col_high = normal_high,
-        filters = I(filters)
+        filters = I(filters),
+        details = I(filters),
+        start_value = I(filters),
+        missingValues = missingValues
       ),
       null="null", auto_unbox=T
     )

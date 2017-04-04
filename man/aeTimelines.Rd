@@ -7,10 +7,17 @@
 AE Timelines: \url{https://github.com/RhoInc/ae-timelines}.
 }
 \usage{
-aeTimelines(data, id = "USUBJID", seq = "AESEQ", major = "AEBODSYS",
-  minor = "AEDECOD", start = "ASTDY", end = "AENDY", severity = "AESEV",
-  related = "AEREL", details = NULL, width = NULL, height = NULL,
-  elementId = NULL)
+aeTimelines(data, id = "USUBJID", seq = "AESEQ", minor = "AEDECOD",
+  start = "ASTDY", end = "AENDY", severity = "AESEV",
+  color_var = "AESEV", color_label = "Severity/Intensity",
+  color_val = NULL, color_codes = NULL, highlight_var = "AESER",
+  highlight_label = "Serious Event", highlight_val = "Y",
+  highlight_detail = NULL, highlight_stroke = "black",
+  highlight_stroke_width = 2, highlight_fill = "none",
+  filters_var = c("AESER", "AESEV", "USUBJID"),
+  filters_label = c("Serious Event", "Severity/Intensity",
+  "Subject Identifier"), details_var = NULL, details_label = NULL,
+  width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the Adverse Events data.}
@@ -19,19 +26,37 @@ aeTimelines(data, id = "USUBJID", seq = "AESEQ", major = "AEBODSYS",
 
 \item{seq}{Adverse event sequence number variable name.  Default is \code{"SESEQ"}}
 
-\item{major}{Higher-level term variable name.  Default is \code{"AEBODSYS"}.}
-
 \item{minor}{Lower-level term variable name.  Default is \code{"AEDECOD"}.}
 
 \item{start}{Study day of AE start. Default is \code{"ASTDY"}.}
 
 \item{end}{Study day of AE end. Default is \code{"AENDY"}.}
 
-\item{severity}{Adverse event severity variable name. Default is \code{"AESEV"}.}
+\item{color_var}{Name of variable that defines the color scale with its values. Default is \code{"AESEV"}.}
 
-\item{related}{Adverse event relatedness to treatment variable name. Default is \code{"AEREL"}}
+\item{color_label}{Legend label for color scale. Default is \code{"Severity/Intensity"}.}
 
-\item{details}{Optional vector of variable names to include in details listing.}
+\item{color_val}{Distinct ordering of values for color scale.  If left as \code{NULL}, all non-missing values will be used in alphabetical order.}
+
+\item{color_codes}{Vector of HTML color codes to use.}
+
+\item{highlight_var}{Name of variable that identifies specific adverse events that should be highlighted. Default is \code{'AESER'}.}
+
+\item{highlight_label}{Legend label for highlighting. Default is \code{'Serious Event'}.}
+
+\item{highlight_val}{Value of \code{highlight_var} which designates events to highlight.}
+
+\item{highlight_detail}{Name of variable that describes event in more detail.}
+
+\item{highlight_stroke, }{highlight_stroke_width, highlight_fill Attributes of highlighted events.}
+
+\item{filters_var}{Columns to use for filters.  Defaults to \code{c('AESER','AESEV','USUBJID')}.}
+
+\item{filters_label}{Associated labels to use for filters. If set to \code{NULL}, variable name(s) will be used.  Defaults to \code{c('Serious Event','Severity/Intensity','Subject Identifier')}.}
+
+\item{details_var}{Optional vector of variable names to include in details listing.}
+
+\item{details_label}{Associated labels/headers to use for details listing.}
 
 \item{width}{Width in pixels}
 

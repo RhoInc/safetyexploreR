@@ -5,13 +5,22 @@
 #' @param data A data frame containing the Adverse Events data.  
 #' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
 #' @param seq  Adverse event sequence number variable name.  Default is \code{"SESEQ"}
-#' @param major Higher-level term variable name.  Default is \code{"AEBODSYS"}.
 #' @param minor Lower-level term variable name.  Default is \code{"AEDECOD"}. 
 #' @param start Study day of AE start. Default is \code{"ASTDY"}.
-#' @param end Study day of AE end. Default is \code{"AENDY"}.
-#' @param severity Adverse event severity variable name. Default is \code{"AESEV"}.
-#' @param related Adverse event relatedness to treatment variable name. Default is \code{"AEREL"}
-#' @param details Optional vector of variable names to include in details listing.
+#' @param end Study day of AE end. Default is \code{"AENDY"}. 
+#' @param color_var Name of variable that defines the color scale with its values. Default is \code{"AESEV"}.
+#' @param color_label Legend label for color scale. Default is \code{"Severity/Intensity"}.
+#' @param color_val Distinct ordering of values for color scale.  If left as \code{NULL}, all non-missing values will be used in alphabetical order.
+#' @param color_codes Vector of HTML color codes to use.
+#' @param highlight_var Name of variable that identifies specific adverse events that should be highlighted. Default is \code{'AESER'}.
+#' @param highlight_label Legend label for highlighting. Default is \code{'Serious Event'}.
+#' @param highlight_val Value of \code{highlight_var} which designates events to highlight.
+#' @param highlight_detail Name of variable that describes event in more detail.
+#' @param highlight_stroke, highlight_stroke_width, highlight_fill Attributes of highlighted events.
+#' @param filters_var Columns to use for filters.  Defaults to \code{c('AESER','AESEV','USUBJID')}.
+#' @param filters_label Associated labels to use for filters. If set to \code{NULL}, variable name(s) will be used.  Defaults to \code{c('Serious Event','Severity/Intensity','Subject Identifier')}. 
+#' @param details_var Optional vector of variable names to include in details listing.
+#' @param details_label Associated labels/headers to use for details listing.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
@@ -34,15 +43,60 @@
 aeTimelines <- function(data, 
                         id = "USUBJID",
                         seq = "AESEQ",
-                        major = "AEBODSYS",
                         minor = "AEDECOD",
                         start = "ASTDY",
                         end = "AENDY",
                         severity = "AESEV",
-                        related = "AEREL",
-                        details = NULL, 
+                        color_var = "AESEV",
+                        color_label = "Severity/Intensity",
+                        color_val = NULL,
+                        color_codes = NULL, 
+                        highlight_var = "AESER",
+                        highlight_label = "Serious Event",
+                        highlight_val = "Y",
+                        highlight_detail = NULL,
+                        highlight_stroke = "black",
+                        highlight_stroke_width = 2,
+                        highlight_fill = 'none',
+                        filters_var = c('AESER','AESEV','USUBJID'),
+                        filters_label = c('Serious Event','Severity/Intensity','Subject Identifier'),
+                        details_var = NULL, 
+                        details_label = NULL, 
                         width = NULL, height = NULL, elementId = NULL) {
 
+  
+  # create list format for json - colors
+  if (is.null(color_codes)){
+    cols <- c('#66bd63','#fdae61','#d73027','#377eb8','#984ea3','#ff7f00','#a65628','#f781bf','#999999')
+  } else {
+    cols <- color_codes
+  }
+  if (is.null(color_val)){
+    vals <- levels(as.factor(data[,color_var]))[which(! levels(as.factor(data[,color_var])) %in% c('NA',''))]
+  } else{
+    vals <- color_val
+  }
+  color <- list(value_col = color_var, 
+                  label = color_label, 
+                  values = vals, 
+                  colors = cols)
+
+  
+  # create list format for json - highlight
+  highlight <- list(value_col = highlight_var, 
+                    label = highlight_label,
+                    value = highlight_val,
+                    detail_col = highlight_detail,
+                    attributes = list(stroke = highlight_stroke,
+                                      `stroke-width` = highlight_stroke_width,
+                                      fill = highlight_fill))
+  
+  # create list format for json - filters
+  filters <- data.frame(value_col = filters_var, label = filters_label)
+  
+  # create list format for json - details
+  details <- data.frame(value_col = details_var, label = details_label)  
+  
   # forward options using x
   x = list(
     data=data,
@@ -50,14 +104,13 @@ aeTimelines <- function(data,
       list(
         id_col=id,
         seq_col=seq,
-        soc_col=major,
         term_col=minor,
         stdy_col=start,
         endy_col=end,
-        sev_col=severity,
-        rel_col=related,
-     #   filter_cols = I(filters),
-        detail_cols = I(details)
+        color = color,
+        highlight = highlight,
+        filters = I(filters),
+        details = I(details)
         ),
     null="null", auto_unbox=T
   )
