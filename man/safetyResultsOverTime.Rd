@@ -62,8 +62,6 @@ safetyResultsOverTime(data, id = "USUBJID", time_var = "VISITN",
 \item{height}{Height in pixels}
 
 \item{elementId}{The element ID for the widget.}
-
-\item{groups}{Vector of two or more variable names for columns defining subpopulations of interest.  Default is \code{c("SEX", "RACE")}.}
 }
 \description{
 This function creates a Safety Results Over Time widget using R htmlwidgets.

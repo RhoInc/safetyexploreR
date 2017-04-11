@@ -47,14 +47,14 @@ safetyHistogram <- function(data,
                             width = NULL, height = NULL, elementId = NULL) {
 
   
-  # create list format for json - filters
+  # create array of objects format for json - filters
   if (!is.null(filters_label)){
     filters <- data.frame(value_col = filters_var, label = filters_label)
   } else{
     filters <- data.frame(value_col = filters_var, label = filters_var)    
   }
 
-  # create list format for json - details
+  # create array of objects format for json - details
   if (!is.null(details_label)){
     details <- data.frame(value_col = details_var, label = details_label)    
     } else{
@@ -75,7 +75,7 @@ safetyHistogram <- function(data,
         normal_col_high = normal_high,
         filters = I(filters),
         details = I(details),
-        start_value = I(filters),
+        start_value = I(start_value),
         missingValues = missingValues
       ),
       null="null", auto_unbox=T

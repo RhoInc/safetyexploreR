@@ -59,21 +59,21 @@ safetyOutlierExplorer <- function(data,
                                   width = NULL, height = NULL, elementId = NULL) {
 
   
-  # create list format for json - time settings
+  # create array of objects format for json - time settings
   time_settings <- data.frame(value_col = time_var, 
                               type = time_type,
                               label = time_label,  
                               rotate_tick_labels = time_label_rot,
                               vertical_space = time_label_padding)
   
-  # create list format for json - filters
+  # create array of objects format for json - filters
   if (!is.null(filters_label)){
     filters <- data.frame(value_col = filters_var, label = filters_label)
   } else{
     filters <- data.frame(value_col = filters_var, label = filters_var)    
   }
   
-  # create list format for json - details
+  # create array of objects format for json - details
   if (!is.null(details_label)){
     details <- data.frame(value_col = details_var, label = details_label)    
   } else{

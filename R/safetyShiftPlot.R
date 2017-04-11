@@ -4,12 +4,16 @@
 #'
 #' @param data A data.frame containing the labs data. 
 #' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
-#' @param timing Timing of collection variable names. Default is \code{"VISITN"}.
+#' @param time_var Timing of collection variable names. Default is \code{"VISITN"}.
 #' @param measure  Name of measure variable name. Default is \code{"TEST"}.
 #' @param value   Value of measure variable name. Default is \code{"STRESN"}.
 #' @param start_value Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.  
 #' @param filters_var Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).  
 #' @param filters_label Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels. 
+#' @param x_params_visits Optional character vector of visit values with which to define the baseline outcome. Defaults to the first ordered value of \code{time}. 
+#' @param x_params_stat Aggregate function with which to summarize baseline values.  Default value is \code{mean}. Options are \code{"mean"}, \code{"min"}, or \code{"max"}.
+#' @param y_params_visits Optional character vector of visit values with which to define the comparison outcome. Defaults to all values of \code{time} except the first sorted value. 
+#' @param y_params_stat Aggregate function with which to summarize comparison values.  Default value is \code{mean}. Options are \code{"mean"}, \code{"min"}, or \code{"max"}.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
@@ -28,20 +32,36 @@
 #' @export
 safetyShiftPlot <- function(data, 
                             id = "USUBJID",
-                            timing = "VISITN",
+                            time_var = "VISITN",
                             measure = "TEST",
                             value = "STRESN",
                             start_value = NULL,
                             filters_var = NULL, 
                             filters_label = NULL,
+                            x_params_visits = NULL,
+                            x_params_stat = 'mean',
+                            y_params_visits = NULL,
+                            y_params_stat = 'mean',
                             width = NULL, height = NULL, elementId = NULL) {
 
-  # create list format for json - filters
+  # create array of objects format for json - filters
   if (!is.null(filters_label)){
     filters <- data.frame(value_col = filters_var, label = filters_label)
   } else{
     filters <- data.frame(value_col = filters_var, label = filters_var)    
   }
+  
+  # create object format for json - x_param/y_param
+  if (!is.null(x_params_visits)){
+    x_params <- list(visits = as.character(x_params_visits), stat = x_params_stat)
+  } else{
+    x_params <- list(visits = x_params_visits, stat = x_params_stat)
+  }
+  if (!is.null(y_params_visits)){
+    y_params <- list(visits = as.character(y_params_visits), stat = y_params_stat)
+  } else{
+    y_params <- list(visits = y_params_visits, stat = y_params_stat)
+  }  
   
   # forward options using x
   x = list(
@@ -49,10 +69,13 @@ safetyShiftPlot <- function(data,
     settings = jsonlite::toJSON(
       list(
         id_col = id, 
-        time_col = timing, 
+        time_col = time_var, 
         measure_col = measure,
         value_col = value,
-        filters = I(filters)
+        filters = I(filters),
+        x_params = x_params,
+        y_params = y_params,
+        start_value = start_value
       ),
       null="null", auto_unbox=T
     )

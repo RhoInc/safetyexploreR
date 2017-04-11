@@ -14,7 +14,6 @@
 #' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
 #' @param normal_low   Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.
 #' @param normal_high   Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
-#' @param groups Vector of two or more variable names for columns defining subpopulations of interest.  Default is \code{c("SEX", "RACE")}.
 #' @param start_value Value of variable defined in \code{measure} to be rendered in the plot when the widget loads. 
 #' @param groups_var Optional: name of column(s) to include as options for chart stratification.  Default is \code{"NONE"}.
 #' @param groups_label Optional label for stratification variable(s).  Default is \code{"None"}. If set to \code{NULL}, variable name will be used as label.
@@ -65,11 +64,11 @@ safetyResultsOverTime <- function(data,
                                   width = NULL, height = NULL, elementId = NULL) {
 
   
-  # create list format for json - time settings
+  # create object format for json - time settings
   if (!is.null(time_order)){
     time_settings <- list(value_col = time_var, 
                                 label = time_label, 
-                                order = time_order,
+                                order = as.character(time_order),
                                 rotate_tick_labels = time_label_rot,
                                 vertical_space = time_label_padding)
   } else{
@@ -80,14 +79,14 @@ safetyResultsOverTime <- function(data,
   }
 
   
-  # create list format for json - groups
+  # create array of objects format for json - groups
   if (!is.null(groups_label)){
     groups <- data.frame(value_col = groups_var, label = groups_label)    
   } else{
     groups <- data.frame(value_col = groups_var, label = groups_var)    
   }
   
-  # create list format for json - filters
+  # create array of objects format for json - filters
   if (!is.null(filters_label)){
     filters <- data.frame(value_col = filters_var, label = filters_label)
   } else{

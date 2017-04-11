@@ -9,8 +9,8 @@
 #' @param group  Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.
 #' @param details An optional vector of variables to display in the detail listing.  If left as \code{NULL} or unspecified, all variables in input data will appear in detail listing.
 #' @param placeholderFlag A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.
-#' @param filters_ptcpt_var,filters_ptcpt_var Participant-level filters. See details.
-#' @param filters_event_var,filters_event_var Event-level filters. See details.
+#' @param filters_ptcpt_var,filters_ptcpt_label Participant-level filters. See details.
+#' @param filters_event_var,filters_event_label Event-level filters. See details.
 #' @param groups An option character vector specifying which values to display as columns for variable specified in \code{groups}.  If left as \code{NULL}, all groups will be displayed.
 #' @param totalCol Specify whether or not to render a total column. Accepts \code{TRUE} (default) or \code{FALSE}. 
 #' @param diffCol Specify whether or not to render a column of graphical differences. Accepts \code{TRUE} (default) or \code{FALSE}. 
@@ -63,7 +63,7 @@ aeExplorer <- function(data,
                        filters_event_var =  c('AESER','AESEV','AEREL','AEOUT'),
                        filters_event_label = c('Serious?','Severity','Relationship','Outcome'),
                        groups = NULL, 
-                       placeholderFlag = c('','NA','N/A'),
+                       missingValues = c('','NA','N/A'),
                        filters = NULL, 
                        totalCol = TRUE,
                        diffCol = TRUE,
@@ -80,7 +80,7 @@ aeExplorer <- function(data,
 
   
   
-  # create data.frame format for json - FILTERS
+  # create array of objects format for json - FILTERS
   if (!is.null(filters_ptcpt_var)){
     if (! is.null(filters_ptcpt_label)){
       filters_ptcpt <- data.frame(value_col = filters_ptcpt_var, label = filters_ptcpt_label, type = 'participant')
@@ -105,7 +105,7 @@ aeExplorer <- function(data,
 
   filters <- rbind(filters_ptcpt, filters_event)
 
-  # create data.frame format for json - groups 
+  # create key/value pair format for json - groups 
   if (!is.null(groups)){
     groups_l <- list() 
     for(i in 1:length(groups)){
@@ -115,11 +115,11 @@ aeExplorer <- function(data,
     groups_l <- NULL
   }
   
-  # create data.frame format for json - MISSING VALS 
-  placeholderFlag <- list(value_col = major, values=placeholderFlag)
+  # create object format for json - MISSING VALS 
+  placeholderFlag <- list(value_col = major, values=missingValues)
   
   
-  # create data.frame format for json - MARGINS
+  # create object format for json - MARGINS
   margin <- list(left=margin[1], right=margin[2])
   diffMargin <- list(left=diffMargin[1], right=diffMargin[2])
   

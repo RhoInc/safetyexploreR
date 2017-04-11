@@ -7,16 +7,18 @@
 Safety Shift Plot: \url{https://github.com/RhoInc/safety-shift-plot}.
 }
 \usage{
-safetyShiftPlot(data, id = "USUBJID", timing = "VISITN", measure = "TEST",
-  value = "STRESN", start_value = NULL, filters_var = NULL,
-  filters_label = NULL, width = NULL, height = NULL, elementId = NULL)
+safetyShiftPlot(data, id = "USUBJID", time_var = "VISITN",
+  measure = "TEST", value = "STRESN", start_value = NULL,
+  filters_var = NULL, filters_label = NULL, x_params_visits = NULL,
+  x_params_stat = "mean", y_params_visits = NULL, y_params_stat = "mean",
+  width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data.frame containing the labs data.}
 
 \item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{timing}{Timing of collection variable names. Default is \code{"VISITN"}.}
+\item{time_var}{Timing of collection variable names. Default is \code{"VISITN"}.}
 
 \item{measure}{Name of measure variable name. Default is \code{"TEST"}.}
 
@@ -27,6 +29,14 @@ safetyShiftPlot(data, id = "USUBJID", timing = "VISITN", measure = "TEST",
 \item{filters_var}{Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).}
 
 \item{filters_label}{Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels.}
+
+\item{x_params_visits}{Optional character vector of visit values with which to define the baseline outcome. Defaults to the first ordered value of \code{time}.}
+
+\item{x_params_stat}{Aggregate function with which to summarize baseline values.  Default value is \code{mean}. Options are \code{"mean"}, \code{"min"}, or \code{"max"}.}
+
+\item{y_params_visits}{Optional character vector of visit values with which to define the comparison outcome. Defaults to all values of \code{time} except the first sorted value.}
+
+\item{y_params_stat}{Aggregate function with which to summarize comparison values.  Default value is \code{mean}. Options are \code{"mean"}, \code{"min"}, or \code{"max"}.}
 
 \item{width}{Width in pixels}
 

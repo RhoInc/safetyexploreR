@@ -65,7 +65,7 @@ aeTimelines <- function(data,
                         width = NULL, height = NULL, elementId = NULL) {
 
   
-  # create list format for json - colors
+  # create object format for json - colors
   if (is.null(color_codes)){
     cols <- c('#66bd63','#fdae61','#d73027','#377eb8','#984ea3','#ff7f00','#a65628','#f781bf','#999999')
   } else {
@@ -82,7 +82,7 @@ aeTimelines <- function(data,
                   colors = cols)
 
   
-  # create list format for json - highlight
+  # create object format for json - highlight
   highlight <- list(value_col = highlight_var, 
                     label = highlight_label,
                     value = highlight_val,
@@ -91,14 +91,14 @@ aeTimelines <- function(data,
                                       `stroke-width` = highlight_stroke_width,
                                       fill = highlight_fill))
   
-  # create list format for json - filters
+  # create array of objects format for json - filters
   if (!is.null(filters_label)){
     filters <- data.frame(value_col = filters_var, label = filters_label)
   } else{
     filters <- data.frame(value_col = filters_var, label = filters_var)    
   }
   
-  # create list format for json - details
+  # create array of objects format for json - details
   if (!is.null(details_label)){
     details <- data.frame(value_col = details_var, label = details_label)    
   } else{

@@ -11,7 +11,7 @@ aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
   group = "ARM", details = NULL, filters_ptcpt_var = NULL,
   filters_ptcpt_label = NULL, filters_event_var = c("AESER", "AESEV",
   "AEREL", "AEOUT"), filters_event_label = c("Serious?", "Severity",
-  "Relationship", "Outcome"), groups = NULL, placeholderFlag = c("", "NA",
+  "Relationship", "Outcome"), groups = NULL, missingValues = c("", "NA",
   "N/A"), filters = NULL, totalCol = TRUE, diffCol = TRUE,
   prefTerms = FALSE, maxPrevalence = 0, maxGroups = 6, h = 1, w = 1,
   r = 1, margin = c(40, 40), diffMargin = c(5, 5), validation = FALSE,
@@ -30,13 +30,11 @@ aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
 
 \item{details}{An optional vector of variables to display in the detail listing.  If left as \code{NULL} or unspecified, all variables in input data will appear in detail listing.}
 
-\item{filters_ptcpt_var, filters_ptcpt_var}{Participant-level filters. See details.}
+\item{filters_ptcpt_var, filters_ptcpt_label}{Participant-level filters. See details.}
 
-\item{filters_event_var, filters_event_var}{Event-level filters. See details.}
+\item{filters_event_var, filters_event_label}{Event-level filters. See details.}
 
 \item{groups}{An option character vector specifying which values to display as columns for variable specified in \code{groups}.  If left as \code{NULL}, all groups will be displayed.}
-
-\item{placeholderFlag}{A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.}
 
 \item{totalCol}{Specify whether or not to render a total column. Accepts \code{TRUE} (default) or \code{FALSE}.}
 
@@ -65,6 +63,8 @@ aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
 \item{height}{Height in pixels.}
 
 \item{elementId}{The element ID for the widget.}
+
+\item{placeholderFlag}{A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.}
 }
 \description{
 This function creates an AE Explorer using R htmlwidgets.
