@@ -8,7 +8,7 @@
 #' @param minor Lower-level term variable name.  Default is \code{"AEDECOD"}. 
 #' @param group  Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.
 #' @param details An optional vector of variables to display in the detail listing.  If left as \code{NULL} or unspecified, all variables in input data will appear in detail listing.
-#' @param placeholderFlag A character vector specifying the value of missing AEs.  Defaults to \code{c(NA,'')}.
+#' @param placeholderFlag A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.
 #' @param filters_ptcpt_var,filters_ptcpt_var Participant-level filters. See details.
 #' @param filters_event_var,filters_event_var Event-level filters. See details.
 #' @param groups An option character vector specifying which values to display as columns for variable specified in \code{groups}.  If left as \code{NULL}, all groups will be displayed.
@@ -63,7 +63,7 @@ aeExplorer <- function(data,
                        filters_event_var =  c('AESER','AESEV','AEREL','AEOUT'),
                        filters_event_label = c('Serious?','Severity','Relationship','Outcome'),
                        groups = NULL, 
-                       placeholderFlag = c('NA',''),
+                       placeholderFlag = c('','NA','N/A'),
                        filters = NULL, 
                        totalCol = TRUE,
                        diffCol = TRUE,
