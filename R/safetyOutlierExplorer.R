@@ -61,8 +61,8 @@ safetyOutlierExplorer <- function(data,
   
   # create list format for json - time settings
   time_settings <- data.frame(value_col = time_var, 
-                              label = time_label, 
-                              order = time_order,
+                              type = time_type,
+                              label = time_label,  
                               rotate_tick_labels = time_label_rot,
                               vertical_space = time_label_padding)
   
