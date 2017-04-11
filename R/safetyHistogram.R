@@ -14,7 +14,7 @@
 #' @param details_var Optional vector of variable names to include in details listing, in addition to variables specified in \code{id}, \code{value}, \code{normal_low}, and \code{normal_high}.
 #' @param details_label Associated labels/headers to use for details listing.  If left as \code{NULL}, variable names will be used as labels. 
 #' @param start_value Value of variable defined in \code{measure} to be rendered in the histogram when the widget loads. 
-#' @param missingValues Vector of values defining a missing \code{value}. Default is \code{c('','NA','N/A)}.
+#' @param missingValues Vector of values defining a missing \code{value}. Default is \code{c('','NA','N/A')}.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
