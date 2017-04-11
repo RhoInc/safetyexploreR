@@ -9,7 +9,9 @@ Safety Histogram: \url{https://github.com/RhoInc/safety-histogram}.
 \usage{
 safetyHistogram(data, id = "USUBJID", measure = "TEST", value = "STRESN",
   unit = "STRESU", normal_low = "STNRLO", normal_high = "STNRHI",
-  filters = NULL, width = NULL, height = NULL, elementId = NULL)
+  filters_var = NULL, filters_label = NULL, details_var = NULL,
+  details_label = NULL, start_value = NULL, missingValues = c("", "NA",
+  "N/A"), width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the labs data.}
@@ -26,9 +28,17 @@ safetyHistogram(data, id = "USUBJID", measure = "TEST", value = "STRESN",
 
 \item{normal_high}{Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.}
 
-\item{filters}{An optional list containing individual lists for each desired filter.
-To specify a  filter, two arguments (\code{value_col} and \code{label}) are required.   
-(e.g. \code{filters = list(list(value_col = "AESER", label = "Serious?"), list(value_col = "SEX", label = "Participant Sex"))})}
+\item{filters_var}{Optional vector of variable names to use for filters (in addition to default filter on \code{measure}).}
+
+\item{filters_label}{Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels.}
+
+\item{details_var}{Optional vector of variable names to include in details listing, in addition to variables specified in \code{id}, \code{value}, \code{normal_low}, and \code{normal_high}.}
+
+\item{details_label}{Associated labels/headers to use for details listing.  If left as \code{NULL}, variable names will be used as labels.}
+
+\item{start_value}{Value of variable defined in \code{measure} to be rendered in the histogram when the widget loads.}
+
+\item{missingValues}{Vector of values defining a missing \code{value}. Default is \code{c('','NA','N/A')}.}
 
 \item{width}{Width in pixels}
 
@@ -43,10 +53,6 @@ This function creates a Safety Histogram using R htmlwidgets.
 \dontrun{
 # Run Safety Histogram with defaults
 safetyHistogram(data=ADBDS)
-
-# Run Safety Histogram with some customizations 
-safetyHistogram(data=ADBDS, filters = list(list(value_col = "RACE", label = "Participant Race"), 
-                                           list(value_col = "SEX", label = "Participant Sex")))
 }
 
 }

@@ -7,11 +7,13 @@
 Safety Results Over Time: \url{https://github.com/RhoInc/safety-results-over-time}.
 }
 \usage{
-safetyResultsOverTime(data, id = "USUBJID", timing = "VISITN",
-  measure = "TEST", value = "STRESN", unit = "STRESU",
-  normal_low = "STNRLO", normal_high = "STNRHI", groups = c("SEX",
-  "RACE"), start_value = NULL, rotateX = NULL, missingValues = c("NA",
-  ""), boxplots = TRUE, violins = FALSE, width = NULL, height = NULL,
+safetyResultsOverTime(data, id = "USUBJID", time_var = "VISITN",
+  time_label = "Visit Number", time_order = NULL, time_label_rot = FALSE,
+  time_label_padding = 0, measure = "TEST", value = "STRESN",
+  unit = "STRESU", normal_low = "STNRLO", normal_high = "STNRHI",
+  start_value = NULL, groups_var = "NONE", groups_label = "None",
+  filters_var = NULL, filters_label = NULL, missingValues = c("", "NA",
+  "N/A"), boxplots = TRUE, violins = FALSE, width = NULL, height = NULL,
   elementId = NULL)
 }
 \arguments{
@@ -19,7 +21,15 @@ safetyResultsOverTime(data, id = "USUBJID", timing = "VISITN",
 
 \item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{timing}{Timing of collection variable names. Default is \code{"VISITN"}.}
+\item{time_var}{Timing of collection variable name. Default is \code{c("VISITN")}.}
+
+\item{time_label}{Label of variable specified in \code{time_var}. Defaults to \code{c('Visit Number')}. If set to \code{NULL}, variable name will be used for labels.}
+
+\item{time_order}{Option to specify order of x-axis using a character vector.}
+
+\item{time_label_rot}{Rotate x-axis tick labels 45 degrees?  Defaults to \code{FALSE}.}
+
+\item{time_label_padding}{X-axis padding for rotated labels in pixels. Defaults to \code{0}.}
 
 \item{measure}{Name of measure variable name. Default is \code{"TEST"}.}
 
@@ -27,17 +37,21 @@ safetyResultsOverTime(data, id = "USUBJID", timing = "VISITN",
 
 \item{unit}{Unit of measure variable name. Default is \code{"STRESU"}.}
 
-\item{normal_low}{Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.}
+\item{normal_low}{Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.}
 
-\item{normal_high}{Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.}
+\item{normal_high}{Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.}
 
-\item{groups}{Vector of two or more variable names for columns defining subpopulations of interest.  Default is \code{c("SEX", "RACE")}.}
+\item{start_value}{Value of variable defined in \code{measure} to be rendered in the plot when the widget loads.}
 
-\item{start_value}{Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.}
+\item{groups_var}{Optional: name of column(s) to include as options for chart stratification.  Default is \code{"NONE"}.}
 
-\item{rotateX}{Logical indicating whether to rotate the x-axis labels.  Default is \code{TRUE}.}
+\item{groups_label}{Optional label for stratification variable(s).  Default is \code{"None"}. If set to \code{NULL}, variable name will be used as label.}
 
-\item{missingValues}{A vector of values found in \code{value} to be ignored when rendering the chat. Default is \code{c("NA","")}.}
+\item{filters_var}{Optional vector of variable names to use for filters}
+
+\item{filters_label}{Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels.}
+
+\item{missingValues}{A vector of values found in \code{value} to be ignored when rendering the chat. Default is \code{c('','NA','N/A')}.}
 
 \item{boxplots}{Logical indicating whether to render boxplots.  Default is \code{TRUE}.}
 
@@ -48,6 +62,8 @@ safetyResultsOverTime(data, id = "USUBJID", timing = "VISITN",
 \item{height}{Height in pixels}
 
 \item{elementId}{The element ID for the widget.}
+
+\item{groups}{Vector of two or more variable names for columns defining subpopulations of interest.  Default is \code{c("SEX", "RACE")}.}
 }
 \description{
 This function creates a Safety Results Over Time widget using R htmlwidgets.
@@ -58,7 +74,7 @@ This function creates a Safety Results Over Time widget using R htmlwidgets.
 safetyResultsOverTime(data=ADBDS)
 
 # Run Safety Histogram with some customizations 
-safetyResultsOverTime(data=ADBDS, groups=c("SEX","RACE","ARM"), boxplots=T, violins=T)
+safetyResultsOverTime(data=ADBDS, groups_var=c("SEX","RACE","ARM"), boxplots=T, violins=T)
 }
 
 }

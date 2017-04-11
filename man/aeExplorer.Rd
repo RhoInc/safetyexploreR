@@ -11,10 +11,10 @@ aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
   group = "ARM", details = NULL, filters_ptcpt_var = NULL,
   filters_ptcpt_label = NULL, filters_event_var = c("AESER", "AESEV",
   "AEREL", "AEOUT"), filters_event_label = c("Serious?", "Severity",
-  "Relationship", "Outcome"), groups = NULL, placeholderFlag = c("NA", ""),
-  filters = NULL, totalCol = TRUE, diffCol = TRUE, prefTerms = FALSE,
-  maxPrevalence = 0, maxGroups = 6, h = 1, w = 1, r = 1,
-  margin = c(40, 40), diffMargin = c(5, 5), validation = FALSE,
+  "Relationship", "Outcome"), groups = NULL, placeholderFlag = c("", "NA",
+  "N/A"), filters = NULL, totalCol = TRUE, diffCol = TRUE,
+  prefTerms = FALSE, maxPrevalence = 0, maxGroups = 6, h = 1, w = 1,
+  r = 1, margin = c(40, 40), diffMargin = c(5, 5), validation = FALSE,
   width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
@@ -36,7 +36,7 @@ aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
 
 \item{groups}{An option character vector specifying which values to display as columns for variable specified in \code{groups}.  If left as \code{NULL}, all groups will be displayed.}
 
-\item{placeholderFlag}{A character vector specifying the value of missing AEs.  Defaults to \code{c(NA,'')}.}
+\item{placeholderFlag}{A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.}
 
 \item{totalCol}{Specify whether or not to render a total column. Accepts \code{TRUE} (default) or \code{FALSE}.}
 

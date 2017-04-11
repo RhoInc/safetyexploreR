@@ -7,17 +7,30 @@
 Safety Outlier Explorer: \url{https://github.com/RhoInc/safety-outlier-explorer}.
 }
 \usage{
-safetyOutlierExplorer(data, id = "USUBJID", timing = c("VISITN", "VISIT",
-  "DY"), measure = "TEST", value = "STRESN", unit = "STRESU",
-  normal_low = "STNRLO", normal_high = "STNRHI", width = NULL,
-  height = NULL, elementId = NULL)
+safetyOutlierExplorer(data, id = "USUBJID", time_var = c("DY", "VISITN",
+  "VISIT"), time_type = c("linear", "ordinal", "ordinal"),
+  time_label = c("Study Day", "Visit Number", "Visit"),
+  time_label_rot = c(FALSE, FALSE, TRUE), time_label_padding = c(0, 0, 100),
+  measure = "TEST", value = "STRESN", unit = "STRESU",
+  normal_low = "STNRLO", normal_high = "STNRHI", start_value = NULL,
+  filters_var = NULL, filters_label = NULL, details_var = c("AGE", "SEX",
+  "RACE"), details_label = c("Age", "Sex", "Race"), multiples_width = 1,
+  multiples_height = 1, width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the labs data.}
 
 \item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{timing}{Timing of collection variable name(s).  Up to 3 may be specified. Default is \code{c("VISITN","VISIT","DY")}}
+\item{time_var}{Timing of collection variable name(s).  Up to 3 may be specified. Default is \code{c("DY","VISITN","VISIT")}.}
+
+\item{time_type}{Scale types for variables specified in \code{time_var}.  Defaults to \code{c('linear','ordinal','ordinal')}.}
+
+\item{time_label}{Labels of variables specified in \code{time_var}. Defaults to \code{c('Study Day','Visit Number','Visit')}. If set to \code{NULL}, variable names will be used for labels.}
+
+\item{time_label_rot}{Rotate x-axis tick labels 45 degrees?  Defaults to \code{c(FALSE, FALSE, TRUE)}.}
+
+\item{time_label_padding}{X-axis padding for rotated labels in pixels. Defaults to \code{c(0, 0, 100)}.}
 
 \item{measure}{Name of measure variable name. Default is \code{"TEST"}.}
 
@@ -28,6 +41,20 @@ safetyOutlierExplorer(data, id = "USUBJID", timing = c("VISITN", "VISIT",
 \item{normal_low}{Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.}
 
 \item{normal_high}{Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.}
+
+\item{start_value}{Value of variable defined in \code{measure} to be rendered in the plot when the widget loads.}
+
+\item{filters_var}{Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).}
+
+\item{filters_label}{Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels.}
+
+\item{details_var}{Optional vector of variable names to include in details listing. Defaults to \code{'AGE'}, \code{'SEX'}, and \code{'RACE'}.}
+
+\item{details_label}{Associated labels/headers to use for details listing. Defaults to \code{'Age'}, \code{'Sex'}, and \code{'Race'}.  If set to \code{NULL}, variable names will be used as labels.}
+
+\item{multiples_width}{Adjust width of small multiple plots by adjusting a ratio of the original pixel value. Default is 1 (or 300 px).}
+
+\item{multiples_height}{Adjust height of  small multiple plots by adjusting a ratio of the original pixel value. Default is 1 (or 100 px).}
 
 \item{width}{Width in pixels}
 
