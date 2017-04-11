@@ -8,6 +8,8 @@
 #' @param measure  Name of measure variable name. Default is \code{"TEST"}.
 #' @param value   Value of measure variable name. Default is \code{"STRESN"}.
 #' @param start_value Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.  
+#' @param filters_var Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).  
+#' @param filters_label Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels. 
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
@@ -30,8 +32,17 @@ safetyShiftPlot <- function(data,
                             measure = "TEST",
                             value = "STRESN",
                             start_value = NULL,
+                            filters_var = NULL, 
+                            filters_label = NULL,
                             width = NULL, height = NULL, elementId = NULL) {
 
+  # create list format for json - filters
+  if (!is.null(filters_label)){
+    filters <- data.frame(value_col = filters_var, label = filters_label)
+  } else{
+    filters <- data.frame(value_col = filters_var, label = filters_var)    
+  }
+  
   # forward options using x
   x = list(
     data = data,
@@ -40,9 +51,8 @@ safetyShiftPlot <- function(data,
         id_col = id, 
         time_col = timing, 
         measure_col = measure,
-        value_col = value
-        #,
-        #start_value = I(start_value)
+        value_col = value,
+        filters = I(filters)
       ),
       null="null", auto_unbox=T
     )

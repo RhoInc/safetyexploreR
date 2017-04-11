@@ -49,16 +49,16 @@ safetyHistogram <- function(data,
   
   # create list format for json - filters
   if (!is.null(filters_label)){
-    filters <- data.frame(value_col = filters_var, label = filters_var)
+    filters <- data.frame(value_col = filters_var, label = filters_label)
   } else{
-    filters <- data.frame(value_col = filters_var, label = filters_label)    
+    filters <- data.frame(value_col = filters_var, label = filters_var)    
   }
 
   # create list format for json - details
   if (!is.null(details_label)){
-    details <- data.frame(value_col = details_var, label = details_var)    
-    } else{
     details <- data.frame(value_col = details_var, label = details_label)    
+    } else{
+    details <- data.frame(value_col = details_var, label = details_var)    
     }
   
   

@@ -8,8 +8,8 @@ Safety Shift Plot: \url{https://github.com/RhoInc/safety-shift-plot}.
 }
 \usage{
 safetyShiftPlot(data, id = "USUBJID", timing = "VISITN", measure = "TEST",
-  value = "STRESN", start_value = NULL, width = NULL, height = NULL,
-  elementId = NULL)
+  value = "STRESN", start_value = NULL, filters_var = NULL,
+  filters_label = NULL, width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data.frame containing the labs data.}
@@ -23,6 +23,10 @@ safetyShiftPlot(data, id = "USUBJID", timing = "VISITN", measure = "TEST",
 \item{value}{Value of measure variable name. Default is \code{"STRESN"}.}
 
 \item{start_value}{Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.}
+
+\item{filters_var}{Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).}
+
+\item{filters_label}{Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels.}
 
 \item{width}{Width in pixels}
 

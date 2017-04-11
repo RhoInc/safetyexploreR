@@ -82,16 +82,16 @@ safetyResultsOverTime <- function(data,
   
   # create list format for json - groups
   if (!is.null(groups_label)){
-    groups <- data.frame(value_col = groups_var, label = groups_var)    
-  } else{
     groups <- data.frame(value_col = groups_var, label = groups_label)    
+  } else{
+    groups <- data.frame(value_col = groups_var, label = groups_var)    
   }
   
   # create list format for json - filters
   if (!is.null(filters_label)){
-    filters <- data.frame(value_col = filters_var, label = filters_var)
+    filters <- data.frame(value_col = filters_var, label = filters_label)
   } else{
-    filters <- data.frame(value_col = filters_var, label = filters_label)    
+    filters <- data.frame(value_col = filters_var, label = filters_var)    
   }
   
   
