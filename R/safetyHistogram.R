@@ -75,7 +75,7 @@ safetyHistogram <- function(data,
         normal_col_high = normal_high,
         filters = I(filters),
         details = I(details),
-        start_value = I(start_value),
+        start_value = start_value,
         missingValues = missingValues
       ),
       null="null", auto_unbox=T

@@ -13,6 +13,8 @@ HTMLWidgets.widget({
        
        x.data = HTMLWidgets.dataframeToD3(x.data);
        
+       console.log(x.settings);
+       
        safetyHistogram(el, x.settings).init(x.data);
 
       },
