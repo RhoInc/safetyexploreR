@@ -59,8 +59,8 @@ safetyOutlierExplorer <- function(data,
                                   width = NULL, height = NULL, elementId = NULL) {
 
   
-  # create array of objects format for json - time settings
-  time_settings <- data.frame(value_col = time_var, 
+  # create array of objects format for json - time cols
+  time_cols <- data.frame(value_col = time_var, 
                               type = time_type,
                               label = time_label,  
                               rotate_tick_labels = time_label_rot,
@@ -86,7 +86,7 @@ safetyOutlierExplorer <- function(data,
     settings = jsonlite::toJSON(
       list(
         id_col = id, 
-        time_settings = time_settings, 
+        time_cols = time_cols, 
         measure_col = measure,
         value_col = value,
         unit_col = unit,
