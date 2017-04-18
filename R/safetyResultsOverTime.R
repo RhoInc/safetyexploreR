@@ -3,23 +3,23 @@
 #' This function creates a Safety Results Over Time widget using R htmlwidgets.  
 #'
 #' @param data A data frame containing the labs data. 
-#' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
-#' @param time_var Timing of collection variable name. Default is \code{c("VISITN")}.
-#' @param time_label Label of variable specified in \code{time_var}. Defaults to \code{c('Visit Number')}. If set to \code{NULL}, variable name will be used for labels.
+#' @param id_col   Participant ID variable name. Default is \code{"USUBJID"}.
+#' @param time_col Timing of collection variable name. Default is \code{c("VISITN")}.
+#' @param time_label Label of variable specified in \code{time_col}. Defaults to \code{c('Visit Number')}. If set to \code{NULL}, variable name will be used for labels.
 #' @param time_order Option to specify order of x-axis using a character vector.
-#' @param time_label_rot Rotate x-axis tick labels 45 degrees?  Defaults to \code{FALSE}.
-#' @param time_label_padding X-axis padding for rotated labels in pixels. Defaults to \code{0}.
-#' @param measure  Name of measure variable name. Default is \code{"TEST"}.
-#' @param value   Value of measure variable name. Default is \code{"STRESN"}.
-#' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
-#' @param normal_low   Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.
-#' @param normal_high   Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
-#' @param start_value Value of variable defined in \code{measure} to be rendered in the plot when the widget loads. 
-#' @param groups_var Optional: name of column(s) to include as options for chart stratification.  Default is \code{"NONE"}.
+#' @param time_rotate_tick_labels Rotate x-axis tick labels 45 degrees?  Defaults to \code{FALSE}.
+#' @param time_vertical_space X-axis padding for rotated labels in pixels. Defaults to \code{0}.
+#' @param measure_col  Name of measure variable name. Default is \code{"TEST"}.
+#' @param value_col   Value of measure variable name. Default is \code{"STRESN"}.
+#' @param unit_col   Unit of measure variable name. Default is \code{"STRESU"}.
+#' @param normal_col_low   Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.
+#' @param normal_col_high   Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
+#' @param start_value Value of variable defined in \code{measure_col} to be rendered in the plot when the widget loads. 
+#' @param groups_col Optional: name of column(s) to include as options for chart stratification.  Default is \code{"NONE"}.
 #' @param groups_label Optional label for stratification variable(s).  Default is \code{"None"}. If set to \code{NULL}, variable name will be used as label.
-#' @param filters_var Optional vector of variable names to use for filters
+#' @param filters_col Optional vector of variable names to use for filters
 #' @param filters_label Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels. 
-#' @param missingValues A vector of values found in \code{value} to be ignored when rendering the chat. Default is \code{c('','NA','N/A')}.
+#' @param missingValues A vector of values found in \code{value_col} to be ignored when rendering the chat. Default is \code{c('','NA','N/A')}.
 #' @param boxplots Logical indicating whether to render boxplots.  Default is \code{TRUE}.
 #' @param violins Logical indicating whether to render violin plots.  Default is \code{FALSE}.
 #' @param width Width in pixels 
@@ -32,7 +32,7 @@
 #' safetyResultsOverTime(data=ADBDS)
 #' 
 #' # Run Safety Histogram with some customizations 
-#' safetyResultsOverTime(data=ADBDS, groups_var=c("SEX","RACE","ARM"), boxplots=T, violins=T)
+#' safetyResultsOverTime(data=ADBDS, groups_col=c("SEX","RACE","ARM"), boxplots=T, violins=T)
 #' }
 #' 
 #' @seealso aeExplorer, aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyShiftPlot
@@ -42,21 +42,21 @@
 #'
 #' @export
 safetyResultsOverTime <- function(data, 
-                                  id = "USUBJID",
-                                  time_var = "VISITN",
+                                  id_col = "USUBJID",
+                                  time_col = "VISITN",
                                   time_label = "Visit Number",
                                   time_order = NULL,
-                                  time_label_rot =  FALSE,
-                                  time_label_padding = 0,
-                                  measure = "TEST",
-                                  value = "STRESN",
-                                  unit = "STRESU",
-                                  normal_low ="STNRLO", 
-                                  normal_high = "STNRHI", 
+                                  time_rotate_tick_labels =  FALSE,
+                                  time_vertical_space = 0,
+                                  measure_col = "TEST",
+                                  value_col = "STRESN",
+                                  unit_col = "STRESU",
+                                  normal_col_low ="STNRLO", 
+                                  normal_col_high = "STNRHI", 
                                   start_value = NULL,
-                                  groups_var = "NONE",
+                                  groups_col = "NONE",
                                   groups_label = "None",
-                                  filters_var = NULL, 
+                                  filters_col = NULL, 
                                   filters_label = NULL,
                                   missingValues = c('','NA','N/A'),
                                   boxplots = TRUE,
@@ -66,31 +66,31 @@ safetyResultsOverTime <- function(data,
   
   # create object format for json - time settings
   if (!is.null(time_order)){
-    time_settings <- list(value_col = time_var, 
+    time_settings <- list(value_col = time_col, 
                                 label = time_label, 
                                 order = as.character(time_order),
-                                rotate_tick_labels = time_label_rot,
-                                vertical_space = time_label_padding)
+                                rotate_tick_labels = time_rotate_tick_labels,
+                                vertical_space = time_vertical_space)
   } else{
-    time_settings <- list(value_col = time_var, 
+    time_settings <- list(value_col = time_col, 
                                 label = time_label,
-                                rotate_tick_labels = time_label_rot,
-                                vertical_space = time_label_padding)
+                                rotate_tick_labels = time_rotate_tick_labels,
+                                vertical_space = time_vertical_space)
   }
 
   
   # create array of objects format for json - groups
   if (!is.null(groups_label)){
-    groups <- data.frame(value_col = groups_var, label = groups_label)    
+    groups <- data.frame(value_col = groups_col, label = groups_label)    
   } else{
-    groups <- data.frame(value_col = groups_var, label = groups_var)    
+    groups <- data.frame(value_col = groups_col, label = groups_col)    
   }
   
   # create array of objects format for json - filters
   if (!is.null(filters_label)){
-    filters <- data.frame(value_col = filters_var, label = filters_label)
+    filters <- data.frame(value_col = filters_col, label = filters_label)
   } else{
-    filters <- data.frame(value_col = filters_var, label = filters_var)    
+    filters <- data.frame(value_col = filters_col, label = filters_col)    
   }
   
   
@@ -99,13 +99,13 @@ safetyResultsOverTime <- function(data,
     data = data,
     settings = jsonlite::toJSON(
       list(
-        id_col = id, 
+        id_col = id_col, 
         time_settings = time_settings, 
-        measure_col = measure,
-        value_col = value,
-        unit_col = unit,
-        normal_col_low = normal_low,
-        normal_col_high = normal_high,
+        measure_col = measure_col,
+        value_col = value_col,
+        unit_col = unit_col,
+        normal_col_low = normal_col_low,
+        normal_col_high = normal_col_high,
         groups = groups,
         filters = I(filters),
         start_value = start_value,

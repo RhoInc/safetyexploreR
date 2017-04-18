@@ -7,38 +7,39 @@
 Safety Histogram: \url{https://github.com/RhoInc/safety-histogram}.
 }
 \usage{
-safetyHistogram(data, id = "USUBJID", measure = "TEST", value = "STRESN",
-  unit = "STRESU", normal_low = "STNRLO", normal_high = "STNRHI",
-  filters_var = NULL, filters_label = NULL, details_var = NULL,
-  details_label = NULL, start_value = NULL, missingValues = c("", "NA",
-  "N/A"), width = NULL, height = NULL, elementId = NULL)
+safetyHistogram(data, id_col = "USUBJID", measure_col = "TEST",
+  value_col = "STRESN", unit_col = "STRESU", normal_col_low = "STNRLO",
+  normal_col_high = "STNRHI", filters_col = NULL, filters_label = NULL,
+  details_col = NULL, details_label = NULL, start_value = NULL,
+  missingValues = c("", "NA", "N/A"), width = NULL, height = NULL,
+  elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the labs data.}
 
-\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
+\item{id_col}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{measure}{Name of measure variable name. Default is \code{"TEST"}.}
+\item{measure_col}{Name of measure variable name. Default is \code{"TEST"}.}
 
-\item{value}{Value of measure variable name. Default is \code{"STRESN"}.}
+\item{value_col}{Value of measure variable name. Default is \code{"STRESN"}.}
 
-\item{unit}{Unit of measure variable name. Default is \code{"STRESU"}.}
+\item{unit_col}{Unit of measure variable name. Default is \code{"STRESU"}.}
 
-\item{normal_low}{Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.}
+\item{normal_col_low}{Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.}
 
-\item{normal_high}{Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.}
+\item{normal_col_high}{Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.}
 
-\item{filters_var}{Optional vector of variable names to use for filters (in addition to default filter on \code{measure}).}
+\item{filters_col}{Optional vector of variable names to use for filters (in addition to default filter on \code{measure_col}).}
 
 \item{filters_label}{Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels.}
 
-\item{details_var}{Optional vector of variable names to include in details listing, in addition to variables specified in \code{id}, \code{value}, \code{normal_low}, and \code{normal_high}.}
+\item{details_col}{Optional vector of variable names to include in details listing, in addition to variables specified in \code{id}, \code{value}, \code{normal_low}, and \code{normal_high}.}
 
 \item{details_label}{Associated labels/headers to use for details listing.  If left as \code{NULL}, variable names will be used as labels.}
 
-\item{start_value}{Value of variable defined in \code{measure} to be rendered in the histogram when the widget loads.}
+\item{start_value}{Value of variable defined in \code{measure_col} to be rendered in the histogram when the widget loads.}
 
-\item{missingValues}{Vector of values defining a missing \code{value}. Default is \code{c('','NA','N/A')}.}
+\item{missingValues}{Vector of values defining a missing \code{value_col}. Default is \code{c('','NA','N/A')}.}
 
 \item{width}{Width in pixels}
 
@@ -53,6 +54,9 @@ This function creates a Safety Histogram using R htmlwidgets.
 \dontrun{
 # Run Safety Histogram with defaults
 safetyHistogram(data=ADBDS)
+ 
+# Run Safety Histogram with some customizations 
+safetyHistogram(data=ADBDS, filters_col = c('ARM','SEX','RACE'))
 }
 
 }

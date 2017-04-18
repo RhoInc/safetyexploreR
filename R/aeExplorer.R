@@ -3,25 +3,26 @@
 #' This function creates an AE Explorer using R htmlwidgets.  
 #'
 #' @param data  A data frame containing the Adverse Events data.  
-#' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
-#' @param major Higher-level term variable name.  Default is \code{"AEBODSYS"}.
-#' @param minor Lower-level term variable name.  Default is \code{"AEDECOD"}. 
-#' @param group  Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.
-#' @param details An optional vector of variables to display in the detail listing.  If left as \code{NULL} or unspecified, all variables in input data will appear in detail listing.
-#' @param placeholderFlag A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.
-#' @param filters_ptcpt_var,filters_ptcpt_label Participant-level filters. See details.
-#' @param filters_event_var,filters_event_label Event-level filters. See details.
+#' @param id_col   Participant ID variable name. Default is \code{"USUBJID"}.
+#' @param major_col Higher-level term variable name.  Default is \code{"AEBODSYS"}.
+#' @param minor_col Lower-level term variable name.  Default is \code{"AEDECOD"}. 
+#' @param group_col  Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.
 #' @param groups An option character vector specifying which values to display as columns for variable specified in \code{groups}.  If left as \code{NULL}, all groups will be displayed.
-#' @param totalCol Specify whether or not to render a total column. Accepts \code{TRUE} (default) or \code{FALSE}. 
-#' @param diffCol Specify whether or not to render a column of graphical differences. Accepts \code{TRUE} (default) or \code{FALSE}. 
-#' @param prefTerms Specify whether or not to initially display all lower-level rows. Accepts \code{"TRUE"} or \code{"FALSE"} (default).  
+#' @param details_col Optional vector of variable names to include in details listing.
+#' @param details_label Associated labels/headers to use for details listing.
+#' @param filters_ptcpt_col,filters_ptcpt_label Participant-level filters. See details.
+#' @param filters_event_col,filters_event_label Event-level filters. See details.
+#' @param missingValues A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.
+#' @param showTotalCol Specify whether or not to render a total column. Accepts \code{TRUE} (default) or \code{FALSE}. 
+#' @param showDiffCol Specify whether or not to render a column of graphical differences. Accepts \code{TRUE} (default) or \code{FALSE}. 
+#' @param showPrefTerms Specify whether or not to initially display all lower-level rows. Accepts \code{"TRUE"} or \code{"FALSE"} (default).  
 #' @param maxPrevalence Filters out any higher- and lower-level rows without at least one group rate above specified value. Default is \code{0}.
 #' @param maxGroups Number of maximum allowable unique values for variable specified in \code{group}.
-#' @param h Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 15 px).
-#' @param w Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 200 px).
-#' @param r Adjust r of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 7 px).
-#' @param margin Numeric vector specfiying the left and right margins for the dot plot.
-#' @param diffMargin Numeric vector specifying the left and right margins for the difference diamonds plot.
+#' @param plotSettings_h Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 15 px).
+#' @param plotSettings_w Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 200 px).
+#' @param plotSettings_r Adjust r of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 7 px).
+#' @param plotSettings_margin Numeric vector specfiying the left and right margins for the dot plot.
+#' @param plotSettings_diffMargin Numeric vector specifying the left and right margins for the difference diamonds plot.
 #' @param validation Experimental setting that facilitates creating a comma-delimited data set of the current view of the data.  Default is \code{FALSE}.
 #' @param width Width in pixels.
 #' @param height Height in pixels.
@@ -43,7 +44,7 @@
 #' aeExplorer(data=ADAE)
 #' 
 #' # Run AE Explore with some customizations 
-#' aeExplorer(data=ADAE, group="ARM", groups=c('Treatment A','Placebo'))
+#' aeExplorer(data=ADAE, group_col="ARM", filters_ptcpt_col = c('SEX','RACE'))
 #' }
 #'    
 #' @seealso aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot
@@ -53,57 +54,60 @@
 #'
 #' @export
 aeExplorer <- function(data, 
-                       id = "USUBJID",
-                       major ="AEBODSYS",
-                       minor = "AEDECOD",
-                       group = "ARM",
-                       details = NULL, 
-                       filters_ptcpt_var = NULL,
-                       filters_ptcpt_label = NULL,
-                       filters_event_var =  c('AESER','AESEV','AEREL','AEOUT'),
-                       filters_event_label = c('Serious?','Severity','Relationship','Outcome'),
+                       id_col = "USUBJID",
+                       major_col ="AEBODSYS",
+                       minor_col = "AEDECOD",
+                       group_col = "ARM",
                        groups = NULL, 
+                       details_col = NULL, 
+                       details_label = NULL,
+                       filters_ptcpt_col = NULL,
+                       filters_ptcpt_label = NULL,
+                       filters_event_col =  c('AESER','AESEV','AEREL','AEOUT'),
+                       filters_event_label = c('Serious?','Severity','Relationship','Outcome'),
                        missingValues = c('','NA','N/A'),
-                       filters = NULL, 
-                       totalCol = TRUE,
-                       diffCol = TRUE,
-                       prefTerms = FALSE,
+                       showTotalCol = TRUE,
+                       showDiffCol = TRUE,
+                       showPrefTerms = FALSE,
                        maxPrevalence = 0,
                        maxGroups = 6, 
-                       h = 1, 
-                       w = 1,
-                       r = 1,
-                       margin = c(40, 40), 
-                       diffMargin = c(5, 5),  
+                       plotSettings_h = 1, 
+                       plotSettings_w = 1,
+                       plotSettings_r = 1,
+                       plotSettings_margin = c(40, 40), 
+                       plotSettings_diffMargin = c(5, 5),  
                        validation = FALSE,
                        width = NULL, height = NULL, elementId = NULL) {
 
   
   
   # create array of objects format for json - FILTERS
-  if (!is.null(filters_ptcpt_var)){
-    if (! is.null(filters_ptcpt_label)){
-      filters_ptcpt <- data.frame(value_col = filters_ptcpt_var, label = filters_ptcpt_label, type = 'participant')
-    }
-    else {
-      filters_ptcpt <- data.frame(value_col = filters_ptcpt_var, label = filters_ptcpt_var, type = 'participant')
-    }
-  } else {
+  if (is.null(filters_ptcpt_label)) {filters_ptcpt_label <- filters_ptcpt_col} 
+  if (is.null(filters_event_label)) {filters_event_label <- filters_event_col}
+  
+  if (!is.null(filters_ptcpt_col) & is.null(filters_event_col)){
+    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant')
+    filters_event <- NULL
+  } else if(is.null(filters_ptcpt_col) & ! is.null(filters_event_col)){
     filters_ptcpt <- NULL
-    
-    if (!is.null(filters_event_var)){
-      if (! is.null(filters_event_label)){
-        filters_event <- data.frame(value_col = filters_event_var, label = filters_event_label, type = 'event')
-      }
-      else {
-        filters_event <- data.frame(value_col = filters_event_var, label = filters_event_var, type = 'event')
-      }
-    } else {
-      filters_event <- NULL
-    } 
+    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event')
+  } else if(! is.null(filters_ptcpt_col) & ! is.null(filters_event_col)){
+    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant')
+    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event')
+  }else {
+    filters_ptcpt <- NULL
+    filters_event <- NULL
   }
-
+ 
   filters <- rbind(filters_ptcpt, filters_event)
+  
+  
+  # create array of objects format for json - details
+  if (!is.null(details_label)){
+    details <- data.frame(value_col = details_col, label = details_label)    
+  } else{
+    details <- data.frame(value_col = details_col, label = details_col)    
+  }
 
   # create key/value pair format for json - groups 
   if (!is.null(groups)){
@@ -116,12 +120,12 @@ aeExplorer <- function(data,
   }
   
   # create object format for json - MISSING VALS 
-  placeholderFlag <- list(value_col = major, values=missingValues)
+  missingValues <- list(value_col = major_col, values=missingValues)
   
   
   # create object format for json - MARGINS
-  margin <- list(left=margin[1], right=margin[2])
-  diffMargin <- list(left=diffMargin[1], right=diffMargin[2])
+  plotSettings_margin <- list(left=plotSettings_margin[1], right=plotSettings_margin[2])
+  plotSettings_diffMargin <- list(left=plotSettings_diffMargin[1], right=plotSettings_diffMargin[2])
   
   
   
@@ -130,25 +134,25 @@ aeExplorer <- function(data,
     data=data,
     settings=jsonlite::toJSON(
       list(
-      variables=list(id=id,
-                     major=major,
-                     minor=minor,
-                     group=group,
+      variables=list(id=id_col,
+                     major=major_col,
+                     minor=minor_col,
+                     group=group_col,
                      details=I(details),
                      filters=I(filters)
                     ),
        groups=I(groups_l), 
-       defaults=list(totalCol=totalCol,
-                     diffCol=diffCol,
-                     prefTerms=prefTerms,
+       defaults=list(totalCol=showTotalCol,
+                     diffCol=showDiffCol,
+                     prefTerms=showPrefTerms,
                      maxPrevalence=maxPrevalence,
                      maxGroups = maxGroups, 
-                     placeholderFlag = placeholderFlag),
-      plotSettings=list(h=h*15,
-                        w=w*200, 
-                        margin=margin,
-                        diffMargin=diffMargin,
-                        r=r*7),
+                     placeholderFlag = missingValues),
+      plotSettings=list(h=plotSettings_h*15,
+                        w=plotSettings_w*200, 
+                        margin=plotSettings_margin,
+                        diffMargin=plotSettings_diffMargin,
+                        r=plotSettings_r*7),
       validation=validation
     ),
     null="null", auto_unbox=T

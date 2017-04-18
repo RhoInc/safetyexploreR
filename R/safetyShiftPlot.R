@@ -3,12 +3,12 @@
 #' This function creates a Safety Shift Plot using R htmlwidgets.  
 #'
 #' @param data A data.frame containing the labs data. 
-#' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
-#' @param time_var Timing of collection variable names. Default is \code{"VISITN"}.
-#' @param measure  Name of measure variable name. Default is \code{"TEST"}.
-#' @param value   Value of measure variable name. Default is \code{"STRESN"}.
+#' @param id_col   Participant ID variable name. Default is \code{"USUBJID"}.
+#' @param time_col Timing of collection variable names. Default is \code{"VISITN"}.
+#' @param measure_col  Name of measure variable name. Default is \code{"TEST"}.
+#' @param value_col   Value of measure variable name. Default is \code{"STRESN"}.
 #' @param start_value Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.  
-#' @param filters_var Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).  
+#' @param filters_col Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).  
 #' @param filters_label Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels. 
 #' @param x_params_visits Optional character vector of visit values with which to define the baseline outcome. Defaults to the first ordered value of \code{time}. 
 #' @param x_params_stat Aggregate function with which to summarize baseline values.  Default value is \code{mean}. Options are \code{"mean"}, \code{"min"}, or \code{"max"}.
@@ -22,6 +22,9 @@
 #' \dontrun{
 #' # Run Safety Histogram with defaults
 #' safetyShiftPlot(data=ADBDS)
+#' 
+#' # Run Safety Histogram with some customizations
+#' safetyShiftPlot(data=ADBDS, x_params_visits=1, x_params_stat='min', y_params_visits=c(5,6,7), y_params_stat='mean')
 #' }
 #' 
 #' @seealso aeExplorer, aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime
@@ -31,12 +34,12 @@
 #'
 #' @export
 safetyShiftPlot <- function(data, 
-                            id = "USUBJID",
-                            time_var = "VISITN",
-                            measure = "TEST",
-                            value = "STRESN",
+                            id_col = "USUBJID",
+                            time_col = "VISITN",
+                            measure_col = "TEST",
+                            value_col = "STRESN",
                             start_value = NULL,
-                            filters_var = NULL, 
+                            filters_col = NULL, 
                             filters_label = NULL,
                             x_params_visits = NULL,
                             x_params_stat = 'mean',
@@ -46,9 +49,9 @@ safetyShiftPlot <- function(data,
 
   # create array of objects format for json - filters
   if (!is.null(filters_label)){
-    filters <- data.frame(value_col = filters_var, label = filters_label)
+    filters <- data.frame(value_col = filters_col, label = filters_label)
   } else{
-    filters <- data.frame(value_col = filters_var, label = filters_var)    
+    filters <- data.frame(value_col = filters_col, label = filters_col)    
   }
   
   # create object format for json - x_param/y_param
@@ -68,10 +71,10 @@ safetyShiftPlot <- function(data,
     data = data,
     settings = jsonlite::toJSON(
       list(
-        id_col = id, 
-        time_col = time_var, 
-        measure_col = measure,
-        value_col = value,
+        id_col = id_col, 
+        time_col = time_col, 
+        measure_col = measure_col,
+        value_col = value_col,
         filters = I(filters),
         x_params = x_params,
         y_params = y_params,

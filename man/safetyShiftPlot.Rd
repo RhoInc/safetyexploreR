@@ -7,26 +7,26 @@
 Safety Shift Plot: \url{https://github.com/RhoInc/safety-shift-plot}.
 }
 \usage{
-safetyShiftPlot(data, id = "USUBJID", time_var = "VISITN",
-  measure = "TEST", value = "STRESN", start_value = NULL,
-  filters_var = NULL, filters_label = NULL, x_params_visits = NULL,
+safetyShiftPlot(data, id_col = "USUBJID", time_col = "VISITN",
+  measure_col = "TEST", value_col = "STRESN", start_value = NULL,
+  filters_col = NULL, filters_label = NULL, x_params_visits = NULL,
   x_params_stat = "mean", y_params_visits = NULL, y_params_stat = "mean",
   width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data.frame containing the labs data.}
 
-\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
+\item{id_col}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{time_var}{Timing of collection variable names. Default is \code{"VISITN"}.}
+\item{time_col}{Timing of collection variable names. Default is \code{"VISITN"}.}
 
-\item{measure}{Name of measure variable name. Default is \code{"TEST"}.}
+\item{measure_col}{Name of measure variable name. Default is \code{"TEST"}.}
 
-\item{value}{Value of measure variable name. Default is \code{"STRESN"}.}
+\item{value_col}{Value of measure variable name. Default is \code{"STRESN"}.}
 
 \item{start_value}{Optional: specifies a value of \code{measure} to be displayed when the chart is loaded.}
 
-\item{filters_var}{Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).}
+\item{filters_col}{Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).}
 
 \item{filters_label}{Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels.}
 
@@ -51,6 +51,9 @@ This function creates a Safety Shift Plot using R htmlwidgets.
 \dontrun{
 # Run Safety Histogram with defaults
 safetyShiftPlot(data=ADBDS)
+
+# Run Safety Histogram with some customizations
+safetyShiftPlot(data=ADBDS, x_params_visits=1, x_params_stat='min', y_params_visits=c(5,6,7), y_params_stat='mean')
 }
 
 }

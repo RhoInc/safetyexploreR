@@ -3,24 +3,24 @@
 #' This function creates a Safety Outlier Explorer using R htmlwidgets.  
 #'
 #' @param data A data frame containing the labs data. 
-#' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
-#' @param time_var Timing of collection variable name(s).  Up to 3 may be specified. Default is \code{c("DY","VISITN","VISIT")}.
-#' @param time_type Scale types for variables specified in \code{time_var}.  Defaults to \code{c('linear','ordinal','ordinal')}.
-#' @param time_label Labels of variables specified in \code{time_var}. Defaults to \code{c('Study Day','Visit Number','Visit')}. If set to \code{NULL}, variable names will be used for labels.
-#' @param time_label_rot Rotate x-axis tick labels 45 degrees?  Defaults to \code{c(FALSE, FALSE, TRUE)}.
-#' @param time_label_padding X-axis padding for rotated labels in pixels. Defaults to \code{c(0, 0, 100)}.
-#' @param measure  Name of measure variable name. Default is \code{"TEST"}.
-#' @param value   Value of measure variable name. Default is \code{"STRESN"}.
-#' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
-#' @param normal_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.
-#' @param normal_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
-#' @param start_value Value of variable defined in \code{measure} to be rendered in the plot when the widget loads. 
-#' @param filters_var Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).  
+#' @param id_col   Participant ID variable name. Default is \code{"USUBJID"}.
+#' @param time_col Timing of collection variable name(s).  Up to 3 may be specified. Default is \code{c("DY","VISITN","VISIT")}.
+#' @param time_type Scale types for variables specified in \code{time_col}.  Defaults to \code{c('linear','ordinal','ordinal')}.
+#' @param time_label Labels of variables specified in \code{time_col}. Defaults to \code{c('Study Day','Visit Number','Visit')}. If set to \code{NULL}, variable names will be used for labels.
+#' @param time_rotate_tick_labels Rotate x-axis tick labels 45 degrees?  Defaults to \code{c(FALSE, FALSE, TRUE)}.
+#' @param time_vertical_space X-axis padding for rotated labels in pixels. Defaults to \code{c(0, 0, 100)}.
+#' @param measure_col  Name of measure variable name. Default is \code{"TEST"}.
+#' @param value_col   Value of measure variable name. Default is \code{"STRESN"}.
+#' @param unit_col   Unit of measure variable name. Default is \code{"STRESU"}.
+#' @param normal_col_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.
+#' @param normal_col_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
+#' @param start_value Value of variable defined in \code{measure_col} to be rendered in the plot when the widget loads. 
+#' @param filters_col Optional vector of variable names to use for filters  (in addition to default filter on \code{measure}).  
 #' @param filters_label Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels. 
-#' @param details_var Optional vector of variable names to include in details listing. Defaults to \code{'AGE'}, \code{'SEX'}, and \code{'RACE'}.
+#' @param details_col Optional vector of variable names to include in details listing. Defaults to \code{'AGE'}, \code{'SEX'}, and \code{'RACE'}.
 #' @param details_label Associated labels/headers to use for details listing. Defaults to \code{'Age'}, \code{'Sex'}, and \code{'Race'}.  If set to \code{NULL}, variable names will be used as labels. 
-#' @param multiples_width Adjust width of small multiple plots by adjusting a ratio of the original pixel value. Default is 1 (or 300 px).
-#' @param multiples_height Adjust height of  small multiple plots by adjusting a ratio of the original pixel value. Default is 1 (or 100 px).
+#' @param multiples_sizing_width Adjust width of small multiple plots by adjusting a ratio of the original pixel value. Default is 1 (or 300 px).
+#' @param multiples_sizing_height Adjust height of  small multiple plots by adjusting a ratio of the original pixel value. Default is 1 (or 100 px).
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
@@ -28,7 +28,10 @@
 #' @examples
 #' \dontrun{
 #' # Run Safety Outlier Explorer with defaults
-#' safetyOutlierExplorer(data=ADBS) 
+#' safetyOutlierExplorer(data=ADBDS) 
+#' 
+#' # Run Safety Outlier Explorer with some customizations
+#' safetyOutlierExplorer(data=ADBDS, filters_col = c('ARM','SEX','RACE')) 
 #' }
 #' 
 #' @seealso aeExplorer, aeTimelines, safetyHistogram, safetyResultsOverTime, safetyShiftPlot
@@ -38,46 +41,46 @@
 #'
 #' @export
 safetyOutlierExplorer <- function(data, 
-                                  id = "USUBJID",
-                                  time_var = c("DY","VISITN","VISIT"),
+                                  id_col = "USUBJID",
+                                  time_col = c("DY","VISITN","VISIT"),
                                   time_type = c('linear','ordinal','ordinal'),
                                   time_label = c('Study Day','Visit Number','Visit'),
-                                  time_label_rot = c(FALSE, FALSE, TRUE),
-                                  time_label_padding = c(0, 0, 100), 
-                                  measure = "TEST",
-                                  value = "STRESN",
-                                  unit = "STRESU",
-                                  normal_low ="STNRLO", 
-                                  normal_high = "STNRHI", 
+                                  time_rotate_tick_labels = c(FALSE, FALSE, TRUE),
+                                  time_vertical_space = c(0, 0, 100), 
+                                  measure_col = "TEST",
+                                  value_col = "STRESN",
+                                  unit_col = "STRESU",
+                                  normal_col_low ="STNRLO", 
+                                  normal_col_high = "STNRHI", 
                                   start_value = NULL,
-                                  filters_var = NULL, 
+                                  filters_col = NULL, 
                                   filters_label = NULL,
-                                  details_var = c('AGE','SEX','RACE'),
+                                  details_col = c('AGE','SEX','RACE'),
                                   details_label = c('Age','Sex','Race'),
-                                  multiples_width = 1,
-                                  multiples_height = 1,
+                                  multiples_sizing_width = 1,
+                                  multiples_sizing_height = 1,
                                   width = NULL, height = NULL, elementId = NULL) {
 
   
   # create array of objects format for json - time cols
-  time_cols <- data.frame(value_col = time_var, 
+  time_cols <- data.frame(value_col = time_col, 
                               type = time_type,
                               label = time_label,  
-                              rotate_tick_labels = time_label_rot,
-                              vertical_space = time_label_padding)
+                              rotate_tick_labels = time_rotate_tick_labels,
+                              vertical_space = time_vertical_space)
   
   # create array of objects format for json - filters
   if (!is.null(filters_label)){
-    filters <- data.frame(value_col = filters_var, label = filters_label)
+    filters <- data.frame(value_col = filters_col, label = filters_label)
   } else{
-    filters <- data.frame(value_col = filters_var, label = filters_var)    
+    filters <- data.frame(value_col = filters_col, label = filters_col)    
   }
   
   # create array of objects format for json - details
   if (!is.null(details_label)){
-    details <- data.frame(value_col = details_var, label = details_label)    
+    details <- data.frame(value_col = details_col, label = details_label)    
   } else{
-    details <- data.frame(value_col = details_var, label = details_var)    
+    details <- data.frame(value_col = details_col, label = details_col)    
   }
   
   # forward options using x
@@ -85,19 +88,19 @@ safetyOutlierExplorer <- function(data,
     data = data,
     settings = jsonlite::toJSON(
       list(
-        id_col = id, 
+        id_col = id_col, 
         time_cols = time_cols, 
-        measure_col = measure,
-        value_col = value,
-        unit_col = unit,
-        normal_col_low = normal_low,
-        normal_col_high = normal_high,
+        measure_col = measure_col,
+        value_col = value_col,
+        unit_col = unit_col,
+        normal_col_low = normal_col_low,
+        normal_col_high = normal_col_high,
         start_value = start_value,
         filters = I(filters),
         details = I(details),
         multiples_sizing = list(
-          width = multiples_width*300,
-          height = multiples_height*100
+          width = multiples_sizing_width*300,
+          height = multiples_sizing_height*100
         )
       ),
       null="null", auto_unbox=T

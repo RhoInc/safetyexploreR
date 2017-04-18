@@ -7,54 +7,60 @@
 AE Explorer: \url{https://github.com/RhoInc/aeexplorer}.
 }
 \usage{
-aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
-  group = "ARM", details = NULL, filters_ptcpt_var = NULL,
-  filters_ptcpt_label = NULL, filters_event_var = c("AESER", "AESEV",
+aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
+  minor_col = "AEDECOD", group_col = "ARM", groups = NULL,
+  details_col = NULL, details_label = NULL, filters_ptcpt_col = NULL,
+  filters_ptcpt_label = NULL, filters_event_col = c("AESER", "AESEV",
   "AEREL", "AEOUT"), filters_event_label = c("Serious?", "Severity",
-  "Relationship", "Outcome"), groups = NULL, missingValues = c("", "NA",
-  "N/A"), filters = NULL, totalCol = TRUE, diffCol = TRUE,
-  prefTerms = FALSE, maxPrevalence = 0, maxGroups = 6, h = 1, w = 1,
-  r = 1, margin = c(40, 40), diffMargin = c(5, 5), validation = FALSE,
-  width = NULL, height = NULL, elementId = NULL)
+  "Relationship", "Outcome"), missingValues = c("", "NA", "N/A"),
+  showTotalCol = TRUE, showDiffCol = TRUE, showPrefTerms = FALSE,
+  maxPrevalence = 0, maxGroups = 6, plotSettings_h = 1,
+  plotSettings_w = 1, plotSettings_r = 1, plotSettings_margin = c(40, 40),
+  plotSettings_diffMargin = c(5, 5), validation = FALSE, width = NULL,
+  height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the Adverse Events data.}
 
-\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
+\item{id_col}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{major}{Higher-level term variable name.  Default is \code{"AEBODSYS"}.}
+\item{major_col}{Higher-level term variable name.  Default is \code{"AEBODSYS"}.}
 
-\item{minor}{Lower-level term variable name.  Default is \code{"AEDECOD"}.}
+\item{minor_col}{Lower-level term variable name.  Default is \code{"AEDECOD"}.}
 
-\item{group}{Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.}
-
-\item{details}{An optional vector of variables to display in the detail listing.  If left as \code{NULL} or unspecified, all variables in input data will appear in detail listing.}
-
-\item{filters_ptcpt_var, filters_ptcpt_label}{Participant-level filters. See details.}
-
-\item{filters_event_var, filters_event_label}{Event-level filters. See details.}
+\item{group_col}{Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.}
 
 \item{groups}{An option character vector specifying which values to display as columns for variable specified in \code{groups}.  If left as \code{NULL}, all groups will be displayed.}
 
-\item{totalCol}{Specify whether or not to render a total column. Accepts \code{TRUE} (default) or \code{FALSE}.}
+\item{details_col}{Optional vector of variable names to include in details listing.}
 
-\item{diffCol}{Specify whether or not to render a column of graphical differences. Accepts \code{TRUE} (default) or \code{FALSE}.}
+\item{details_label}{Associated labels/headers to use for details listing.}
 
-\item{prefTerms}{Specify whether or not to initially display all lower-level rows. Accepts \code{"TRUE"} or \code{"FALSE"} (default).}
+\item{filters_ptcpt_col, filters_ptcpt_label}{Participant-level filters. See details.}
+
+\item{filters_event_col, filters_event_label}{Event-level filters. See details.}
+
+\item{missingValues}{A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.}
+
+\item{showTotalCol}{Specify whether or not to render a total column. Accepts \code{TRUE} (default) or \code{FALSE}.}
+
+\item{showDiffCol}{Specify whether or not to render a column of graphical differences. Accepts \code{TRUE} (default) or \code{FALSE}.}
+
+\item{showPrefTerms}{Specify whether or not to initially display all lower-level rows. Accepts \code{"TRUE"} or \code{"FALSE"} (default).}
 
 \item{maxPrevalence}{Filters out any higher- and lower-level rows without at least one group rate above specified value. Default is \code{0}.}
 
 \item{maxGroups}{Number of maximum allowable unique values for variable specified in \code{group}.}
 
-\item{h}{Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 15 px).}
+\item{plotSettings_h}{Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 15 px).}
 
-\item{w}{Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 200 px).}
+\item{plotSettings_w}{Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 200 px).}
 
-\item{r}{Adjust r of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 7 px).}
+\item{plotSettings_r}{Adjust r of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 7 px).}
 
-\item{margin}{Numeric vector specfiying the left and right margins for the dot plot.}
+\item{plotSettings_margin}{Numeric vector specfiying the left and right margins for the dot plot.}
 
-\item{diffMargin}{Numeric vector specifying the left and right margins for the difference diamonds plot.}
+\item{plotSettings_diffMargin}{Numeric vector specifying the left and right margins for the difference diamonds plot.}
 
 \item{validation}{Experimental setting that facilitates creating a comma-delimited data set of the current view of the data.  Default is \code{FALSE}.}
 
@@ -63,8 +69,6 @@ aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
 \item{height}{Height in pixels.}
 
 \item{elementId}{The element ID for the widget.}
-
-\item{placeholderFlag}{A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.}
 }
 \description{
 This function creates an AE Explorer using R htmlwidgets.
@@ -84,7 +88,7 @@ This function creates an AE Explorer using R htmlwidgets.
 aeExplorer(data=ADAE)
 
 # Run AE Explore with some customizations 
-aeExplorer(data=ADAE, group="ARM", groups=c('Treatment A','Placebo'))
+aeExplorer(data=ADAE, group_col="ARM", filters_ptcpt_col = c('SEX','RACE'))
 }
    
 }

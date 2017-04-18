@@ -3,18 +3,18 @@
 #' This function creates a Safety Histogram using R htmlwidgets.  
 #'
 #' @param data A data frame containing the labs data. 
-#' @param id   Participant ID variable name. Default is \code{"USUBJID"}.
-#' @param measure  Name of measure variable name. Default is \code{"TEST"}.
-#' @param value   Value of measure variable name. Default is \code{"STRESN"}.
-#' @param unit   Unit of measure variable name. Default is \code{"STRESU"}.
-#' @param normal_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.
-#' @param normal_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
-#' @param filters_var Optional vector of variable names to use for filters (in addition to default filter on \code{measure}).  
+#' @param id_col   Participant ID variable name. Default is \code{"USUBJID"}.
+#' @param measure_col  Name of measure variable name. Default is \code{"TEST"}.
+#' @param value_col   Value of measure variable name. Default is \code{"STRESN"}.
+#' @param unit_col   Unit of measure variable name. Default is \code{"STRESU"}.
+#' @param normal_col_low   Optional: Variable name for column containing lower limit of normal values. Default is \code{"STNRLO"}.
+#' @param normal_col_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
+#' @param filters_col Optional vector of variable names to use for filters (in addition to default filter on \code{measure_col}).  
 #' @param filters_label Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels. 
-#' @param details_var Optional vector of variable names to include in details listing, in addition to variables specified in \code{id}, \code{value}, \code{normal_low}, and \code{normal_high}.
+#' @param details_col Optional vector of variable names to include in details listing, in addition to variables specified in \code{id}, \code{value}, \code{normal_low}, and \code{normal_high}.
 #' @param details_label Associated labels/headers to use for details listing.  If left as \code{NULL}, variable names will be used as labels. 
-#' @param start_value Value of variable defined in \code{measure} to be rendered in the histogram when the widget loads. 
-#' @param missingValues Vector of values defining a missing \code{value}. Default is \code{c('','NA','N/A')}.
+#' @param start_value Value of variable defined in \code{measure_col} to be rendered in the histogram when the widget loads. 
+#' @param missingValues Vector of values defining a missing \code{value_col}. Default is \code{c('','NA','N/A')}.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
@@ -23,6 +23,9 @@
 #' \dontrun{
 #' # Run Safety Histogram with defaults
 #' safetyHistogram(data=ADBDS)
+#'  
+#' # Run Safety Histogram with some customizations 
+#' safetyHistogram(data=ADBDS, filters_col = c('ARM','SEX','RACE'))
 #' }
 #' 
 #' @seealso aeExplorer, aeTimelines, safetyOutlierExplorer, safetyResultsOverTime, safetyShiftPlot
@@ -32,15 +35,15 @@
 #'
 #' @export
 safetyHistogram <- function(data, 
-                            id = "USUBJID",
-                            measure = "TEST",
-                            value = "STRESN",
-                            unit = "STRESU",
-                            normal_low = 'STNRLO',
-                            normal_high = 'STNRHI',
-                            filters_var = NULL, 
+                            id_col = "USUBJID",
+                            measure_col = "TEST",
+                            value_col = "STRESN",
+                            unit_col = "STRESU",
+                            normal_col_low = 'STNRLO',
+                            normal_col_high = 'STNRHI',
+                            filters_col = NULL, 
                             filters_label = NULL,
-                            details_var = NULL,
+                            details_col = NULL,
                             details_label = NULL, 
                             start_value = NULL,
                             missingValues = c('','NA','N/A'),
@@ -49,16 +52,16 @@ safetyHistogram <- function(data,
   
   # create array of objects format for json - filters
   if (!is.null(filters_label)){
-    filters <- data.frame(value_col = filters_var, label = filters_label)
+    filters <- data.frame(value_col = filters_col, label = filters_label)
   } else{
-    filters <- data.frame(value_col = filters_var, label = filters_var)    
+    filters <- data.frame(value_col = filters_col, label = filters_col)    
   }
 
   # create array of objects format for json - details
   if (!is.null(details_label)){
-    details <- data.frame(value_col = details_var, label = details_label)    
+    details <- data.frame(value_col = details_col, label = details_label)    
     } else{
-    details <- data.frame(value_col = details_var, label = details_var)    
+    details <- data.frame(value_col = details_col, label = details_col)    
     }
   
   
@@ -67,12 +70,12 @@ safetyHistogram <- function(data,
     data = data,
     settings = jsonlite::toJSON(
       list(
-        id_col = id, 
-        measure_col = measure,
-        value_col = value,
-        unit_col = unit,
-        normal_col_low = normal_low,
-        normal_col_high = normal_high,
+        id_col = id_col, 
+        measure_col = measure_col,
+        value_col = value_col,
+        unit_col = unit_col,
+        normal_col_low = normal_col_low,
+        normal_col_high = normal_col_high,
         filters = I(filters),
         details = I(details),
         start_value = start_value,

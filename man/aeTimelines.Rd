@@ -7,54 +7,54 @@
 AE Timelines: \url{https://github.com/RhoInc/ae-timelines}.
 }
 \usage{
-aeTimelines(data, id = "USUBJID", seq = "AESEQ", minor = "AEDECOD",
-  start = "ASTDY", end = "AENDY", severity = "AESEV",
-  color_var = "AESEV", color_label = "Severity/Intensity",
-  color_val = NULL, color_codes = NULL, highlight_var = "AESER",
-  highlight_label = "Serious Event", highlight_val = "Y",
-  highlight_detail = NULL, highlight_stroke = "black",
+aeTimelines(data, id_col = "USUBJID", seq_col = "AESEQ",
+  term_col = "AEDECOD", stdy_col = "ASTDY", endy_col = "AENDY",
+  color_col = "AESEV", color_label = "Severity/Intensity",
+  color_values = NULL, color_codes = NULL, highlight_col = "AESER",
+  highlight_label = "Serious Event", highlight_value = "Y",
+  highlight_detail_col = NULL, highlight_stroke = "black",
   highlight_stroke_width = 2, highlight_fill = "none",
-  filters_var = c("AESER", "AESEV", "USUBJID"),
+  filters_col = c("AESER", "AESEV", "USUBJID"),
   filters_label = c("Serious Event", "Severity/Intensity",
-  "Subject Identifier"), details_var = NULL, details_label = NULL,
+  "Subject Identifier"), details_col = NULL, details_label = NULL,
   width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the Adverse Events data.}
 
-\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
+\item{id_col}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{seq}{Adverse event sequence number variable name.  Default is \code{"SESEQ"}}
+\item{seq_col}{Adverse event sequence number variable name.  Default is \code{"SESEQ"}}
 
-\item{minor}{Lower-level term variable name.  Default is \code{"AEDECOD"}.}
+\item{term_col}{Column name corresponding to reported term of the adverse event.  Default is \code{"AETERM"}.}
 
-\item{start}{Study day of AE start. Default is \code{"ASTDY"}.}
+\item{stdy_col}{Study day of AE start. Default is \code{"ASTDY"}.}
 
-\item{end}{Study day of AE end. Default is \code{"AENDY"}.}
+\item{endy_col}{Study day of AE end. Default is \code{"AENDY"}.}
 
-\item{color_var}{Name of variable that defines the color scale with its values. Default is \code{"AESEV"}.}
+\item{color_col}{Name of variable that defines the color scale with its values. Default is \code{"AESEV"}.}
 
 \item{color_label}{Legend label for color scale. Default is \code{"Severity/Intensity"}.}
 
-\item{color_val}{Distinct ordering of values for color scale.  If left as \code{NULL}, all non-missing values will be used in alphabetical order.}
+\item{color_values}{Distinct ordering of values for color scale.  If left as \code{NULL}, all non-missing values will be used in alphabetical order.}
 
 \item{color_codes}{Vector of HTML color codes to use.}
 
-\item{highlight_var}{Name of variable that identifies specific adverse events that should be highlighted. Default is \code{'AESER'}.}
+\item{highlight_col}{Name of variable that identifies specific adverse events that should be highlighted. Default is \code{'AESER'}.}
 
 \item{highlight_label}{Legend label for highlighting. Default is \code{'Serious Event'}.}
 
-\item{highlight_val}{Value of \code{highlight_var} which designates events to highlight.}
+\item{highlight_value}{Value of \code{highlight_col} which designates events to highlight.}
 
-\item{highlight_detail}{Name of variable that describes event in more detail.}
+\item{highlight_detail_col}{Name of variable that describes event in more detail.}
 
 \item{highlight_stroke, }{highlight_stroke_width, highlight_fill Attributes of highlighted events.}
 
-\item{filters_var}{Columns to use for filters.  Defaults to \code{c('AESER','AESEV','USUBJID')}.}
+\item{filters_col}{Columns to use for filters.  Defaults to \code{c('AESER','AESEV','USUBJID')}.}
 
 \item{filters_label}{Associated labels to use for filters. If set to \code{NULL}, variable name(s) will be used.  Defaults to \code{c('Serious Event','Severity/Intensity','Subject Identifier')}.}
 
-\item{details_var}{Optional vector of variable names to include in details listing.}
+\item{details_col}{Optional vector of variable names to include in details listing.}
 
 \item{details_label}{Associated labels/headers to use for details listing.}
 
@@ -73,7 +73,7 @@ This function creates an AE Timeline using R htmlwidgets.
 aeTimelines(data=ADAE)
 
 # Run AE Timeline with some customizations 
-aeTimelines(data=ADAE, details = c('ARM','SEX','RACE'))
+aeTimelines(data=ADAE, details_col = c('ARM','SEX','RACE'))
 }
 
 }
