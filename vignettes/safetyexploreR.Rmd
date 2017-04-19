@@ -17,9 +17,7 @@ safetyexploreR is an R package built using the HTML Widgets framework.  Safetyex
 
 ```safetyexploreR``` is still in development.  The development version of this package can be installed using the following R code:
 
-```r
-devtools::install_github('RhoInc/safetyexploreR')
-```
+```devtools::install_github('RhoInc/safetyexploreR')```
 
 # Data specifications
 
