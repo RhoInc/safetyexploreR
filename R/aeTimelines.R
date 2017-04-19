@@ -16,7 +16,9 @@
 #' @param highlight_label Legend label for highlighting. Default is \code{'Serious Event'}.
 #' @param highlight_value Value of \code{highlight_col} which designates events to highlight.
 #' @param highlight_detail_col Name of variable that describes event in more detail.
-#' @param highlight_stroke, highlight_stroke_width, highlight_fill Attributes of highlighted events.
+#' @param highlight_stroke Attributes of highlighted events.
+#' @param highlight_stroke_width Attributes of highlighted events.
+#' @param highlight_fill Attributes of highlighted events.
 #' @param filters_col Columns to use for filters.  Defaults to \code{c('AESER','AESEV','USUBJID')}.
 #' @param filters_label Associated labels to use for filters. If set to \code{NULL}, variable name(s) will be used.  Defaults to \code{c('Serious Event','Severity/Intensity','Subject Identifier')}. 
 #' @param details_col Optional vector of variable names to include in details listing.

@@ -24,7 +24,9 @@
 #' safetyShiftPlot(data=ADBDS)
 #' 
 #' # Run Safety Histogram with some customizations
-#' safetyShiftPlot(data=ADBDS, x_params_visits=1, x_params_stat='min', y_params_visits=c(5,6,7), y_params_stat='mean')
+#' safetyShiftPlot(data=ADBDS, 
+#'                 x_params_visits=1, x_params_stat='min', 
+#'                 y_params_visits=c(5,6,7), y_params_stat='mean')
 #' }
 #' 
 #' @seealso aeExplorer, aeTimelines, safetyHistogram, safetyOutlierExplorer, safetyResultsOverTime

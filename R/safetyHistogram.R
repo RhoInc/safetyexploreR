@@ -11,7 +11,8 @@
 #' @param normal_col_high  Optional: Variable name for column containing upper limit of normal values. Default is \code{"STNRHI"}.
 #' @param filters_col Optional vector of variable names to use for filters (in addition to default filter on \code{measure_col}).  
 #' @param filters_label Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels. 
-#' @param details_col Optional vector of variable names to include in details listing, in addition to variables specified in \code{id}, \code{value}, \code{normal_low}, and \code{normal_high}.
+#' @param details_col Optional vector of variable names to include in details listing, in addition to variables specified in 
+#' \code{id_col}, \code{value_col}, \code{normal_col_low}, and \code{normal_col_high}.
 #' @param details_label Associated labels/headers to use for details listing.  If left as \code{NULL}, variable names will be used as labels. 
 #' @param start_value Value of variable defined in \code{measure_col} to be rendered in the histogram when the widget loads. 
 #' @param missingValues Vector of values defining a missing \code{value_col}. Default is \code{c('','NA','N/A')}.

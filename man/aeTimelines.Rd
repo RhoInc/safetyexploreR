@@ -48,7 +48,11 @@ aeTimelines(data, id_col = "USUBJID", seq_col = "AESEQ",
 
 \item{highlight_detail_col}{Name of variable that describes event in more detail.}
 
-\item{highlight_stroke, }{highlight_stroke_width, highlight_fill Attributes of highlighted events.}
+\item{highlight_stroke}{Attributes of highlighted events.}
+
+\item{highlight_stroke_width}{Attributes of highlighted events.}
+
+\item{highlight_fill}{Attributes of highlighted events.}
 
 \item{filters_col}{Columns to use for filters.  Defaults to \code{c('AESER','AESEV','USUBJID')}.}
 

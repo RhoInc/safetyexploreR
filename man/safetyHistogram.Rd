@@ -33,7 +33,8 @@ safetyHistogram(data, id_col = "USUBJID", measure_col = "TEST",
 
 \item{filters_label}{Associated labels to use for filters. If left as \code{NULL}, variable names will be used as labels.}
 
-\item{details_col}{Optional vector of variable names to include in details listing, in addition to variables specified in \code{id}, \code{value}, \code{normal_low}, and \code{normal_high}.}
+\item{details_col}{Optional vector of variable names to include in details listing, in addition to variables specified in 
+\code{id_col}, \code{value_col}, \code{normal_col_low}, and \code{normal_col_high}.}
 
 \item{details_label}{Associated labels/headers to use for details listing.  If left as \code{NULL}, variable names will be used as labels.}
 

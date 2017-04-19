@@ -1,6 +1,6 @@
 #' Create an AE Explorer widget
 #'
-#' This function creates an AE Explorer using R htmlwidgets.  
+#' This function creates an interactive AE Table using R htmlwidgets.  
 #'
 #' @param data  A data frame containing the Adverse Events data.  
 #' @param id_col   Participant ID variable name. Default is \code{"USUBJID"}.
@@ -33,7 +33,8 @@
 #'   \item{filters}{
 #'   There are 4 arguments through which a user can specify filters on a participant and/or event level. 
 #'   At least 1 filter is required. If no label is specified, the variable name will be used.  
-#'   The default is 4 event-level filters.
+#'   The default is 4 event-level filters.  If these filters are not desired, or the default variables do not exist
+#'   in dataset, the event level filters must be set to NULL by the user.
 #'   }
 #' }
 #'
