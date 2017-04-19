@@ -14,7 +14,7 @@ params:
   data2: NA
 ---
 ---
-title: "`r paste("Safety Explorer Suite for", params$study)`"
+title: "`r paste("Safety Report: ", params$study)`"
 ---
 
 ```{r}

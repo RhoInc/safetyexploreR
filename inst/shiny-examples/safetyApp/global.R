@@ -1,9 +1,5 @@
 library(haven)
+library(shinythemes)
 
-## source modules
-source('modules/loadData.R')
-#source('modules/downloadReport.R')
+## source module
 source('modules/createSafetyWidgets.R')
-
-## enable bookmarkable state
-enableBookmarking(store = "url")
