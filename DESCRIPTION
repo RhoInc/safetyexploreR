@@ -9,14 +9,15 @@ Authors@R: c(
 URL: http://github.com/Rho/safetyexploreR
 Depends:
     R (>= 3.3.2)
-License: What license is it under?
+License: MIT License
 Imports: htmlwidgets,
-    jsonlite
+    jsonlite,
+    shiny
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown,
-    Shiny,
-    haven 
+    haven,
+    shinythemes
 VignetteBuilder: knitr
