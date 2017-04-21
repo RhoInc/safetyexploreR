@@ -1,8 +1,8 @@
 
-ui = fluidPage(
+ui = navbarPage("Safety Explorer Shiny App",
   theme = shinythemes::shinytheme("lumen"),
   
-  titlePanel("Safety Explorer Shiny App"),
+  tabPanel("Main",
   sidebarLayout(
     sidebarPanel(width=3,
       checkboxInput('example', 'Use Example Data'),
@@ -26,5 +26,12 @@ ui = fluidPage(
       safetyWidgetsUI(id='widgets')
     )
   )
-  )
+  ),
+  tabPanel("About",
+           fluidRow(
+             tags$style(type='text/css', '#about {font-size:23px;}'),
+             column(width=12, style='font-size:20px', uiOutput(outputId = "about")) 
+           )
+           )
+)
 
