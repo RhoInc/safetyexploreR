@@ -80,6 +80,13 @@ There are two built-in example datasets, \code{ADAE} and \code{ADBDS}.  Default 
 
 ```safetyShiftPlot(data=ADBDS)```
 
+# Shiny apps
+
+There are two Shiny apps included into the page that can be run locally with the following code:
+
+```runAeTableApp()```
+
+```runSafetyApp()```
 
 # Use
 
