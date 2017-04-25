@@ -20,7 +20,7 @@
 #' @param maxGroups Number of maximum allowable unique values for variable specified in \code{group}.
 #' @param plotSettings_h Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 15 px).
 #' @param plotSettings_w Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 200 px).
-#' @param plotSettings_r Adjust r of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 7 px).
+#' @param plotSettings_r Adjust radius of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 7 px).
 #' @param plotSettings_margin Numeric vector specfiying the left and right margins for the dot plot.
 #' @param plotSettings_diffMargin Numeric vector specifying the left and right margins for the difference diamonds plot.
 #' @param validation Experimental setting that facilitates creating a comma-delimited data set of the current view of the data.  Default is \code{FALSE}.
@@ -32,7 +32,7 @@
 #' \describe{
 #'   \item{filters}{
 #'   There are 4 arguments through which a user can specify filters on a participant and/or event level. 
-#'   At least 1 filter is required. If no label is specified, the variable name will be used.  
+#'   If no label is specified, the variable name will be used.  
 #'   The default is 4 event-level filters.  If these filters are not desired, or the default variables do not exist
 #'   in dataset, the event level filters must be set to NULL by the user.
 #'   }

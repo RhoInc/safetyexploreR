@@ -1,4 +1,4 @@
-
+library(safetyexploreR)
 server = function(input, output, session){
   
   
@@ -127,7 +127,7 @@ server = function(input, output, session){
          upload your own.  You can also create a customized safety dashboard-style report with the press of a button. </p>
          <p> The <code>safetyexploreR</code> package is being developed on
          <a href='https://github.com/RhoInc/safetyexploreR'>GitHub</a>. Please contact
-         <a href='mailto:rebecca_krouse@rhoworld.com?Subject=Longitudinal%20Model%20App'>Becca Krouse</a> 
+         <a href='mailto:rebecca_krouse@rhoworld.com?Subject=Safety%20Explorer%20App'>Becca Krouse</a> 
          with any questions or comments. </p>")
   })
 

@@ -1,4 +1,4 @@
-
+library(safetyexploreR)
 ui = navbarPage("Safety Explorer Shiny App",
   theme = shinythemes::shinytheme("lumen"),
   
