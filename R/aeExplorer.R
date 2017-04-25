@@ -9,7 +9,6 @@
 #' @param group_col  Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.
 #' @param groups An option character vector specifying which values to display as columns for variable specified in \code{groups}.  If left as \code{NULL}, all groups will be displayed.
 #' @param details_col Optional vector of variable names to include in details listing.
-#' @param details_label Associated labels/headers to use for details listing.
 #' @param filters_ptcpt_col,filters_ptcpt_label Participant-level filters. See details.
 #' @param filters_event_col,filters_event_label Event-level filters. See details.
 #' @param missingValues A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.
@@ -18,11 +17,11 @@
 #' @param showPrefTerms Specify whether or not to initially display all lower-level rows. Accepts \code{"TRUE"} or \code{"FALSE"} (default).  
 #' @param maxPrevalence Filters out any higher- and lower-level rows without at least one group rate above specified value. Default is \code{0}.
 #' @param maxGroups Number of maximum allowable unique values for variable specified in \code{group}.
-#' @param plotSettings_h Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 15 px).
-#' @param plotSettings_w Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 200 px).
-#' @param plotSettings_r Adjust radius of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 7 px).
-#' @param plotSettings_margin Numeric vector specfiying the left and right margins for the dot plot.
-#' @param plotSettings_diffMargin Numeric vector specifying the left and right margins for the difference diamonds plot.
+#' @param plotSettings_h Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 15 px).
+#' @param plotSettings_w Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 200 px).
+#' @param plotSettings_r Adjust radius of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 7 px).
+#' @param plotSettings_margin Numeric vector specfiying the left and right margins for the dot plot. Default is \code{c(40,40)}.
+#' @param plotSettings_diffMargin Numeric vector specifying the left and right margins for the difference diamonds plot. default is \code{c(5,5)}.
 #' @param validation Experimental setting that facilitates creating a comma-delimited data set of the current view of the data.  Default is \code{FALSE}.
 #' @param width Width in pixels.
 #' @param height Height in pixels.
@@ -61,7 +60,6 @@ aeExplorer <- function(data,
                        group_col = "ARM",
                        groups = NULL, 
                        details_col = NULL, 
-                       details_label = NULL,
                        filters_ptcpt_col = NULL,
                        filters_ptcpt_label = NULL,
                        filters_event_col =  c('AESER','AESEV','AEREL','AEOUT'),
@@ -102,13 +100,6 @@ aeExplorer <- function(data,
  
   filters <- rbind(filters_ptcpt, filters_event)
   
-  
-  # create array of objects format for json - details
-  if (!is.null(details_label)){
-    details <- data.frame(value_col = details_col, label = details_label)    
-  } else{
-    details <- data.frame(value_col = details_col, label = details_col)    
-  }
 
   # create key/value pair format for json - groups 
   if (!is.null(groups)){
@@ -129,6 +120,17 @@ aeExplorer <- function(data,
   plotSettings_diffMargin <- list(left=plotSettings_diffMargin[1], right=plotSettings_diffMargin[2])
   
   
+  # force array format for json - DETAILS
+  if(!is.null(details_col)){
+    if(length(details_col)==1){
+      details_col_array <- list(details_col)
+    } else {
+      details_col_array <- details_col
+    }
+  } else {
+    details_col_array <- NULL
+  }
+  
   
   # forward options using x
   x = list(
@@ -139,7 +141,7 @@ aeExplorer <- function(data,
                      major=major_col,
                      minor=minor_col,
                      group=group_col,
-                     details=I(details),
+                     details=details_col_array,
                      filters=I(filters)
                     ),
        groups=I(groups_l), 
