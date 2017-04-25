@@ -1,7 +1,7 @@
 # safetyexploreR
 
 ## Create [Rho's](https://github.com/RhoInc) interactive safety explorer suite from R.  
-### **safetyexploreR** provides an R interface for Rho's safety explorer Javascript widgets.  The underlying widgets are built using [Webcharts](https://github.com/RhoInc/Webcharts) and [D3](https://d3js.org/).  This set of tools can be used individually or together, allowing a user to explore clinical trials safety data in real time.
+### **safetyexploreR** provides an R interface for Rho's safety explorer Javascript widgets.  The underlying widgets are built using [Webcharts](https://github.com/RhoInc/Webcharts) and [d3.js](https://d3js.org/).  This set of tools can be used individually or together, allowing a user to explore clinical trials safety data in real time.
 
 ### Safety explorer widgets include:
 - AE Explorer
