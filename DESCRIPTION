@@ -1,6 +1,6 @@
 Package: safetyexploreR
 Title: Safety Explorer charts from R
-Version: 0.0.0.9000
+Version: 0.3.0
 Description: Creates Webcharts (D3, Javascript) AE Explorer, AE Timelines, Safety Histogram, Safety Results Over Time, Safety Shift Plot, and Safety Outlier Explorer from R.
 Authors@R: c(
 	person("Rebecca", "Krouse", email = "rebecca_krouse@rhoworld.com", role = c("cre")),
