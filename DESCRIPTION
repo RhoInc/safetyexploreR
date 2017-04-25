@@ -1,15 +1,17 @@
 Package: safetyexploreR
 Title: Safety Explorer charts from R
 Version: 0.3.0
-Description: Creates Webcharts (D3, Javascript) AE Explorer, AE Timelines, Safety Histogram, Safety Results Over Time, Safety Shift Plot, and Safety Outlier Explorer from R.
+Description: safetyexploreR provides an R interface for Rho's safety explorer suite.  Underlying widgets are built using Webcharts and d3.js and have been converted to R functions using the htmlwidgets framwork. The six charts include: AE Explorer, AE Timelines, Safety Histogram, Safety Results Over Time, Safety Shift Plot, and Safety Outlier Explorer. This set of tools can be used individually or together, allowing a user to interact with clinical trials safety data in real time.
 Authors@R: c(
-	person("Rebecca", "Krouse", email = "rebecca_krouse@rhoworld.com", role = c("cre")),
+	person("Becca", "Krouse", email = "rebecca_krouse@rhoworld.com", role = c("cre","aut")),
 	person("Spencer", "Childress", role = c("aut")),
 	person("Jeremy", "Wildfire", role = c("aut")))
+Maintainer: Becca Krouse <rebecca_krouse@rhoworld.com>
 URL: http://github.com/Rho/safetyexploreR
+BugReports: http://github.com/Rho/safetyexploreR/issues
 Depends:
     R (>= 3.3.2)
-License: MIT License
+License: MIT + file LICENSE
 Imports: htmlwidgets,
     jsonlite,
     shiny
