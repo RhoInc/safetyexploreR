@@ -20,7 +20,6 @@
 #' @param plotSettings_h Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 15 px).
 #' @param plotSettings_w Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 200 px).
 #' @param plotSettings_r Adjust radius of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 7 px).
-#' @param plotSettings_margin Numeric vector specfiying the left and right margins for the dot plot. Default is \code{c(40,40)}.
 #' @param plotSettings_diffMargin Numeric vector specifying the left and right margins for the difference diamonds plot. default is \code{c(5,5)}.
 #' @param validation Experimental setting that facilitates creating a comma-delimited data set of the current view of the data.  Default is \code{FALSE}.
 #' @param width Width in pixels.
@@ -73,7 +72,6 @@ aeExplorer <- function(data,
                        plotSettings_h = 1, 
                        plotSettings_w = 1,
                        plotSettings_r = 1,
-                       plotSettings_margin = c(40, 40), 
                        plotSettings_diffMargin = c(5, 5),  
                        validation = FALSE,
                        width = NULL, height = NULL, elementId = NULL) {
@@ -116,7 +114,7 @@ aeExplorer <- function(data,
   
   
   # create object format for json - MARGINS
-  plotSettings_margin <- list(left=plotSettings_margin[1], right=plotSettings_margin[2])
+ # plotSettings_margin <- list(left=plotSettings_margin[1], right=plotSettings_margin[2])
   plotSettings_diffMargin <- list(left=plotSettings_diffMargin[1], right=plotSettings_diffMargin[2])
   
   
@@ -153,7 +151,7 @@ aeExplorer <- function(data,
                      placeholderFlag = missingValues),
       plotSettings=list(h=plotSettings_h*15,
                         w=plotSettings_w*200, 
-                        margin=plotSettings_margin,
+                      #  margin=plotSettings_margin,
                         diffMargin=plotSettings_diffMargin,
                         r=plotSettings_r*7),
       validation=validation

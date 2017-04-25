@@ -15,9 +15,8 @@ aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
   "Relationship", "Outcome"), missingValues = c("", "NA", "N/A"),
   showTotalCol = TRUE, showDiffCol = TRUE, showPrefTerms = FALSE,
   maxPrevalence = 0, maxGroups = 6, plotSettings_h = 1,
-  plotSettings_w = 1, plotSettings_r = 1, plotSettings_margin = c(40, 40),
-  plotSettings_diffMargin = c(5, 5), validation = FALSE, width = NULL,
-  height = NULL, elementId = NULL)
+  plotSettings_w = 1, plotSettings_r = 1, plotSettings_diffMargin = c(5,
+  5), validation = FALSE, width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the Adverse Events data.}
@@ -55,8 +54,6 @@ aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
 \item{plotSettings_w}{Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 200 px).}
 
 \item{plotSettings_r}{Adjust radius of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 7 px).}
-
-\item{plotSettings_margin}{Numeric vector specfiying the left and right margins for the dot plot. Default is \code{c(40,40)}.}
 
 \item{plotSettings_diffMargin}{Numeric vector specifying the left and right margins for the difference diamonds plot. default is \code{c(5,5)}.}
 
