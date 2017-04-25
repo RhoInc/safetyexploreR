@@ -6,9 +6,25 @@
 #' \describe{
 #'   \item{USUBJID}{Unique participant ID}
 #'   \item{AEBODSYS}{Adverse event major category}
-#'   \item{AEDCOD}{Adverse event minor category}
+#'   \item{AEDECOD}{Adverse event minor category}
 #'   \item{ARM}{Adverse event reported term}
-#'   ...
+#'   \item{SEX}{Sex}
+#'   \item{RACE}{Race}
+#'   \item{AGE}{Age}
+#'   \item{RFSTDTC}{Participant enroll date}
+#'   \item{SAFFL}{Safety population flag}
+#'   \item{AEPTCD}{AE preferred term code}
+#'   \item{AETERM}{Reported term of adverse event}
+#'   \item{ASTDY}{Study day of AE start}
+#'   \item{AENDY}{Study day of AE end}
+#'   \item{AESER}{Serious}
+#'   \item{AESEV}{Severity}
+#'   \item{AEREL}{Relationship}
+#'   \item{AEOUT}{Outcome}
+#'   \item{AESTDT}{AE start date}
+#'   \item{AEENDT}{AE end date}
+#'   \item{AESEQ}{Seq number}
+#'   \item{SITEID}{Site ID}
 #' }
 #' @source \url{https://github.com/RhoInc/viz-library}
 "ADAE"
@@ -22,9 +38,22 @@
 #' \describe{
 #'   \item{USUBJID}{Unique participant ID}
 #'   \item{TEST}{Measure}
-#'   \item{VALUE}{Value}
-#'   \item{VISITN}{Timing of collection}
-#'   ...
+#'   \item{STRESN}{Value}
+#'   \item{VISITN}{Visit number}
+#'   \item{VISIT}{Visit}
+#'   \item{DY}{Study day}
+#'   \item{DT}{Date}
+#'   \item{AGE}{Age}
+#'   \item{SEX}{Sex}
+#'   \item{RACE}{Race}
+#'   \item{ARM}{Study arm}
+#'   \item{RFSTDTC}{}
+#'   \item{SAFFL}{Safety population}
+#'   \item{CAT}{Specimen}
+#'   \item{STNRLO}{Lower limit of normal}
+#'   \item{STNRHI}{Upper limit of normal}
+#'   \item{STRESU}{Measure units}
+#'   \item{SITEID}{Site ID}
 #' }
 #' @source \url{https://github.com/RhoInc/viz-library}
 "ADBDS"

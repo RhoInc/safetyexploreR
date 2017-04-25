@@ -8,9 +8,22 @@
 \describe{
   \item{USUBJID}{Unique participant ID}
   \item{TEST}{Measure}
-  \item{VALUE}{Value}
-  \item{VISITN}{Timing of collection}
-  ...
+  \item{STRESN}{Value}
+  \item{VISITN}{Visit number}
+  \item{VISIT}{Visit}
+  \item{DY}{Study day}
+  \item{DT}{Date}
+  \item{AGE}{Age}
+  \item{SEX}{Sex}
+  \item{RACE}{Race}
+  \item{ARM}{Study arm}
+  \item{RFSTDTC}{}
+  \item{SAFFL}{Safety population}
+  \item{CAT}{Specimen}
+  \item{STNRLO}{Lower limit of normal}
+  \item{STNRHI}{Upper limit of normal}
+  \item{STRESU}{Measure units}
+  \item{SITEID}{Site ID}
 }}
 \source{
 \url{https://github.com/RhoInc/viz-library}
