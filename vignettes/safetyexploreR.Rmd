@@ -85,5 +85,3 @@ There are two built-in example datasets, \code{ADAE} and \code{ADBDS}.  Default 
 
 SafetyexploreR widgets can be rendered directly within your [RStudio](https://www.rstudio.com) desktop application.  You can embed widgets within an [R Markdown](http://rmarkdown.rstudio.com/) report or a [Shiny](https://shiny.rstudio.com) web application.
 
-*Note:* For best results with browser compatibility for R markdown files, the option ```self_contained: false``` is recommended in your yaml header.
-
