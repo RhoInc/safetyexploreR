@@ -84,11 +84,7 @@ server = function(input, output, session){
     updateSelectInput(session, inputId = 'groups', choices = choices_groups(), selected = choices_groups())
   })
 
-  
-  observe({
-    print(input$groups)
-    print(input$group_col)
-  })
+
   
   filters_event_label <- reactive({
     if (identical(input$filters_event, c('AESER','AESEV','AEREL','AEOUT'))){
