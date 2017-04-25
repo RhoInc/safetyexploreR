@@ -9,7 +9,7 @@ AE Explorer: \url{https://github.com/RhoInc/aeexplorer}.
 \usage{
 aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
   minor_col = "AEDECOD", group_col = "ARM", groups = NULL,
-  details_col = NULL, details_label = NULL, filters_ptcpt_col = NULL,
+  details_col = NULL, filters_ptcpt_col = NULL,
   filters_ptcpt_label = NULL, filters_event_col = c("AESER", "AESEV",
   "AEREL", "AEOUT"), filters_event_label = c("Serious?", "Severity",
   "Relationship", "Outcome"), missingValues = c("", "NA", "N/A"),
@@ -34,8 +34,6 @@ aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
 
 \item{details_col}{Optional vector of variable names to include in details listing.}
 
-\item{details_label}{Associated labels/headers to use for details listing.}
-
 \item{filters_ptcpt_col, filters_ptcpt_label}{Participant-level filters. See details.}
 
 \item{filters_event_col, filters_event_label}{Event-level filters. See details.}
@@ -52,15 +50,15 @@ aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
 
 \item{maxGroups}{Number of maximum allowable unique values for variable specified in \code{group}.}
 
-\item{plotSettings_h}{Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 15 px).}
+\item{plotSettings_h}{Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 15 px).}
 
-\item{plotSettings_w}{Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 200 px).}
+\item{plotSettings_w}{Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 200 px).}
 
-\item{plotSettings_r}{Adjust radius of plotted points by adjusting a ratio of the original pixel value. Default is 1 (or 7 px).}
+\item{plotSettings_r}{Adjust radius of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 7 px).}
 
-\item{plotSettings_margin}{Numeric vector specfiying the left and right margins for the dot plot.}
+\item{plotSettings_margin}{Numeric vector specfiying the left and right margins for the dot plot. Default is \code{c(40,40)}.}
 
-\item{plotSettings_diffMargin}{Numeric vector specifying the left and right margins for the difference diamonds plot.}
+\item{plotSettings_diffMargin}{Numeric vector specifying the left and right margins for the difference diamonds plot. default is \code{c(5,5)}.}
 
 \item{validation}{Experimental setting that facilitates creating a comma-delimited data set of the current view of the data.  Default is \code{FALSE}.}
 
