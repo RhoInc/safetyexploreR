@@ -2,9 +2,5 @@ library(haven)
 library(shinyjs)
 library(tidyverse)
 library(plotly)
+library(safetyexploreR)
 
-## source modules
-source('modules/downloadReport.R')
-
-## enable bookmarkable state
-enableBookmarking(store = "url")

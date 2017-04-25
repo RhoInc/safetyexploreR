@@ -1,5 +1,4 @@
 library(safetyexploreR)
-
 server = function(input, output, session){
   
   
@@ -115,16 +114,22 @@ server = function(input, output, session){
                  )
                })
   
-  
-  
-  # Need to exclude the buttons from themselves being bookmarked
-  setBookmarkExclude(c("bookmark1", "bookmark2"))
-  
-  
-  
-  # Trigger bookmarking with either button
-  observeEvent(input$bookmark, {
-    session$doBookmark()
+  output$about <- renderUI({
+    HTML("<h1> <b> About the Safety Explorer Shiny App </b> </h1>  
+         <p> <code>safetyexploreR</code> is an R package built using the HTML Widgets framework.  
+         <code> safetyexploreR </code> serves as an interface for 
+<a href='http://github.com/RhoInc'>Rho's</a> safety explorer suite, 
+         a set of tools facilitating the exploration of adverse events, lab and 
+         vital sign data.  The underlying tools are built using 
+         <a href='http://openresearchsoftware.metajnl.com/articles/10.5334/jors.127/'>Webcharts</a>, a JavaScript 
+         library based on D3.</p>  
+        <p> This shiny app displays all 6 safety charts.  Explore the charts using the sample data, or 
+         upload your own.  You can also create a customized safety dashboard-style report with the press of a button. </p>
+         <p> The <code>safetyexploreR</code> package is being developed on
+         <a href='https://github.com/RhoInc/safetyexploreR'>GitHub</a>. Please contact
+         <a href='mailto:rebecca_krouse@rhoworld.com?Subject=Safety%20Explorer%20App'>Becca Krouse</a> 
+         with any questions or comments. </p>")
   })
+
   
 }

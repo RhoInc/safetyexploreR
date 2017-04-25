@@ -5,17 +5,30 @@ output:
 params:
   data: NA
   study: NA
+  id_col: NA
+  major_col: NA
+  minor_col: NA
+  group_col: NA
+  groups: NA
+  details_col: NA
+  filters_ptcpt_col: NA
+  filters_event_col: NA
+  filters_event_label: NA
+  missingValues: NA
+  showPrefTerms: NA
+  showTotalCol: NA
+  showDiffCol: NA
+  plotSettings_h: NA
+  plotSettings_w: NA
+  plotSettings_r: NA
 ---
 ---
-title: "`r paste("AE Explorer for", params$study)`"
+title: "`r paste("Customized Interactive AE Table for", params$study)`"
 ---
 
 ```{r}
 library(safetyexploreR)
 ```
-
-AE Explorer {data-orientation=rows}
-=========================================
 
 Column {.sidebar data-width=250}
 -------------------------------------
@@ -26,11 +39,26 @@ The AE Table is an open source project built using standard web technology and w
  
 Row 
 -------------------------------------
-    
-### An example of the AE Explorer using R:
-
 ```{r, fig.width=5, fig.height=6}
-aeExplorer(data=params$data)
+aeExplorer(data=params$data,
+           id_col = params$id_col,
+           major_col = params$major_col,
+           minor_col = params$minor_col,
+           group_col = params$group_col,
+           filters_ptcpt_col = params$filters_ptcpt_col,
+           filters_ptcpt_label = NULL,
+           filters_event_col = params$filters_event_col,
+           filters_event_label = params$filters_event_label,
+           details_col = params$details_col,
+           groups = params$groups, 
+           missingValues = params$missingValues,
+           showPrefTerms = params$showPrefTerms,
+           showTotalCol = params$showTotalCol,
+           showDiffCol = params$showDiffCol,
+           plotSettings_h = params$plotSettings_h,
+           plotSettings_w = params$plotSettings_w,
+           plotSettings_r = params$plotSettings_r)
+
 ```
 
  

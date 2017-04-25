@@ -15,57 +15,78 @@ safetyexploreR is an R package built using the HTML Widgets framework.  Safetyex
 
 # Installation 
 
-safetyexploreR is still in development.  The development version of this package can be installed using the following R code:
+```safetyexploreR``` is still in development.  The development version of this package can be installed using the following R code:
 
-```r
-devtools::install_github('RhoInc/safetyexploreR')
-```
+```devtools::install_github('RhoInc/safetyexploreR')```
 
-# Data frame requirements
+# Data specifications
 
-In order for the widgets to render properly, you must recode R's default for missing values `NA` to an empty string.  If you are importing a CSV this can be achieved with the following code:
+## Data requirements for Adverse Events Explorer and Timeline
 
-```r
-data <- read.csv('filepath/filename.csv', na.strings='')
-```
+The adverse events widgets require a data.frame that has a structure of 1 record per adverse event per subject.  Required and optional variables are below.  In parentheses are the required names for default settings.  
 
-If you are importing a SAS dataset into R, you may find the following code useful:
+Required variables include:
 
-```r
-library(tidyverse)
+- Unique participant ID (```"USUBJID"```)
+- Adverse event major category (```"AEBODSYS"```)
+- Adverse event minor category (```"AEDCOD"```)
+- Adverse event reported term (```"AETERM"```)
+- Group variable (```"ARM"```)
+- Sequence number (```"AESEQ"```)
+- Adverse event start date (```"ASTDY"```)
+- Adverse event end date (```"AENDY"```)
 
-data <- read_sas('filepath/filename.sas7bdat') %>% 
-        mutate_each(funs(as.character)) %>% 
-        mutate_each(funs(replace(., is.na(.),'')))
-```
+Optional variables include:
 
-## Requirements for Adverse Events Explorer and Timeline
+- Adverse event seriousness (```"AESER"```)
+- Adverse event severity (```"AESEV"```)
+- Adverse event relationship (```"AEREL"```)
+- Adverse event outcome (```"AEOUT"```)
+- variables to be used in grouping, filtering, or listing such as: treatment arm, site ID, sex, race, query flag
 
-The adverse events widgets require a data.frame that contains the following variables:
-
-- `USUBJID` (unique subject ID)
-- `AESEQ` (unique sequence ID for each AE)
-- `AEBODSYS` (higher-level term)
-- `AEDECOD` (lower-level term) 
-- `AETERM` (lower-level term)
-- `ARM` (treatment group)
-- `ASTDY` (Study day of adverse event start (integer)
-- `AENDY` (Study day of adverse event end (integer)
-- `AESEV` (adverse event severity)
-- `AEREL` (adverse event relatedness to treatment)
 
 ## Requirements for Safety Histogram, Outlier Explorer, Results Over Time, and Shift Plot
 
-The other 4 safety widgets require a data.frame that contains the following variables:
-- `USUBJID` (unique subject ID)
-- `VISITN` (timing of collection)
-- `VISIT` (timing of collection)
-- `DY` (timing of collection)
-- `TEST` (name of measure)
-- `STRESN` (value of measure),
-- `STRESU` (unit of measure)
-- `SEX` (participant sex)
-- `RACE` (participant race)
+The other 4 safety widgets require a data.frame that has a structure of 1 record per value per visit per subject.  Required and optional variables are below.  In parentheses are the required names for default settings.  
+
+Required variables include:
+
+- Unique participant ID (```"USUBJID"```)
+- Measure (```"TEST"```)
+- Value (```"STRESN"```)
+- Unit (```"STRESU"```)
+- Normal range - lower limit (```"STNRLO"```)
+- Normal range - upper limit (```"STNRHI"```)
+- Timing of collection (```"DY", "VISITN", "VISIT"```)
+
+Optional variables include:
+
+- Age, sex, and race (```"AGE", "SEX", "RACE"```)
+- variables to be used in grouping, filtering, or listing such as: treatment arm, site ID, query flag
+
+# Examples
+
+There are two built-in example datasets, \code{ADAE} and \code{ADBDS}.  Default charts can be rendered with the following code:
+
+```aeExplorer(data=ADAE)```
+
+```aeTimelines(data=ADAE)```
+
+```safetyHistogram(data=ADBDS)```
+
+```safetyOutlierExplorer(data=ADBDS)```
+
+```safetyResultsOverTime(data=ADBDS)```
+
+```safetyShiftPlot(data=ADBDS)```
+
+# Shiny apps
+
+There are two Shiny apps included into the page that can be run locally with the following code:
+
+```runAeTableApp()```
+
+```runSafetyApp()```
 
 # Use
 

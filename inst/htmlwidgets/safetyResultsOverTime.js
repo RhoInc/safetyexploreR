@@ -12,7 +12,11 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
+        el.innerHTML = "";
+        
         x.data = HTMLWidgets.dataframeToD3(x.data);
+        
+        console.log(x.settings);
 
         safetyResultsOverTime(el, x.settings).init(x.data);
 

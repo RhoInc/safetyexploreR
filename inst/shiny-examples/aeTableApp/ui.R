@@ -1,58 +1,71 @@
 library(safetyexploreR)
 
-ui = fluidPage(
-  theme = shinythemes::shinytheme("lumen"),  
- # shinythemes::themeSelector(),
-  titlePanel("AE Explorer Shiny App"),
-  sidebarLayout(
-    sidebarPanel(
-      width=3,
-      checkboxInput('example', 'Use Example Data'),
-      fileInput('datafile','Upload a file',accept = c('.sas7bdat','.csv')),
-      tags$script('
-        Shiny.addCustomMessageHandler("resetFileInputHandler", function(x) {      
-            var id = "#" + x + "_progress";
-            var idBar = id + " .bar";
-            $(id).css("visibility", "hidden");
-            $(idBar).css("width", "0%");
-        });
-      '),
-
-      uiOutput("id"),
-      uiOutput("major"),
-      uiOutput("minor"),
-      uiOutput("group"),
-       uiOutput("groups") ,
-      conditionalPanel(
-        condition="output.fileUploaded",
-        selectInput("totalCol","Show total",c("Show","Hide"), selected='Show', width=200),
-        selectInput("diffCol","Show differences",c("Show","Hide"), selected='Show', width=200),
-        selectInput("prefTerms","Show preferred terms",c("Show","Hide"), selected='Hide', width=200),
-        sliderInput("maxPrevalence","Prevalence threshold", min=0, max=100, step=5, value=0)
-      ),
-      uiOutput("filters"),
-     textInput("study","Enter study name"),
-     downloadReportUI("reportDL"),
-     br(),
-     br(),
-     bookmarkButton(id = 'bookmark',label = 'Save the state of this page')
-    ),
-    mainPanel(
-    #  h1(textOutput("study", container = span)),
-      tabsetPanel( 
-        tabPanel("AE Explorer",  
-              #   aeExplorerOutput(outputId = 'ae1')),
-             #  fluidRow(column(3, selectInput("totalCol","Show total",c("Show","Hide"), selected='Show'))),
-              #          column(3, selectInput("diffCol","Show differences",c("Show","Hide"), selected='Show'))),
-              #          column(3, offset=0, selectInput("prefTerms","Show preferred terms",c("Show","Hide"), selected='Hide'))),
-               #         column(3, offset=0, uiOutput("filters"))),
-             # fluidRow(column(12, div(aeExplorerOutput(outputId = 'ae1'), style="width:70%")))),
-             fluidRow(column(12, aeExplorerOutput(outputId = 'ae1')))),
-        tabPanel("Data view", div(DT::dataTableOutput("dt1"), style = "font-size: 70%; width: 50%")),
-        tabPanel("Visualize Differences", plotlyOutput('bubbleplot', height='450px', width='1100px'))
-        
-      )
-    )
-  )
+navbarPage("AE Explorer Shiny App",
+           theme = shinythemes::shinytheme("lumen"),  
+           tabPanel("Main",
+                    sidebarLayout(
+                      sidebarPanel(
+                        width=3,
+                        radioButtons('dataButton',NULL, c('Use example data', 'Upload your own data set')),
+                        conditionalPanel(
+                          condition = "input.dataButton=='Upload your own data set'",
+                          fileInput('datafile','Upload a file',accept = c('.sas7bdat','.csv'))
+                        ),
+                        selectInput("id_col","Participant ID", choices=NULL),
+                        selectInput("major_col","Higher-level term", choices=NULL),
+                        selectInput("minor_col","Lower-level term", choices=NULL),
+                        selectInput("group_col","Group column", choices=NULL),
+                        selectInput("groups","Groups", choices=NULL, multiple=T),
+                        div(style="display: inline-block;width: 170px;", 
+                            selectInput("filters_ptcpt_col","Participant Filters",choices=NULL, multiple=T)
+                        ),
+                        div(style="display: inline-block;width: 170px;", 
+                            selectInput("filters_event_col","Event Filters",choices=NULL, multiple=T)
+                        ), 
+                        selectInput("details_col","Variables to include in details listing",choices=NULL, multiple=T),
+                        selectInput("missingValues","Value for missing AEs",
+                                    choices=c('empty string','NA','N/A'), selected=c('empty string','NA','N/A'), multiple=T),
+                        div(style="display: inline-block;width: 100px;", 
+                          numericInput("plotSettings_h","Height of points", value=1, min=0, max=10, step=0.2, width=100)
+                          ),
+                        div(style="display: inline-block;width: 100px;", 
+                          numericInput("plotSettings_w","Width of points", value=1, min=0, max=10, step=0.2, width=200)
+                        ),
+                        div(style="display: inline-block;width: 100px;", 
+                          numericInput("plotSettings_r","Radius of points", value=1, min=0, max=10, step=0.2, width=200)
+                        ),
+                       checkboxInput('report','Create Report'),
+                        conditionalPanel(
+                          condition="input.report==true",
+                          textInput("study","Enter study name"),
+                          downloadButton("reportDL", "Generate report")
+                        )
+                      ),
+                      mainPanel(
+                        tabsetPanel( 
+                          tabPanel("AE Explorer",  
+                                   fluidRow(column(12, style="font-weight:'bold'",                        
+                                                   conditionalPanel(
+                                                     condition="output.fileUploaded",
+                                                     checkboxGroupInput("show","",
+                                                                        choices = c("Show Preferred Terms","Total Column","Difference Column"),
+                                                                        selected = c("Total Column","Difference Column"),
+                                                                        inline=T)
+                                                   ))),
+                                   fluidRow(column(12, aeExplorerOutput(outputId = 'ae1')))
+                                   ),
+                          tabPanel("Data view", div(DT::dataTableOutput("dt1"), style = "font-size: 70%; width: 50%")),
+                          tabPanel("Visualize Differences", plotlyOutput('bubbleplot', height='450px', width='1100px'))
+                          
+                        )
+                      )
+                    )
+           ),
+           tabPanel("About",
+                    fluidRow(
+                      tags$style(type='text/css', '#about {font-size:23px;}'),
+                      column(width=12, style='font-size:20px', uiOutput(outputId = "about")) 
+                    )
+           )
 )
 

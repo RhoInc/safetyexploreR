@@ -7,37 +7,57 @@
 AE Explorer: \url{https://github.com/RhoInc/aeexplorer}.
 }
 \usage{
-aeExplorer(data, id = "USUBJID", major = "AEBODSYS", minor = "AEDECOD",
-  group = "ARM", details = NULL, groups = NULL, filters = NULL,
-  totalCol = "Show", diffCol = "Show", prefTerms = "Hide",
-  maxPrevalence = 0, width = NULL, height = NULL, elementId = NULL)
+aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
+  minor_col = "AEDECOD", group_col = "ARM", groups = NULL,
+  details_col = NULL, filters_ptcpt_col = NULL,
+  filters_ptcpt_label = NULL, filters_event_col = c("AESER", "AESEV",
+  "AEREL", "AEOUT"), filters_event_label = c("Serious?", "Severity",
+  "Relationship", "Outcome"), missingValues = c("", "NA", "N/A"),
+  showTotalCol = TRUE, showDiffCol = TRUE, showPrefTerms = FALSE,
+  maxPrevalence = 0, maxGroups = 6, plotSettings_h = 1,
+  plotSettings_w = 1, plotSettings_r = 1, plotSettings_diffMargin = c(5,
+  5), validation = FALSE, width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the Adverse Events data.}
 
-\item{id}{Participant ID variable name. Default is \code{"USUBJID"}.}
+\item{id_col}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{major}{Higher-level term variable name.  Default is \code{"AEBODSYS"}.}
+\item{major_col}{Higher-level term variable name.  Default is \code{"AEBODSYS"}.}
 
-\item{minor}{Lower-level term variable name.  Default is \code{"AEDECOD"}.}
+\item{minor_col}{Lower-level term variable name.  Default is \code{"AEDECOD"}.}
 
-\item{group}{Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.}
+\item{group_col}{Group variable name, each value of which displays in its own column in the AE table unless argument \code{groups} is defined. Default is \code{"ARM"}.}
 
-\item{details}{An optional vector of variables to display in the detail listing.  If left as \code{NULL} or unspecified, all variables in input data will appear in detail listing.}
+\item{groups}{An option character vector specifying which values to display as columns for variable specified in \code{groups}.  If left as \code{NULL}, all groups will be displayed.}
 
-\item{groups}{An optional character vector specifying which groups to display. If left as \code{NULL} or unspecified, all classes from \code{group} variable will be shown}
+\item{details_col}{Optional vector of variable names to include in details listing.}
 
-\item{filters}{An optional list containing individual lists for each desired filter.
-To specify a  filter, two arguments (\code{value_col} and \code{label}) are required.   
-(e.g. \code{filters = list(list(value_col = "AESER", label = "Serious?"), list(value_col = "SEX", label = "Participant Sex"))})}
+\item{filters_ptcpt_col, filters_ptcpt_label}{Participant-level filters. See details.}
 
-\item{totalCol}{Specify whether or not to render a total column. Accepts \code{"Show"} (default) or \code{"Hide"}.}
+\item{filters_event_col, filters_event_label}{Event-level filters. See details.}
 
-\item{diffCol}{Specify whether or not to render a column of graphical differences. Accepts \code{"Show"} (default) or \code{"Hide"}.}
+\item{missingValues}{A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.}
 
-\item{prefTerms}{Specify whether or not to initially display all lower-level rows. Accepts \code{"Show"} or \code{"Hide"} (default).}
+\item{showTotalCol}{Specify whether or not to render a total column. Accepts \code{TRUE} (default) or \code{FALSE}.}
+
+\item{showDiffCol}{Specify whether or not to render a column of graphical differences. Accepts \code{TRUE} (default) or \code{FALSE}.}
+
+\item{showPrefTerms}{Specify whether or not to initially display all lower-level rows. Accepts \code{"TRUE"} or \code{"FALSE"} (default).}
 
 \item{maxPrevalence}{Filters out any higher- and lower-level rows without at least one group rate above specified value. Default is \code{0}.}
+
+\item{maxGroups}{Number of maximum allowable unique values for variable specified in \code{group}.}
+
+\item{plotSettings_h}{Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 15 px).}
+
+\item{plotSettings_w}{Adjust width of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 200 px).}
+
+\item{plotSettings_r}{Adjust radius of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 7 px).}
+
+\item{plotSettings_diffMargin}{Numeric vector specifying the left and right margins for the difference diamonds plot. default is \code{c(5,5)}.}
+
+\item{validation}{Experimental setting that facilitates creating a comma-delimited data set of the current view of the data.  Default is \code{FALSE}.}
 
 \item{width}{Width in pixels.}
 
@@ -46,7 +66,17 @@ To specify a  filter, two arguments (\code{value_col} and \code{label}) are requ
 \item{elementId}{The element ID for the widget.}
 }
 \description{
-This function creates an AE Explorer using R htmlwidgets.
+This function creates an interactive AE Table using R htmlwidgets.
+}
+\details{
+\describe{
+  \item{filters}{
+  There are 4 arguments through which a user can specify filters on a participant and/or event level. 
+  If no label is specified, the variable name will be used.  
+  The default is 4 event-level filters.  If these filters are not desired, or the default variables do not exist
+  in dataset, the event level filters must be set to NULL by the user.
+  }
+}
 }
 \examples{
 \dontrun{
@@ -54,7 +84,7 @@ This function creates an AE Explorer using R htmlwidgets.
 aeExplorer(data=ADAE)
 
 # Run AE Explore with some customizations 
-aeExplorer(data=ADAE, group="SEX", filters=list(list(value_col = "ARM", label = "Treatment Arm")), diffCol="Hide")
+aeExplorer(data=ADAE, group_col="ARM", filters_ptcpt_col = c('SEX','RACE'))
 }
    
 }
