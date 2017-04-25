@@ -115,7 +115,7 @@ server = function(input, output, session){
   
   
   showPrefTerms <- reactive({
-    out <- ifelse('Preferred Terms' %in% input$show, T, F)
+    out <- ifelse('Show Preferred Terms' %in% input$show, T, F)
     return(out)
   })
   showTotalCol <- reactive({
