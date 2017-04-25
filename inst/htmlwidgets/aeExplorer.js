@@ -13,6 +13,8 @@ HTMLWidgets.widget({
       // x = data & settings
       renderValue: function(x) {
         
+        el.innerHTML = "";
+        
         x.data = HTMLWidgets.dataframeToD3(x.data);
 
         console.log(x.settings);
