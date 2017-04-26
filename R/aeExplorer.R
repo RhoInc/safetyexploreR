@@ -97,6 +97,9 @@ aeExplorer <- function(data,
   }
  
   filters <- rbind(filters_ptcpt, filters_event)
+  if (is.null(filters)){
+    filters <- list()
+  }
   
 
   # create key/value pair format for json - groups 
@@ -106,7 +109,7 @@ aeExplorer <- function(data,
       groups_l[[i]] <- list(key=groups[i])
     }
   }else{
-    groups_l <- NULL
+    groups_l <- list()
   }
   
   # create object format for json - MISSING VALS 
@@ -128,7 +131,7 @@ aeExplorer <- function(data,
   } else {
     details_col_array <- NULL
   }
-  
+   
   
   # forward options using x
   x = list(
@@ -140,9 +143,9 @@ aeExplorer <- function(data,
                      minor=minor_col,
                      group=group_col,
                      details=details_col_array,
-                     filters=I(filters)
+                     filters=filters
                     ),
-       groups=I(groups_l), 
+       groups=groups_l, 
        defaults=list(totalCol=showTotalCol,
                      diffCol=showDiffCol,
                      prefTerms=showPrefTerms,
