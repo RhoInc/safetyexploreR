@@ -22,5 +22,8 @@ Suggests: knitr,
     rmarkdown,
     haven,
     shinythemes,
-    plotly
+    plotly, 
+    dplyr, 
+    tidyr,
+    purrr
 VignetteBuilder: knitr
