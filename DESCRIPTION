@@ -21,5 +21,9 @@ RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown,
     haven,
-    shinythemes
+    shinythemes,
+    plotly, 
+    dplyr, 
+    tidyr,
+    purrr
 VignetteBuilder: knitr
