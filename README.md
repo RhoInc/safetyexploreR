@@ -1,3 +1,5 @@
+[![Travis-CI Build Status](https://travis-ci.org/RhoInc/safetyexploreR.svg?branch=master)](https://travis-ci.org/RhoInc/safetyexploreR)
+
 # safetyexploreR
 
 ## Create [Rho's](https://github.com/RhoInc) interactive safety explorer suite from R.  
