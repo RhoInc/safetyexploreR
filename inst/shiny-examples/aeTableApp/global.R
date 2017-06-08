@@ -1,6 +1,6 @@
-library(haven)
-library(shinyjs)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(purrr)
 library(plotly)
 library(safetyexploreR)
 

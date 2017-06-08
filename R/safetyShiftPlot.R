@@ -80,7 +80,8 @@ safetyShiftPlot <- function(data,
         filters = I(filters),
         x_params = x_params,
         y_params = y_params,
-        start_value = start_value
+        start_value = start_value,
+        width = 500
       ),
       null="null", auto_unbox=T
     )
