@@ -106,6 +106,10 @@ aeTimelines <- function(data,
     details <- data.frame(value_col = details_col, label = details_col)    
   }
   
+  # coerce NA to "NA"
+  data[is.na(data)] <- "NA" 
+
+  
   # forward options using x
   x = list(
     data=data,
