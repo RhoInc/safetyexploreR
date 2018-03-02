@@ -4,12 +4,12 @@ dependencies:
    src: htmlwidgets/lib/d3-3.5.17
    script: d3.min.js
  - name: webcharts
-   version: 1.6.1
-   src: htmlwidgets/lib/webcharts-1.6.1
+   version: 1.9.1
+   src: htmlwidgets/lib/webcharts-1.9.1
    script: webcharts.js
    stylesheet: webcharts.css
  - name: safety-shift-plot
-   version: 2.0.2
-   src: htmlwidgets/lib/safety-shift-plot-2.0.2
+   version: 2.0.4
+   src: htmlwidgets/lib/safety-shift-plot-2.0.4
    script: safetyShiftPlot.js 
 

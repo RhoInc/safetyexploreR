@@ -18,6 +18,7 @@ HTMLWidgets.widget({
         x.data = HTMLWidgets.dataframeToD3(x.data);
 
         console.log(x.settings);
+        console.log(x.settings.variables.filters);
         
         aeTable.createChart(el, x.settings).init(x.data);
       },
