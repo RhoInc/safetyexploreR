@@ -14,7 +14,9 @@
 #' @param missingValues A character vector specifying the value of missing AEs.  Defaults to \code{ c('','NA','N/A')}.
 #' @param showTotalCol Specify whether or not to render a total column. Accepts \code{TRUE} (default) or \code{FALSE}. 
 #' @param showDiffCol Specify whether or not to render a column of graphical differences. Accepts \code{TRUE} (default) or \code{FALSE}. 
+#' @param showGroupCols Specify whether or not to initially display columns for all groups. Accepts \code{"TRUE"} (default) or \code{"FALSE"}.  
 #' @param showPrefTerms Specify whether or not to initially display all lower-level rows. Accepts \code{"TRUE"} or \code{"FALSE"} (default).  
+#' @param summarizeBy Specify whether to show participant or event rates by default.  Accepts \code{"participant"} (default) or \code{"event"}.
 #' @param maxPrevalence Filters out any higher- and lower-level rows without at least one group rate above specified value. Default is \code{0}.
 #' @param maxGroups Number of maximum allowable unique values for variable specified in \code{group}.
 #' @param plotSettings_h Adjust height of plotted points by adjusting a ratio of the original pixel value. Default is \code{1} (or 15 px).
@@ -66,7 +68,9 @@ aeExplorer <- function(data,
                        missingValues = c('','NA','N/A'),
                        showTotalCol = TRUE,
                        showDiffCol = TRUE,
+                       showGroupCols = TRUE,
                        showPrefTerms = FALSE,
+                       summarizeBy = c("participant", "event"),
                        maxPrevalence = 0,
                        maxGroups = 6, 
                        plotSettings_h = 1, 
@@ -81,16 +85,22 @@ aeExplorer <- function(data,
   # create array of objects format for json - FILTERS
   if (is.null(filters_ptcpt_label)) {filters_ptcpt_label <- filters_ptcpt_col} 
   if (is.null(filters_event_label)) {filters_event_label <- filters_event_col}
+  if (is.null(filters_ptcpt_start)) {filters_ptcpt_start <- FALSE}
+  if (is.null(filters_event_start)) {filters_event_start <- FALSE}
   
   if (!is.null(filters_ptcpt_col) & is.null(filters_event_col)){
-    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant')
+    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant', 
+                                start = filters_ptcpt_start, stringsAsFactors = FALSE)
     filters_event <- NULL
   } else if(is.null(filters_ptcpt_col) & ! is.null(filters_event_col)){
     filters_ptcpt <- NULL
-    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event')
+    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event', 
+                                start = filters_event_start, stringsAsFactors = FALSE)
   } else if(! is.null(filters_ptcpt_col) & ! is.null(filters_event_col)){
-    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant')
-    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event')
+    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant', 
+                                start = filters_ptcpt_start, stringsAsFactors = FALSE)
+    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event', 
+                                start = filters_event_start, stringsAsFactors = FALSE)
   }else {
     filters_ptcpt <- NULL
     filters_event <- NULL
@@ -132,6 +142,9 @@ aeExplorer <- function(data,
     details_col_array <- NULL
   }
    
+  # coerce NA to "NA"
+  data[is.na(data)] <- "NA" 
+
   
   # forward options using x
   x = list(
@@ -148,10 +161,12 @@ aeExplorer <- function(data,
        groups=groups_l, 
        defaults=list(totalCol=showTotalCol,
                      diffCol=showDiffCol,
+                     groupCols=showGroupCols,
                      prefTerms=showPrefTerms,
                      maxPrevalence=maxPrevalence,
                      maxGroups = maxGroups, 
-                     placeholderFlag = missingValues),
+                     placeholderFlag = missingValues,
+                     summarizeBy = summarizeBy[1]),
       plotSettings=list(h=plotSettings_h*15,
                         w=plotSettings_w*200, 
                       #  margin=plotSettings_margin,
