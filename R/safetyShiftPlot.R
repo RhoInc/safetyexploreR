@@ -68,6 +68,10 @@ safetyShiftPlot <- function(data,
     y_params <- list(visits = y_params_visits, stat = y_params_stat)
   }  
   
+  # filter out missing value_cols (needed for JS bug)
+ # data <- na.omit(data[,c(id_col, time_col, measure_col, value_col, filters_col)])
+  data[is.na(data)] <- "NA"
+  
   # forward options using x
   x = list(
     data = data,
