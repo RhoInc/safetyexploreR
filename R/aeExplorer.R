@@ -1,4 +1,4 @@
-#' Create an AE Explorer widget
+#' Create an AE Explorer widget 
 #'
 #' This function creates an interactive AE Table using R htmlwidgets.  
 #'
