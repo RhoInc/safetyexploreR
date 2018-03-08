@@ -85,22 +85,16 @@ aeExplorer <- function(data,
   # create array of objects format for json - FILTERS
   if (is.null(filters_ptcpt_label)) {filters_ptcpt_label <- filters_ptcpt_col} 
   if (is.null(filters_event_label)) {filters_event_label <- filters_event_col}
-  if (is.null(filters_ptcpt_start)) {filters_ptcpt_start <- FALSE}
-  if (is.null(filters_event_start)) {filters_event_start <- FALSE}
   
   if (!is.null(filters_ptcpt_col) & is.null(filters_event_col)){
-    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant', 
-                                start = filters_ptcpt_start, stringsAsFactors = FALSE)
+    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant')
     filters_event <- NULL
   } else if(is.null(filters_ptcpt_col) & ! is.null(filters_event_col)){
     filters_ptcpt <- NULL
-    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event', 
-                                start = filters_event_start, stringsAsFactors = FALSE)
+    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event')
   } else if(! is.null(filters_ptcpt_col) & ! is.null(filters_event_col)){
-    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant', 
-                                start = filters_ptcpt_start, stringsAsFactors = FALSE)
-    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event', 
-                                start = filters_event_start, stringsAsFactors = FALSE)
+    filters_ptcpt <- data.frame(value_col = filters_ptcpt_col, label = filters_ptcpt_label, type = 'participant')
+    filters_event <- data.frame(value_col = filters_event_col, label = filters_event_label, type = 'event')
   }else {
     filters_ptcpt <- NULL
     filters_event <- NULL
