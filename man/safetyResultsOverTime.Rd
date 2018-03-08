@@ -7,14 +7,15 @@
 Safety Results Over Time: \url{https://github.com/RhoInc/safety-results-over-time}.
 }
 \usage{
-safetyResultsOverTime(data, id_col = "USUBJID", time_col = "VISITN",
-  time_label = "Visit Number", time_order = NULL,
+safetyResultsOverTime(data, id_col = "USUBJID", time_col = "VISIT",
+  time_label = "Visit", time_order_col = "VISITNUM", time_order = NULL,
   time_rotate_tick_labels = FALSE, time_vertical_space = 0,
   measure_col = "TEST", value_col = "STRESN", unit_col = "STRESU",
   normal_col_low = "STNRLO", normal_col_high = "STNRHI",
-  start_value = NULL, groups_col = "NONE", groups_label = "None",
+  start_value = NULL, groups_col = NULL, groups_label = NULL,
   filters_col = NULL, filters_label = NULL, missingValues = c("", "NA",
-  "N/A"), boxplots = TRUE, violins = FALSE, width = NULL, height = NULL,
+  "N/A"), boxplots = TRUE, violins = FALSE, visits_without_data = FALSE,
+  unscheduled_visits = FALSE, width = NULL, height = NULL,
   elementId = NULL)
 }
 \arguments{
@@ -22,9 +23,11 @@ safetyResultsOverTime(data, id_col = "USUBJID", time_col = "VISITN",
 
 \item{id_col}{Participant ID variable name. Default is \code{"USUBJID"}.}
 
-\item{time_col}{Timing of collection variable name. Default is \code{c("VISITN")}.}
+\item{time_col}{Timing of collection variable name. Default is \code{c("VISIT")}.}
 
-\item{time_label}{Label of variable specified in \code{time_col}. Defaults to \code{c('Visit Number')}. If set to \code{NULL}, variable name will be used for labels.}
+\item{time_label}{Label of variable specified in \code{time_col}. Defaults to \code{c('Visit')}. If set to \code{NULL}, variable name will be used for labels.}
+
+\item{time_order_col}{Optional numeric variable with values corresponding to order of values for \code{time_col}. Defaults to \code{"VISITNUM"}}
 
 \item{time_order}{Option to specify order of x-axis using a character vector.}
 
@@ -44,9 +47,9 @@ safetyResultsOverTime(data, id_col = "USUBJID", time_col = "VISITN",
 
 \item{start_value}{Value of variable defined in \code{measure_col} to be rendered in the plot when the widget loads.}
 
-\item{groups_col}{Optional: name of column(s) to include as options for chart stratification.  Default is \code{"NONE"}.}
+\item{groups_col}{Optional: name of column(s) to include as options for chart stratification.  Default is \code{NULL}.}
 
-\item{groups_label}{Optional label for stratification variable(s).  Default is \code{"None"}. If set to \code{NULL}, variable name will be used as label.}
+\item{groups_label}{Optional label for stratification variable(s).  Default is \code{NULL}. If set to \code{NULL} and \code{groups_col} is specified, variable name will be used as label.}
 
 \item{filters_col}{Optional vector of variable names to use for filters}
 
@@ -58,11 +61,17 @@ safetyResultsOverTime(data, id_col = "USUBJID", time_col = "VISITN",
 
 \item{violins}{Logical indicating whether to render violin plots.  Default is \code{FALSE}.}
 
+\item{visits_without_data}{Option to display visits without data. Defaults to \code{FALSE}.}
+
+\item{unscheduled_visits}{Option to display unscheduled visits (values of \code{time_col} containing "unscheduled" or "early termination").. Defaults to \code{FALSE}.}
+
 \item{width}{Width in pixels}
 
 \item{height}{Height in pixels}
 
 \item{elementId}{The element ID for the widget.}
+
+\item{width}{Width in pixels}
 }
 \description{
 This function creates a Safety Results Over Time widget using R htmlwidgets.

@@ -65,6 +65,10 @@ safetyHistogram <- function(data,
     details <- data.frame(value_col = details_col, label = details_col)    
     }
   
+  # coerce NA to "NA"
+  if ('NA' %in% missingValues){
+    data[is.na(data)] <- "NA" 
+  }
   
   # forward options using x
   x = list(

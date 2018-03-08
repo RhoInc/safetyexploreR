@@ -13,7 +13,8 @@ aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
   filters_ptcpt_label = NULL, filters_event_col = c("AESER", "AESEV",
   "AEREL", "AEOUT"), filters_event_label = c("Serious?", "Severity",
   "Relationship", "Outcome"), missingValues = c("", "NA", "N/A"),
-  showTotalCol = TRUE, showDiffCol = TRUE, showPrefTerms = FALSE,
+  showTotalCol = TRUE, showDiffCol = TRUE, showGroupCols = TRUE,
+  showPrefTerms = FALSE, summarizeBy = c("participant", "event"),
   maxPrevalence = 0, maxGroups = 6, plotSettings_h = 1,
   plotSettings_w = 1, plotSettings_r = 1, plotSettings_diffMargin = c(5,
   5), validation = FALSE, width = NULL, height = NULL, elementId = NULL)
@@ -43,7 +44,11 @@ aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
 
 \item{showDiffCol}{Specify whether or not to render a column of graphical differences. Accepts \code{TRUE} (default) or \code{FALSE}.}
 
+\item{showGroupCols}{Specify whether or not to initially display columns for all groups. Accepts \code{"TRUE"} (default) or \code{"FALSE"}.}
+
 \item{showPrefTerms}{Specify whether or not to initially display all lower-level rows. Accepts \code{"TRUE"} or \code{"FALSE"} (default).}
+
+\item{summarizeBy}{Specify whether to show participant or event rates by default.  Accepts \code{"participant"} (default) or \code{"event"}.}
 
 \item{maxPrevalence}{Filters out any higher- and lower-level rows without at least one group rate above specified value. Default is \code{0}.}
 

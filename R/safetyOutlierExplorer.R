@@ -4,11 +4,12 @@
 #'
 #' @param data A data frame containing the labs data. 
 #' @param id_col   Participant ID variable name. Default is \code{"USUBJID"}.
-#' @param time_col Timing of collection variable name(s).  Up to 3 may be specified. Default is \code{c("DY","VISITN","VISIT")}.
-#' @param time_type Scale types for variables specified in \code{time_col}.  Defaults to \code{c('linear','ordinal','ordinal')}.
-#' @param time_label Labels of variables specified in \code{time_col}. Defaults to \code{c('Study Day','Visit Number','Visit')}. If set to \code{NULL}, variable names will be used for labels.
-#' @param time_rotate_tick_labels Rotate x-axis tick labels 45 degrees?  Defaults to \code{c(FALSE, FALSE, TRUE)}.
-#' @param time_vertical_space X-axis padding for rotated labels in pixels. Defaults to \code{c(0, 0, 100)}.
+#' @param time_col Timing of collection variable name(s).  Up to 3 may be specified. Default is \code{c("VISIT","DY")}.
+#' @param time_type Scale types for variables specified in \code{time_col}.  Defaults to \code{c("ordinal","linear")}.
+#' @param time_label Labels of variables specified in \code{time_col}. Defaults to \code{c("Visit","Study Day")}. If set to \code{NULL}, variable names will be used for labels.
+#' @param time_order_col Optional numeric variable with values corresponding to order of values for \code{time_col}. Should be set to \code{"null"} for linear variables.  Defaults to \code{"VISITNUM","NULL"}  
+#' @param time_rotate_tick_labels Rotate x-axis tick labels 45 degrees?  Defaults to \code{c(TRUE, FALSE)}.
+#' @param time_vertical_space X-axis padding for rotated labels in pixels. Defaults to \code{c(100, 0)}.
 #' @param measure_col  Name of measure variable name. Default is \code{"TEST"}.
 #' @param value_col   Value of measure variable name. Default is \code{"STRESN"}.
 #' @param unit_col   Unit of measure variable name. Default is \code{"STRESU"}.
@@ -21,6 +22,8 @@
 #' @param details_label Associated labels/headers to use for details listing. Defaults to \code{'Age'}, \code{'Sex'}, and \code{'Race'}.  If set to \code{NULL}, variable names will be used as labels. 
 #' @param multiples_sizing_width Adjust width of small multiple plots by adjusting a ratio of the original pixel value. Default is 1 (or 300 px).
 #' @param multiples_sizing_height Adjust height of  small multiple plots by adjusting a ratio of the original pixel value. Default is 1 (or 100 px).
+#' @param visits_without_data Option to display visits without data. Defaults to \code{FALSE}.
+#' @param unscheduled_visits Option to display unscheduled visits (values of \code{time_col} containing "unscheduled" or "early termination").. Defaults to \code{FALSE}.
 #' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
@@ -42,11 +45,12 @@
 #' @export
 safetyOutlierExplorer <- function(data, 
                                   id_col = "USUBJID",
-                                  time_col = c("DY","VISITN","VISIT"),
-                                  time_type = c('linear','ordinal','ordinal'),
-                                  time_label = c('Study Day','Visit Number','Visit'),
-                                  time_rotate_tick_labels = c(FALSE, FALSE, TRUE),
-                                  time_vertical_space = c(0, 0, 100), 
+                                  time_col = c("VISITN","DY"),
+                                  time_type = c("ordinal","linear"),
+                                  time_label = c("VISIT","STUDY DAY"),
+                                  time_order_col = c("VISITNUM","null"),
+                                  time_rotate_tick_labels = c(TRUE, FALSE),
+                                  time_vertical_space = c(100, 0), 
                                   measure_col = "TEST",
                                   value_col = "STRESN",
                                   unit_col = "STRESU",
@@ -59,6 +63,8 @@ safetyOutlierExplorer <- function(data,
                                   details_label = c('Age','Sex','Race'),
                                   multiples_sizing_width = 1,
                                   multiples_sizing_height = 1,
+                                  visits_without_data = FALSE,
+                                  unscheduled_visits = FALSE,
                                   width = NULL, height = NULL, elementId = NULL) {
 
   
@@ -66,6 +72,7 @@ safetyOutlierExplorer <- function(data,
   time_cols <- data.frame(value_col = time_col, 
                               type = time_type,
                               label = time_label,  
+                             # order = time_order_col,
                               rotate_tick_labels = time_rotate_tick_labels,
                               vertical_space = time_vertical_space)
   
@@ -101,7 +108,9 @@ safetyOutlierExplorer <- function(data,
         multiples_sizing = list(
           width = multiples_sizing_width*300,
           height = multiples_sizing_height*100
-        )
+        ),
+        visits_without_data = visits_without_data,
+        unscheduled_visits = unscheduled_visits
       ),
       null="null", auto_unbox=T
     )
