@@ -57,7 +57,7 @@ Required variables include:
 - Unit (```"STRESU"```)
 - Normal range - lower limit (```"STNRLO"```)
 - Normal range - upper limit (```"STNRHI"```)
-- Timing of collection (```"DY", "VISITN", "VISIT"```)
+- Timing of collection (```"DY", "VISITN", "VISITNUM", "VISIT"```)
 
 Optional variables include:
 
