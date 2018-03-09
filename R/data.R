@@ -5,26 +5,28 @@
 #' @format A data frame with 402 rows and 21 variables:
 #' \describe{
 #'   \item{USUBJID}{Unique participant ID}
-#'   \item{AEBODSYS}{Adverse event major category}
-#'   \item{AEDECOD}{Adverse event minor category}
-#'   \item{ARM}{Adverse event reported term}
+#'   \item{SITEID}{Site ID - numeric}
+#'   \item{SITE}{Site ID - character}
+#'   \item{AGE}{Age}
 #'   \item{SEX}{Sex}
 #'   \item{RACE}{Race}
-#'   \item{AGE}{Age}
+#'   \item{ARM}{Adverse event reported term}
 #'   \item{RFSTDTC}{Participant enroll date}
 #'   \item{SAFFL}{Safety population flag}
-#'   \item{AEPTCD}{AE preferred term code}
-#'   \item{AETERM}{Reported term of adverse event}
+#'   \item{ASTDT}{AE start date}
 #'   \item{ASTDY}{Study day of AE start}
+#'   \item{AENDT}{AE end date}
 #'   \item{AENDY}{Study day of AE end}
+#'   \item{AETERM}{Reported term of adverse event}
+#'   \item{AEDECOD}{Adverse event minor category}
+#'   \item{AEBODSYS}{Adverse event major category}
 #'   \item{AESER}{Serious}
+#'   \item{AEONGO}{}
 #'   \item{AESEV}{Severity}
 #'   \item{AEREL}{Relationship}
 #'   \item{AEOUT}{Outcome}
-#'   \item{AESTDT}{AE start date}
-#'   \item{AEENDT}{AE end date}
 #'   \item{AESEQ}{Seq number}
-#'   \item{SITEID}{Site ID}
+#'   
 #' }
 #' @source \url{https://github.com/RhoInc/viz-library}
 "ADAE"
@@ -37,23 +39,26 @@
 #' @format A data frame with 22695 rows and 18 variables:
 #' \describe{
 #'   \item{USUBJID}{Unique participant ID}
-#'   \item{TEST}{Measure}
-#'   \item{STRESN}{Value}
-#'   \item{VISITN}{Visit number}
-#'   \item{VISIT}{Visit}
-#'   \item{DY}{Study day}
-#'   \item{DT}{Date}
+#'   \item{SITEID}{Site ID - numeric}
+#'   \item{SITE}{Site ID - character}
 #'   \item{AGE}{Age}
 #'   \item{SEX}{Sex}
 #'   \item{RACE}{Race}
 #'   \item{ARM}{Study arm}
-#'   \item{RFSTDTC}{}
+#'   \item{RFSTDTC}{Participant enroll date}
 #'   \item{SAFFL}{Safety population}
+#'   \item{VISIT}{Visit}
+#'   \item{VISITNUM}{Visit Number}
+#'   \item{VISITN}{Visit Number}
+#'   \item{DT}{Date}
+#'   \item{DY}{Study day}
 #'   \item{CAT}{Specimen}
+#'   \item{TEST}{Measure}
+#'   \item{STRESU}{Measure units}
+#'   \item{STRESN}{Value}
 #'   \item{STNRLO}{Lower limit of normal}
 #'   \item{STNRHI}{Upper limit of normal}
-#'   \item{STRESU}{Measure units}
-#'   \item{SITEID}{Site ID}
+
 #' }
 #' @source \url{https://github.com/RhoInc/viz-library}
 "ADBDS"

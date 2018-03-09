@@ -7,23 +7,25 @@
 \format{A data frame with 22695 rows and 18 variables:
 \describe{
   \item{USUBJID}{Unique participant ID}
-  \item{TEST}{Measure}
-  \item{STRESN}{Value}
-  \item{VISITN}{Visit number}
-  \item{VISIT}{Visit}
-  \item{DY}{Study day}
-  \item{DT}{Date}
+  \item{SITEID}{Site ID - numeric}
+  \item{SITE}{Site ID - character}
   \item{AGE}{Age}
   \item{SEX}{Sex}
   \item{RACE}{Race}
   \item{ARM}{Study arm}
-  \item{RFSTDTC}{}
+  \item{RFSTDTC}{Participant enroll date}
   \item{SAFFL}{Safety population}
+  \item{VISIT}{Visit}
+  \item{VISITNUM}{Visit Number}
+  \item{VISITN}{Visit Number}
+  \item{DT}{Date}
+  \item{DY}{Study day}
   \item{CAT}{Specimen}
+  \item{TEST}{Measure}
+  \item{STRESU}{Measure units}
+  \item{STRESN}{Value}
   \item{STNRLO}{Lower limit of normal}
   \item{STNRHI}{Upper limit of normal}
-  \item{STRESU}{Measure units}
-  \item{SITEID}{Site ID}
 }}
 \source{
 \url{https://github.com/RhoInc/viz-library}
