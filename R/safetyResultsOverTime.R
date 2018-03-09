@@ -26,7 +26,6 @@
 #' @param visits_without_data Option to display visits without data. Defaults to \code{FALSE}.
 #' @param unscheduled_visits Option to display unscheduled visits (values of \code{time_col} containing "unscheduled" or "early termination").. Defaults to \code{FALSE}.
 #' @param width Width in pixels 
-#' @param width Width in pixels 
 #' @param height Height in pixels  
 #' @param elementId The element ID for the widget.
 #'

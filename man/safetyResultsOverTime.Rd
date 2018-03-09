@@ -70,8 +70,6 @@ safetyResultsOverTime(data, id_col = "USUBJID", time_col = "VISIT",
 \item{height}{Height in pixels}
 
 \item{elementId}{The element ID for the widget.}
-
-\item{width}{Width in pixels}
 }
 \description{
 This function creates a Safety Results Over Time widget using R htmlwidgets.
