@@ -33,6 +33,7 @@
 #' @source Safety Shift Plot: \url{https://github.com/RhoInc/safety-shift-plot}. 
 #'
 #' @import htmlwidgets
+#' @importFrom stats na.omit
 #'
 #' @export
 safetyShiftPlot <- function(data, 
