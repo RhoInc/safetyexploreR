@@ -1,6 +1,6 @@
-[![Travis-CI Build Status](https://travis-ci.org/RhoInc/safetyexploreR.svg?branch=master)](https://travis-ci.org/RhoInc/safetyexploreR)
+**Note:** No additional development is currently planned on this package, but the [safetyGraphics](https://github.com/SafetyGraphics/safetyGraphics) package has replaced it (with improvements!) for most purposes and is under active development.
 
-** Note: No additional development is currently planned on this package. The [safetyGraphics](https://github.com/SafetyGraphics/safetyGraphics) package has replaced this package for most purposes and is under active development. **
+<br>
 
 # safetyexploreR
 
