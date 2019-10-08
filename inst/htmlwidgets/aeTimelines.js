@@ -18,7 +18,11 @@ HTMLWidgets.widget({
       console.log(x.settings);
       
        
-       aeTimelines(el, x.settings).init(x.data);
+       var chart = aeTimelines(el, x.settings);
+       
+       chart.init(x.data);
+       
+       el.chart = chart;
 
       },
 

@@ -8,8 +8,7 @@ dependencies:
    src: htmlwidgets/lib/webcharts-1.11.6
    script: webcharts.js
    stylesheet: webcharts.css
- - name: safety-outlier-explorer
-   version: 2.6.0
-   src: htmlwidgets/lib/safety-outlier-explorer-2.6.0
-   script: safetyOutlierExplorer.js 
-
+ - name: hep-explorer
+   version: 1.2.0
+   src: htmlwidgets/lib/hep-explorer-1.2.0
+   script: hepexplorer.js

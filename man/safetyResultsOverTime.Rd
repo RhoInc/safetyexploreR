@@ -8,15 +8,16 @@ Safety Results Over Time: \url{https://github.com/RhoInc/safety-results-over-tim
 }
 \usage{
 safetyResultsOverTime(data, id_col = "USUBJID", time_col = "VISIT",
-  time_label = "Visit", time_order_col = "VISITNUM", time_order = NULL,
-  time_rotate_tick_labels = FALSE, time_vertical_space = 0,
-  measure_col = "TEST", value_col = "STRESN", unit_col = "STRESU",
+  time_label = "Visit", time_order_col = "VISITNUM",
+  time_order = NULL, time_rotate_tick_labels = FALSE,
+  time_vertical_space = 0, measure_col = "TEST",
+  value_col = "STRESN", unit_col = "STRESU",
   normal_col_low = "STNRLO", normal_col_high = "STNRHI",
   start_value = NULL, groups_col = NULL, groups_label = NULL,
-  filters_col = NULL, filters_label = NULL, missingValues = c("", "NA",
-  "N/A"), boxplots = TRUE, violins = FALSE, visits_without_data = FALSE,
-  unscheduled_visits = FALSE, width = NULL, height = NULL,
-  elementId = NULL)
+  filters_col = NULL, filters_label = NULL, missingValues = c("",
+  "NA", "N/A"), boxplots = TRUE, violins = FALSE,
+  visits_without_data = FALSE, unscheduled_visits = FALSE,
+  width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the labs data.}

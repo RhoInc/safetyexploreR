@@ -10,14 +10,16 @@ Safety Outlier Explorer: \url{https://github.com/RhoInc/safety-outlier-explorer}
 safetyOutlierExplorer(data, id_col = "USUBJID", time_col = c("VISITN",
   "DY"), time_type = c("ordinal", "linear"), time_label = c("VISIT",
   "STUDY DAY"), time_order_col = c("VISITNUM", "null"),
-  time_rotate_tick_labels = c(TRUE, FALSE), time_vertical_space = c(100, 0),
-  measure_col = "TEST", value_col = "STRESN", unit_col = "STRESU",
+  time_rotate_tick_labels = c(TRUE, FALSE),
+  time_vertical_space = c(100, 0), measure_col = "TEST",
+  value_col = "STRESN", unit_col = "STRESU",
   normal_col_low = "STNRLO", normal_col_high = "STNRHI",
   start_value = NULL, filters_col = NULL, filters_label = NULL,
-  details_col = c("AGE", "SEX", "RACE"), details_label = c("Age", "Sex",
-  "Race"), multiples_sizing_width = 1, multiples_sizing_height = 1,
-  visits_without_data = FALSE, unscheduled_visits = FALSE, width = NULL,
-  height = NULL, elementId = NULL)
+  details_col = c("AGE", "SEX", "RACE"), details_label = c("Age",
+  "Sex", "Race"), multiples_sizing_width = 1,
+  multiples_sizing_height = 1, visits_without_data = FALSE,
+  unscheduled_visits = FALSE, width = NULL, height = NULL,
+  elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the labs data.}

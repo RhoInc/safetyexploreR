@@ -4,8 +4,8 @@ dependencies:
    src: htmlwidgets/lib/d3-3.5.17
    script: d3.min.js
  - name: ae-explorer
-   version: 3.2.5
-   src: htmlwidgets/lib/aeexplorer-3.2.5
+   version: 3.3.5
+   src: htmlwidgets/lib/aeexplorer-3.3.5
    script: aeTable.js
    stylesheet: aeTable.css
 

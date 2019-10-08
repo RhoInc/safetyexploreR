@@ -10,8 +10,9 @@ Safety Shift Plot: \url{https://github.com/RhoInc/safety-shift-plot}.
 safetyShiftPlot(data, id_col = "USUBJID", time_col = "VISITN",
   measure_col = "TEST", value_col = "STRESN", start_value = NULL,
   filters_col = NULL, filters_label = NULL, x_params_visits = NULL,
-  x_params_stat = "mean", y_params_visits = NULL, y_params_stat = "mean",
-  width = NULL, height = NULL, elementId = NULL)
+  x_params_stat = "mean", y_params_visits = NULL,
+  y_params_stat = "mean", width = NULL, height = NULL,
+  elementId = NULL)
 }
 \arguments{
 \item{data}{A data.frame containing the labs data.}
