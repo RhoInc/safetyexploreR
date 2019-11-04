@@ -8,11 +8,11 @@ Safety Histogram: \url{https://github.com/RhoInc/safety-histogram}.
 }
 \usage{
 safetyHistogram(data, id_col = "USUBJID", measure_col = "TEST",
-  value_col = "STRESN", unit_col = "STRESU", normal_col_low = "STNRLO",
-  normal_col_high = "STNRHI", filters_col = NULL, filters_label = NULL,
-  details_col = NULL, details_label = NULL, start_value = NULL,
-  missingValues = c("", "NA", "N/A"), width = NULL, height = NULL,
-  elementId = NULL)
+  value_col = "STRESN", unit_col = "STRESU",
+  normal_col_low = "STNRLO", normal_col_high = "STNRHI",
+  filters_col = NULL, filters_label = NULL, details_col = NULL,
+  details_label = NULL, start_value = NULL, missingValues = c("",
+  "NA", "N/A"), width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the labs data.}

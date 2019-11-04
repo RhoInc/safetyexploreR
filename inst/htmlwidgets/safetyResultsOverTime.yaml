@@ -4,12 +4,12 @@ dependencies:
    src: htmlwidgets/lib/d3-3.5.17
    script: d3.min.js
  - name: webcharts
-   version: 1.9.1
-   src: htmlwidgets/lib/webcharts-1.9.1
+   version: 1.11.6
+   src: htmlwidgets/lib/webcharts-1.11.6
    script: webcharts.js
    stylesheet: webcharts.css
  - name: safety-results-over-time
-   version: 2.2.0
-   src: htmlwidgets/lib/safety-results-over-time-2.2.0
+   version: 2.3.3
+   src: htmlwidgets/lib/safety-results-over-time-2.3.3
    script: safetyResultsOverTime.js
 
