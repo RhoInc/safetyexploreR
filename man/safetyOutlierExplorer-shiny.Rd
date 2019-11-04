@@ -6,7 +6,8 @@
 \alias{renderSafetyOutlierExplorer}
 \title{Shiny bindings for safetyOutlierExplorer}
 \usage{
-safetyOutlierExplorerOutput(outputId, width = "100\%", height = "400px")
+safetyOutlierExplorerOutput(outputId, width = "100\%",
+  height = "400px")
 
 renderSafetyOutlierExplorer(expr, env = parent.frame(), quoted = FALSE)
 }

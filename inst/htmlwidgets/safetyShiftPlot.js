@@ -18,7 +18,11 @@ HTMLWidgets.widget({
         
         console.log(x.settings);
 
-        safetyShiftPlot(el, x.settings).init(x.data);
+        var chart = safetyShiftPlot(el, x.settings);
+        
+        chart.init(x.data);
+        
+        el.chart = chart;
 
       },
 

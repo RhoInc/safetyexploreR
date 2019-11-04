@@ -16,8 +16,9 @@ aeExplorer(data, id_col = "USUBJID", major_col = "AEBODSYS",
   showTotalCol = TRUE, showDiffCol = TRUE, showGroupCols = TRUE,
   showPrefTerms = FALSE, summarizeBy = c("participant", "event"),
   maxPrevalence = 0, maxGroups = 6, plotSettings_h = 1,
-  plotSettings_w = 1, plotSettings_r = 1, plotSettings_diffMargin = c(5,
-  5), validation = FALSE, width = NULL, height = NULL, elementId = NULL)
+  plotSettings_w = 1, plotSettings_r = 1,
+  plotSettings_diffMargin = c(5, 5), validation = FALSE,
+  width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{A data frame containing the Adverse Events data.}
