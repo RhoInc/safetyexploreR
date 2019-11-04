@@ -1,6 +1,6 @@
 Package: safetyexploreR
 Title: Safety Explorer charts from R
-Version: 0.3.1
+Version: 0.4.0
 Description: safetyexploreR provides an R interface for Rho's safety explorer suite.  Underlying widgets are built using Webcharts and d3.js and have been converted to R functions using the htmlwidgets framwork. The six charts include: AE Explorer, AE Timelines, Safety Histogram, Safety Results Over Time, Safety Shift Plot, and Safety Outlier Explorer. This set of tools can be used individually or together, allowing a user to interact with clinical trials safety data in real time.
 Authors@R: c(
 	person("Becca", "Krouse", email = "rebecca_krouse@rhoworld.com", role = c("cre","aut")),
@@ -17,7 +17,7 @@ Imports: htmlwidgets,
     shiny
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Suggests: knitr,
     rmarkdown,
     haven,
