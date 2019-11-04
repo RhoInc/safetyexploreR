@@ -47,50 +47,51 @@
 #' \dontrun{
 #' 
 #' ## Create eDISH figure customized to user data
-#' eDISH(data=adlbc, 
+#' eDISH(data=ADBDS, 
 #'       id_col = "USUBJID",
-#'       value_col = "AVAL", 
-#'       measure_col = "PARAM", 
+#'       value_col = "STRESN", 
+#'       measure_col = "TEST", 
 #'       visit_col = "VISIT",
-#'       visitn_col = "VISITNUM", 
-#'       studyday_col = "ADY",
-#'       normal_col_low = "A1LO", 
-#'       normal_col_high = "A1HI", 
-#'       measure_values = list(ALT = "Alanine Aminotransferase (U/L)",
-#'                             AST = "Aspartate Aminotransferase (U/L)",
-#'                             TB = "Bilirubin (umol/L)",
-#'                             ALP = "Alkaline Phosphatase (U/L)"))
+#'       visitn_col = "VISITN", 
+#'       studyday_col = "DY",
+#'       normal_col_low = "STNRLO", 
+#'       normal_col_high = "STNRHI", 
+#'       measure_values = list(ALT = "Aminotransferase, alanine (ALT)",
+#'                             AST = "Aminotransferase, aspartate (AST)",
+#'                             TB = "Total Bilirubin",
+#'                             ALP = "Alkaline phosphatase (ALP)"))
 #' 
 #' ## Create eDISH figure using a premade settings list
 #' group_cols_list <- list(
-#'   list(value_col = "TRTP", label = "Treatment"),
+#'   list(value_col = "ARM", label = "Treatment"),
 #'   list(value_col = "SEX", label = "Sex"), 
-#'   list(value_col = "AGEGR1", label = "Age group")
+#'   list(value_col = "RACE", label = "Race")
 #' )
 #'
 #'
 #' filters_list <- list(
-#'   list(value_col = "TRTA", label = "Treatment"),
+#'   list(value_col = "ARM", label = "Treatment"),
 #'   list(value_col = "SEX", label = "Sex"), 
-#'   list(value_col = "RACE", label = "RACE"),
-#'   list(value_col = "AGEGR1", label = "Age group")
+#'   list(value_col = "RACE", label = "RACE")
 #' )
 #' 
 #' settingsl <- list(id_col = "USUBJID",
-#'       value_col = "AVAL", 
-#'       measure_col = "PARAM", 
+#'       value_col = "STRESN", 
+#'       measure_col = "TEST", 
 #'       visit_col = "VISIT",
-#'       visitn_col = "VISITNUM",
-#'       studyday_col = "ADY", 
-#'       normal_col_low = "A1LO", 
-#'       normal_col_high = "A1HI", 
+#'       visitn_col = "VISITN", 
+#'       studyday_col = "DY",
+#'       normal_col_low = "STNRLO", 
+#'       normal_col_high = "STNRHI", 
 #'       group_cols = group_cols_list,
 #'       filters = filters_list,
-#'       measure_values = list(ALT = "Alanine Aminotransferase (U/L)",
-#'                             AST = "Aspartate Aminotransferase (U/L)",
-#'                             TB = "Bilirubin (umol/L)",
-#'                             ALP = "Alkaline Phosphatase (U/L)"))
-#' eDISH(data=adlbc, settings = settingsl)
+#'       measure_values = list(ALT = "Aminotransferase, alanine (ALT)",
+#'                             AST = "Aminotransferase, aspartate (AST)",
+#'                             TB = "Total Bilirubin",
+#'                             ALP = "Alkaline phosphatase (ALP)"))
+#'                             
+#' eDISH(data=ADBDS, settings = settingsl)
+
 #' 
 #' }
 #' 
